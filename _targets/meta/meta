@@ -1,7 +1,7 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|4b0965c9347af7ab|||||||||||||||
-calc_can|function|d59b1997f2399a61|||||||||||||||
-can_cov|stem|832d49c4eccc7f41|255cf9ce46e41e3a|990bd115f8cd8707|1838007064||t19501.6292805636s||116845|qs|local|vector|||22.48||Cant rename columns that dont exist.31m39m Column 660_IndiceCanopee_2021.tif doesnt exist.
+.Random.seed|object|bda51a0d0ff3862a|||||||||||||||
+calc_can|function|029e26aae7963a7b|||||||||||||||
+can_cov|stem|6f4b83c150f8be46|255cf9ce46e41e3a|ecf08045153f0fc6|1838007064||t19501.6361218865s|b93a4b47a19ac083|117167|qs|local|vector|||22.38||
 canopy|stem|6707ca9034a9ae30|c46d288a300a424c|29da63d989a96e9c|-1452669612||t19501.6200498276s|ccf129e3c43eccf5|1021|qs|local|vector|||0.04||
 data_target|object|0b18c844c86254ea|||||||||||||||
 download_csv|function|9ed1b84e3c567016|||||||||||||||
