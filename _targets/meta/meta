@@ -1,0 +1,12 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|8cbdd4c9b3beb5ce|||||||||||||||
+calc_can|function|198e1dfa27d65eea|||||||||||||||
+can_cov|stem|860eb62793e7575e|255cf9ce46e41e3a|c71d6b1df20c6952|1838007064||t19502.5284561223s|8f6843cb046f0e7d|80006|qs|local|vector|||19.31||
+canopy|stem|6707ca9034a9ae30|c46d288a300a424c|29da63d989a96e9c|-1452669612||t19501.6200498276s|ccf129e3c43eccf5|1021|qs|local|vector|||0.04||
+data_target|object|0b18c844c86254ea|||||||||||||||
+download_csv|function|9ed1b84e3c567016|||||||||||||||
+download_file|function|d2d5132f79344b91|||||||||||||||
+download_shp|function|b10d876b1501a079|||||||||||||||
+download_tif|function|881c7de25fec44c7|||||||||||||||
+prep_rv|function|508e24db8fc7895a|||||||||||||||
+rv|stem|190f2043c2312454|bdeb4ffafc94da1e|9c0fa9d070e3ec91|-552519272||t19501.6200505664s|669e836379f0ec47|187734|qs|local|vector|||0.04||
