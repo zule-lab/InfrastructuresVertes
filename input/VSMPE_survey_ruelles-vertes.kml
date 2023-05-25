@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Ruelles vertes Villeray-Saint-Michel-Parc-Extension 2023</name>
+    <description>Localisation des ruelles vertes </description>
+    <NetworkLink>
+      <name>Ruelles vertes Villeray-Saint-Michel-Parc-Extension 2023</name>
+      <Link>
+        <href><![CDATA[https://www.google.com/maps/d/kml?forcekml=1&mid=19SK5qfyi4QBaL1K_JRNfkxEvYwCF6RA]]></href>
+      </Link>
+    </NetworkLink>
+  </Document>
+</kml>
