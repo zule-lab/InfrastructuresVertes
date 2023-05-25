@@ -1,9 +1,9 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|8cbdd4c9b3beb5ce|||||||||||||||
-calc_can|function|198e1dfa27d65eea|||||||||||||||
-can_cov|stem|860eb62793e7575e|255cf9ce46e41e3a|c71d6b1df20c6952|1838007064||t19502.5284561223s|8f6843cb046f0e7d|80006|qs|local|vector|||19.31||
-canopy|stem|6707ca9034a9ae30|c46d288a300a424c|29da63d989a96e9c|-1452669612||t19501.6200498276s|ccf129e3c43eccf5|1021|qs|local|vector|||0.04||
-data_target|object|0b18c844c86254ea|||||||||||||||
+.Random.seed|object|61affa9c2b8cd317|||||||||||||||
+calc_can|function|b39400a1c102ed39|||||||||||||||
+can_cov|stem|72bc50941f3daf53|255cf9ce46e41e3a|de0e2e36ab53664b|1838007064||t19502.6267644863s|04021be3bf7b48b8|1467|qs|local|vector|||146.09|attribute variables are assumed to be spatially constant throughout all geometries|
+canopy|stem|e54e2c95905790aa|6e5587a173a75afb|aaf51fb2ef55c31c|-1452669612||t19502.6095793189s|8ecc37dc0d7dea6f|85823402|qs|local|vector|||2.27||
+data_target|object|319c6c6864ef8279|||||||||||||||
 download_csv|function|9ed1b84e3c567016|||||||||||||||
 download_file|function|d2d5132f79344b91|||||||||||||||
 download_shp|function|b10d876b1501a079|||||||||||||||
@@ -13,8 +13,7 @@ rv|stem|190f2043c2312454|bdeb4ffafc94da1e|9c0fa9d070e3ec91|-552519272||t19501.62
 download_csv|function|9ed1b84e3c567016
 download_shp|function|b10d876b1501a079
 download_tif|function|881c7de25fec44c7
-data_target|object|720d85ffa2a17d42
-.Random.seed|object|0a127c1fbb5af469
-calc_can|function|198e1dfa27d65eea
+data_target|object|319c6c6864ef8279
+.Random.seed|object|8743452d65c3fab4
+calc_can|function|7d3df33c134b0d46
 download_file|function|d2d5132f79344b91
-canopy|stem|7c4aaf6771b65e60|62ab9721b0d97f41|29da63d989a96e9c|-1452669612||t19502.5394923918s|32a8804bee50ec2f|885|qs|local|vector|||0.03||
