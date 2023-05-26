@@ -82,10 +82,6 @@ data_target <- c(
 #      st_as_sf()
 #  ),
   
-  tar_target(
-    can_cov_rv,
-    calc_can(rv, canopy)
-  )
   
 )
 
