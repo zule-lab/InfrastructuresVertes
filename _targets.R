@@ -43,6 +43,11 @@ data_target <- c(
     #TODO: add download_file function here
   ),
   
+  tar_group_by(
+    rv_by_ruelle,
+    rv,
+    RUELLE_ID
+  ),
 #  tar_target(
 #    survey_rv,
 #    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
