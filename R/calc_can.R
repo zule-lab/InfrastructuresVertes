@@ -17,7 +17,8 @@ calc_can <- function(rv, canopy){
     st_drop_geometry()
   
   can_rv <- inner_join(can_a, rv_t, by = "RUELLE_ID") %>%
-    mutate(per_can = drop_units(canopy_area/ruelle_area))
+    mutate(per_can = drop_units(canopy_area/ruelle_area)) %>%
+    st_as_sf()
   
 
   return(can_rv)
