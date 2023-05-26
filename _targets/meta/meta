@@ -1,12 +1,17 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|4096e40ed1cc9d4d|||||||||||||||
+.Random.seed|object|480a3e962b8407b7|||||||||||||||
 calc_can|function|a575f2610d375154|||||||||||||||
 can_cov|stem|f9addbe5cb0d2a0b|255cf9ce46e41e3a|62438be32eb5a299|1838007064||t19502.637484563s|0b42df9aea126267|86306|qs|local|vector|||146.42|attribute variables are assumed to be spatially constant throughout all geometries|
+can_cov_ruelles|stem|d32caaddc2140921|26cadbca244028fa|74bca7eb4a26ff98|-1575735213||t19502.6870790309s|a502b686a72c5e91|1064106|qs|local|vector|||404.05|attribute variables are assumed to be spatially constant throughout all geometries|
+can_cov_rv|stem|f9addbe5cb0d2a0b|255cf9ce46e41e3a|62438be32eb5a299|-1635879201||t19502.6792355306s|0b42df9aea126267|86306|qs|local|vector|||150.81|attribute variables are assumed to be spatially constant throughout all geometries|
 canopy|stem|e54e2c95905790aa|6e5587a173a75afb|aaf51fb2ef55c31c|-1452669612||t19502.6095793189s|8ecc37dc0d7dea6f|85823402|qs|local|vector|||2.27||
-data_target|object|319c6c6864ef8279|||||||||||||||
+data_target|object|71cdf032d38795cc|||||||||||||||
 download_csv|function|9ed1b84e3c567016|||||||||||||||
 download_file|function|d2d5132f79344b91|||||||||||||||
 download_shp|function|b10d876b1501a079|||||||||||||||
 download_tif|function|881c7de25fec44c7|||||||||||||||
 prep_rv|function|508e24db8fc7895a|||||||||||||||
-rv|stem|190f2043c2312454|bdeb4ffafc94da1e|9c0fa9d070e3ec91|-552519272||t19501.6200505664s|669e836379f0ec47|187734|qs|local|vector|||0.04||
+ruelles|stem|1215f43524928bf9|aa7603d2270fd656|279b40b48209adbe|-1554050777||t19502.6823771702s|50e85fb3274dfdca|104560|qs|local|vector|||7.8||
+rv|stem|190f2043c2312454|bdeb4ffafc94da1e|9c0fa9d070e3ec91|-552519272||t19502.6773752374s|669e836379f0ec47|187734|qs|local|vector|||0.05||
+rv_qc|stem|190f2043c2312454|d1a0b4a46e42375f|9c0fa9d070e3ec91|-1347651830||t19502.7352435627s|669e836379f0ec47|187734|qs|local|vector|||0.05||
+survey_rv|stem|e178b828f2bd1382|a531cdf52f5f7565|0d70ee161e248544|1676788210||t19502.6578625407s|78ab504241f102af|1061|qs|local|vector|||0.03||
