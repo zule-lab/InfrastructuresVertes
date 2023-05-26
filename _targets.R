@@ -55,6 +55,15 @@ data_target <- c(
     map(rv_by_ruelle),
     iteration = 'list'
   ),
+  
+  tar_target(
+    can_cov_rv_bind,
+    do.call(rbind, can_cov_rv)
+  ),
+  
+  # Bonus
+  tar_group_by(
+    rv_by_arr,
 #  tar_target(
 #    survey_rv,
 #    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
