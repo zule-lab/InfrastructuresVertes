@@ -48,6 +48,13 @@ data_target <- c(
     rv,
     RUELLE_ID
   ),
+  
+  tar_target(
+    can_cov_rv,
+    calc_can(rv_by_ruelle, canopy_path),
+    map(rv_by_ruelle),
+    iteration = 'list'
+  ),
 #  tar_target(
 #    survey_rv,
 #    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
