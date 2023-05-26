@@ -35,12 +35,22 @@ data_target <- c(
   
   tar_target(
     rv,
-    read_sf('input/ruelles-vertes/ruelles-vertes.shp')
+    read_ruelles('input/ruelles-vertes/ruelles-vertes.shp',
+                 'input/REQ_ruelles-vertes.kml',
+                 'input/TR_ruelles-vertes.kml'
+                 canopy)
     #TODO: add download_file function here
   ),
   
+#  tar_target(
+#    survey_rv,
+#    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
+#      select(-Description) %>%
+#      st_as_sf()
+#  ),
+  
   tar_target(
-    can_cov,
+    can_cov_rv,
     calc_can(rv, canopy)
   )
   
