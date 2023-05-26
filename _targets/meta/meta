@@ -1,9 +1,9 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|b265402ebb804b57|||||||||||||||
-calc_can|function|723dd94bc172d630|||||||||||||||
+.Random.seed|object|222b274c97f5b205|||||||||||||||
+calc_can|function|ecfeb98da8136070|||||||||||||||
 can_cov|stem|f9addbe5cb0d2a0b|255cf9ce46e41e3a|62438be32eb5a299|1838007064||t19502.637484563s|0b42df9aea126267|86306|qs|local|vector|||146.42|attribute variables are assumed to be spatially constant throughout all geometries|
 can_cov_ruelles|stem|d32caaddc2140921|26cadbca244028fa|74bca7eb4a26ff98|-1575735213||t19502.6870790309s|a502b686a72c5e91|1064106|qs|local|vector|||404.05|attribute variables are assumed to be spatially constant throughout all geometries|
-can_cov_rv|stem|a75b580e7b9e1054|255cf9ce46e41e3a|4eaee26c23ce1338|-1635879201||t19503.7074614241s|84508392dec1fb7b|255780|qs|local|vector|||60.39||
+can_cov_rv|stem|a75b580e7b9e1054|255cf9ce46e41e3a|d1949a4fc8ed37e6|-1635879201||t19503.7074614241s||255780|qs|local|vector|||59.38||1m22m36mℹ39m In argument per_can  drop_unitscanopy_arearuelle_area.1mCaused by error in drop_units22m33m39m could not find function drop_units
 canopy|stem|57f13950fe57b728|1620c21a688bcc24|bbdb121b80647e06|-1452669612||t19503.6838283527s|426e9b0b0ce9573f|887|qs|local|vector|||0.07||
 data_target|object|c1fe6c539213ddae|||||||||||||||
 download_csv|function|9ed1b84e3c567016|||||||||||||||
@@ -20,8 +20,8 @@ survey_rv|stem|e178b828f2bd1382|a531cdf52f5f7565|0d70ee161e248544|1676788210||t1
 download_csv|function|9ed1b84e3c567016
 download_shp|function|b10d876b1501a079
 download_tif|function|881c7de25fec44c7
-data_target|object|c1fe6c539213ddae
-.Random.seed|object|222b274c97f5b205
+data_target|object|87b91f4648a9d110
+.Random.seed|object|a58274555d087e5e
 read_canopy|function|e4d0a8c71f60bc97
 read_ruelles|function|8c9a08214346e7b2
 calc_can|function|ecfeb98da8136070
