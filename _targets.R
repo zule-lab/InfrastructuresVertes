@@ -64,6 +64,17 @@ data_target <- c(
   # Bonus
   tar_group_by(
     rv_by_arr,
+    can_cov_rv_bind,
+    CODE_ARR
+  ),
+  
+  tar_target(
+    plot_rv_by_arr,
+    ggplot(rv_by_arr) + geom_sf(aes(fill = canopy)) + theme_bw(),
+    map(rv_by_arr),
+    iteration = 'list'
+  )
+  
 #  tar_target(
 #    survey_rv,
 #    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
