@@ -39,7 +39,7 @@ data_target <- c(
     read_ruelles('input/ruelles-vertes/ruelles-vertes.shp',
                  'input/REQ_ruelles-vertes.kml',
                  'input/TR_ruelles-vertes.kml',
-                 canopy)
+                 st_crs(read_stars(canopy_path)))
     #TODO: add download_file function here
   ),
   
