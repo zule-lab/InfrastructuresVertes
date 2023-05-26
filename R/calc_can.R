@@ -2,6 +2,8 @@ calc_can <- function(rv, canopy_path){
   
   canopy <- read_stars(canopy_path)
   
+  # [[1]] to grab the value returned (instead of sf object) to save in 
+  #  as column
   rv$canopy <- aggregate(
     canopy,
     rv, 
