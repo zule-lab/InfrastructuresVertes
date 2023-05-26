@@ -29,7 +29,7 @@ data_target <- c(
   
   tar_target(
     canopy,
-    read_stars('input/31hl102.tif', proxy = F)
+    read_canopy('input/31hl102.tif', 'input/31ig102.tif')
     #TODO: add download_file function here
   ),
   
