@@ -6,6 +6,6 @@ read_canopy <- function(mtl_can, tr_can) {
   
   can <- st_mosaic(mtl, tr)
   
-  return(can)
+  return(can$canopy_mosaic)
   
 }

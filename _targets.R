@@ -28,8 +28,9 @@ restore()
 data_target <- c(
   
   tar_target(
-    canopy,
-    read_canopy('input/31hl102.tif', 'input/31ig102.tif')
+    canopy_path,
+    read_canopy('input/31hl102.tif', 'input/31ig102.tif'),
+    format = 'file'
     #TODO: add download_file function here
   ),
   
