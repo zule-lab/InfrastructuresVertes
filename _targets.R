@@ -37,7 +37,7 @@ data_target <- c(
     rv,
     read_ruelles('input/ruelles-vertes/ruelles-vertes.shp',
                  'input/REQ_ruelles-vertes.kml',
-                 'input/TR_ruelles-vertes.kml'
+                 'input/TR_ruelles-vertes.kml',
                  canopy)
     #TODO: add download_file function here
   ),
