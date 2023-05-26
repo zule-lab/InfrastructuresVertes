@@ -1,13 +1,6 @@
 calc_can <- function(rv, canopy){
   
-  # match projections
-  rv_t <- rv %>% st_transform(st_crs(canopy)) %>%
-    # filter for the neighbourhood
-    filter(CODE_ARR == "VSMPE") %>%
-    # select relevant columns
-    select(RUELLE_ID, CODE_ARR, geometry) %>%
-    # make 10 m buffer to ensure edges of ruelles are included
-    st_buffer(10) %>%
+  rv_t <- rv %>%
     # combine ruelles with the same ID
     group_by(RUELLE_ID) %>%
     summarize(geometry = st_union(geometry)) %>%
