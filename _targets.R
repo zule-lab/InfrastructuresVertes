@@ -42,12 +42,13 @@ data_target <- c(
     #TODO: add download_file function here
   ),
   
-#  tar_target(
-#    survey_rv,
-#    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-#      select(-Description) %>%
-#      st_as_sf()
-#  ),
+  tar_target(
+    survey_rv,
+    read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
+      select(-Description) %>%
+      mutate(survey = "TRUE")
+    #TODO: add download_file function here
+  ),
   
   tar_target(
     can_cov_rv,
