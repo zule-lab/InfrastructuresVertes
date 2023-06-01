@@ -4,8 +4,10 @@ read_canopy <- function(mtl_can, tr_can) {
   
   tr <- read_stars(tr_can)
   
-  can <- st_mosaic(mtl, tr)
+  # Save mosaic as file in results/
+  can <- st_mosaic(mtl, tr, dst = file.path('results', 'canopy_mosaic'))
   
-  return(can)
+  # Return path of output mosaic
+  return(can$canopy_mosaic)
   
 }
