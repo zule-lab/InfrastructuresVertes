@@ -50,6 +50,12 @@ data_target <- c(
       mutate(survey = "TRUE")
     #TODO: add download_file function here
   ),
+  
+  tar_target(
+    quartiers,
+    read_sf('input/quartiers/quartiers_sociologiques_2014.shp')
+    #TODO: add download_file function here
+  ),
 
   tar_group_by(
     rv_by_ruelle,
@@ -67,6 +73,11 @@ data_target <- c(
   tar_target(
     can_cov_rv_bind,
     do.call(rbind, can_cov_rv)
+  ),
+  
+  tar_target(
+    study_rv,
+    select_study(can_cov_rv_bind, quartiers)
   )
   
   
