@@ -42,7 +42,15 @@ data_target <- c(
                  st_crs(read_stars(canopy_path)))
     #TODO: add download_file function here
   ),
-  
+   
+  tar_target(
+    survey_rv,
+    read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
+      select(-Description) %>%
+      mutate(survey = "TRUE")
+    #TODO: add download_file function here
+  ),
+
   tar_group_by(
     rv_by_ruelle,
     rv,
@@ -75,12 +83,6 @@ data_target <- c(
     iteration = 'list'
   )
   
-#  tar_target(
-#    survey_rv,
-#    st_read('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-#      select(-Description) %>%
-#      st_as_sf()
-#  ),
   
   
 )
