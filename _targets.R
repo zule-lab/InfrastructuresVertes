@@ -67,22 +67,7 @@ data_target <- c(
   tar_target(
     can_cov_rv_bind,
     do.call(rbind, can_cov_rv)
-  ),
-  
-  # Bonus
-  tar_group_by(
-    rv_by_arr,
-    can_cov_rv_bind,
-    CODE_ARR
-  ),
-  
-  tar_target(
-    plot_rv_by_arr,
-    ggplot(rv_by_arr) + geom_sf(aes(fill = canopy)) + theme_bw(),
-    map(rv_by_arr),
-    iteration = 'list'
   )
-  
   
   
 )
