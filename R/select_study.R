@@ -53,4 +53,6 @@ select_study <- function(can_cov_rv_bind, quartiers) {
   write.csv(rv_f %>% st_set_geometry(NULL), 'results/study-ruelles.csv')
   write_sf(select(rv_f, c(RUELLE_CODE, geometry)), 'results/study-ruelles.kml')
   
+  return(rv_f)
+  
 }
