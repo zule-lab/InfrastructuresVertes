@@ -42,6 +42,17 @@ data_target <- c(
                  st_crs(read_stars(canopy_path)))
     #TODO: add download_file function here
   ),
+  
+  tar_target(
+    controls,
+    read_sf('input/voi_voirie_s_v22_shp/VOI_VOIRIE_S_V22.shp') %>%
+      filter(CATEGORIEC == "Ruelle" & PROPRIETAI == "Villeray - St-Michel - Parc-Extension") %>%
+      mutate(RUELLE_ID = ID_VOI_VOI,
+             CODE_ARR = "VSMPE") %>%
+      select(RUELLE_ID, CODE_ARR, geometry) %>%
+      st_transform(crs = st_crs(read_stars(canopy_path)))
+    #TODO: add download_file function here
+  ),
    
   tar_target(
     survey_rv,
@@ -63,10 +74,23 @@ data_target <- c(
     RUELLE_ID
   ),
   
+  tar_group_by(
+    controls_by_ruelle,
+    controls,
+    RUELLE_ID
+  ),
+  
   tar_target(
     can_cov_rv,
     calc_can(rv_by_ruelle, canopy_path),
     map(rv_by_ruelle),
+    iteration = 'list'
+  ),
+  
+  tar_target(
+    can_cov_controls,
+    calc_can(controls_by_ruelle, canopy_path),
+    map(controls_by_ruelle),
     iteration = 'list'
   ),
   
@@ -76,8 +100,18 @@ data_target <- c(
   ),
   
   tar_target(
+    can_cov_controls_bind,
+    do.call(rbind, can_cov_controls)
+  ),
+  
+  tar_target(
     study_rv,
     select_study(can_cov_rv_bind, quartiers)
+  ),
+  
+  tar_target(
+    study_controls,
+    select_controls(can_cov_controls_bind, quartiers)
   )
   
   
