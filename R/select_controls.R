@@ -12,11 +12,11 @@ select_controls <- function(can_cov_controls_bind, quartiers) {
                             RUELLE_ID == "104006290"|
                             RUELLE_ID == "104006182" |
                             RUELLE_ID == "104006389" | 
-                            RUELLE_ID == "104006398" | 
+                            RUELLE_ID == "104006429" | 
                             RUELLE_ID == "104006166" | 
                             RUELLE_ID == "104006387" |
                             RUELLE_ID == "104006131" | 
-                            RUELLE_ID == "104006342") %>%
+                            RUELLE_ID == "104006376") %>%
     distinct(RUELLE_ID, .keep_all = T) %>%
     mutate(RUELLE_CODE = paste0("CON-", CODE_ARR, "-", row_number()))
   
