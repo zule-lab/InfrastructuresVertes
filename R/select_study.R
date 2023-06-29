@@ -5,6 +5,7 @@ select_study <- function(can_cov_rv_bind, quartiers) {
     select(c(Q_socio, geometry))
   
   rv_q <- st_intersection(can_cov_rv_bind, q_t)
+  rv_q$RUELLE_ID <- base::gsub('\n', '', rv_q$RUELLE_ID, fixed = TRUE)
   
   # manually select study site ruelles 
   rv_f <- rv_q %>% filter(RUELLE_ID == "VSMPE-I-1300015"|
