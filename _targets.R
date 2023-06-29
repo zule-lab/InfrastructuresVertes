@@ -57,7 +57,7 @@ data_target <- c(
   tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-      select(-Description) %>%
+      select(-description) %>%
       mutate(survey = "TRUE")
     #TODO: add download_file function here
   ),
