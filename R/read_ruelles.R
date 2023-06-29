@@ -14,7 +14,7 @@ read_ruelles <- function(mtl_rv, req_rv, tr_rv, crs) {
 
 # Trois-Rivieres ruelles --------------------------------------------------
 
-  tr_rv <- read_sf(tr_rv) %>% 
+  tr_rv <- read_sf(tr_rv, layer = 'ruelles vertes') %>% 
     st_transform(st_crs(crs)) %>%
     # 8 m buffer because linestring - 3 m for width of ruelle and then 5 m to get to edges
     st_buffer(8) %>%

@@ -7,7 +7,7 @@ select_study <- function(can_cov_rv_bind, quartiers) {
   rv_q <- st_intersection(can_cov_rv_bind, q_t)
   rv_q$RUELLE_ID <- base::gsub('\n', '', rv_q$RUELLE_ID, fixed = TRUE)
   
-  # manually select study site ruelles 
+  # manually select mtl study site ruelles 
   rv_f <- rv_q %>% filter(RUELLE_ID == "VSMPE-I-1300015"|
                           RUELLE_ID == "VSMPE-I-1300005"|
                           RUELLE_ID == "Ruelle verte 2015 : Jean-Talon/Louis-Hébert/Iberville/Everett"|
@@ -51,9 +51,19 @@ select_study <- function(can_cov_rv_bind, quartiers) {
     distinct(RUELLE_ID, .keep_all = T) %>%
     mutate(RUELLE_CODE = paste0("RV-", CODE_ARR, "-", row_number()))
   
-  write.csv(rv_f %>% st_set_geometry(NULL), 'results/study-ruelles.csv')
-  write_sf(select(rv_f, c(RUELLE_CODE, geometry)), 'results/study-ruelles.kml')
+  # manually select TR study site ruelles 
+  rv_tr <- can_cov_rv_bind %>% filter(CODE_ARR == "TR") %>%
+    distinct(RUELLE_ID, .keep_all = T) %>%
+    mutate(RUELLE_CODE = paste0("RV-", CODE_ARR, "-", row_number()),
+           Q_socio = "Trois-Rivières")
   
-  return(rv_f)
+  # bind mtl and tr ruelles 
+  rv <- rbind(rv_f, rv_tr)
+  
+  # save
+  write.csv(rv %>% st_set_geometry(NULL), 'results/study-ruelles.csv')
+  write_sf(select(rv, c(RUELLE_CODE, geometry)), 'results/study-ruelles.kml')
+  
+  return(rv)
   
 }

@@ -38,19 +38,16 @@ data_target <- c(
     rv,
     read_ruelles('input/ruelles-vertes/ruelles-vertes.shp',
                  'input/REQ_ruelles-vertes.kml',
-                 'input/TR_ruelles-vertes.kml',
+                 'input/TR_ruelles.kml',
                  st_crs(read_stars(canopy_path)))
     #TODO: add download_file function here
   ),
   
   tar_target(
     controls,
-    read_sf('input/voi_voirie_s_v22_shp/VOI_VOIRIE_S_V22.shp') %>%
-      filter(CATEGORIEC == "Ruelle" & PROPRIETAI == "Villeray - St-Michel - Parc-Extension") %>%
-      mutate(RUELLE_ID = ID_VOI_VOI,
-             CODE_ARR = "VSMPE") %>%
-      select(RUELLE_ID, CODE_ARR, geometry) %>%
-      st_transform(crs = st_crs(read_stars(canopy_path)))
+    read_controls('input/voi_voirie_s_v22_shp/VOI_VOIRIE_S_V22.shp',
+                  'input/TR_ruelles.kml',
+                  canopy_path)
     #TODO: add download_file function here
   ),
    
