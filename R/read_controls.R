@@ -13,8 +13,12 @@ read_controls <- function(mtl_path, tr_path, canopy_path){
   tr_controls <- anti_join(tr, tr_rv, by = 'Name') %>% 
     st_transform(st_crs(mtl_controls)) %>%
     select(Name, geometry) %>%
+    group_by(Name) %>%
     summarize(RUELLE_ID = Name, 
-           CODE_ARR = "TR")
+           CODE_ARR = "TR",
+           geometry = st_union(geometry)) %>% 
+    st_buffer(3) %>%
+    select(RUELLE_ID, CODE_ARR, geometry)
   
   ctls <- rbind(mtl_controls, tr_controls)
   
