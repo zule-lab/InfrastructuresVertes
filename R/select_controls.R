@@ -20,9 +20,30 @@ select_controls <- function(can_cov_controls_bind, quartiers) {
     distinct(RUELLE_ID, .keep_all = T) %>%
     mutate(RUELLE_CODE = paste0("CON-", CODE_ARR, "-", row_number()))
   
-  write.csv(rv_f %>% st_set_geometry(NULL), 'results/control-ruelles.csv')
-  write_sf(select(rv_f, c(RUELLE_CODE, geometry)), 'results/control-ruelles.kml')
+  rv_tr <- can_cov_controls_bind %>% 
+    filter(
+             RUELLE_ID == "Godbout-Jutras-1" | 
+             RUELLE_ID == "Godbout-Jutras-2" | 
+             RUELLE_ID == "Wiliams-Gingras-2" | 
+             RUELLE_ID == "Caron-St.Paul" | 
+             RUELLE_ID == "Wolfe-Amherst-2" | 
+             RUELLE_ID == "Hon.Mercier-Chapleau" | 
+             RUELLE_ID == "Montacalm-Wolfe" |
+             RUELLE_ID == "Ste.Angele-Ste.Cecile-1" | 
+             RUELLE_ID == "Ste.Angele-Ste.Cecile-4" | 
+             RUELLE_ID == "Brebeuf-Dumoulin" | 
+             RUELLE_ID == "2eAv-3eAv" | 
+             RUELLE_ID == "5eAv-6eAv" | 
+             RUELLE_ID == "Cloutier-Richard") %>%
+    distinct(RUELLE_ID, .keep_all = T) %>%
+    mutate(Q_socio = "Trois-Rivieres", 
+           RUELLE_CODE = paste0("CON-", CODE_ARR, "-", row_number()))
   
-  return(rv_f)
+  ctrls <- rbind(rv_f, rv_tr)
+  
+  write.csv(ctrls %>% st_set_geometry(NULL), 'results/control-ruelles.csv')
+  write_sf(select(ctrls, c(RUELLE_CODE, geometry)), 'results/control-ruelles.kml')
+  
+  return(ctrls)
   
 }
