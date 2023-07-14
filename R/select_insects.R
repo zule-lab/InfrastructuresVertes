@@ -28,7 +28,7 @@ select_insects <- function(study_rv, study_controls){
              RUELLE_CODE == "CON-VSMPE-1" |
              RUELLE_CODE == "CON-VSMPE-7" |
              RUELLE_CODE == "CON-VSMPE-8" |
-             RUELLE_CODE == "CON-VSMPE-9" |
+             RUELLE_CODE == "CON-VSMPE-10" |
              RUELLE_CODE == "CON-VSMPE-4" )
   
   return(insects)
