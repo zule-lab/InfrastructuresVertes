@@ -54,7 +54,7 @@ data_target <- c(
   tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-      select(-description) %>%
+      select(-Description) %>%
       mutate(survey = "TRUE")
     #TODO: add download_file function here
   ),
@@ -114,6 +114,11 @@ data_target <- c(
   tar_target(
     insects,
     select_insects(study_rv, study_controls)
+  ),
+  
+  tar_target(
+    figure_1,
+    create_figure_1(study_rv, study_controls, insects, quartiers)
   )
   
   
