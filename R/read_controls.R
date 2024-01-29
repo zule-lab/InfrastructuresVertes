@@ -1,5 +1,7 @@
 read_controls <- function(mtl_path, tr_path, canopy_path){
   
+  mtl_path <- download_shp(mtl_path, 'input/roads.zip')
+  
   mtl_controls <- read_sf(mtl_path) %>%
     filter(CATEGORIEC == "Ruelle" & PROPRIETAI == "Villeray - St-Michel - Parc-Extension") %>%
     mutate(RUELLE_ID = ID_VOI_VOI,

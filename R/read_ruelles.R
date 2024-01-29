@@ -1,5 +1,9 @@
 read_ruelles <- function(mtl_rv, req_rv, tr_rv, crs) {
 
+  mtl_rv <- download_shp(mtl_rv, 'input/ruelles-vertes.zip')
+# req_rv from this link: https://www.google.com/maps/d/u/0/edit?mid=143hjP-d1kJ9dlifQF_2jtys85B4&ll=45.55381079683275%2C-73.58079260278322&z=14
+  
+  
 # ruelles from Ville de Montreal ------------------------------------------
   
   mtl_rv <- read_sf(mtl_rv) %>% 
