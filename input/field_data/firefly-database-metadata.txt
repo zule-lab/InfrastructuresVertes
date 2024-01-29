@@ -1,0 +1,39 @@
+This dataset is split into 3 tabs:
+
+1. SiteInformation
+- this sheet describes the site as sugested by the Firefly Atlas and as recorded in the field. A "site" is considered a pair of ruelle + adjacent street segment
+- column names:
+	RuelleID: the unique key assigned to each ruelle. RV = ruelle verte, CON = control ruelle (not officialy a Ruelle Verte). VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	StreetID: the unique key assigned to each street segment. SS = street segment, CON-SS = control street segment (adjacent to a control ruelle). VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	Date: date the fieldwork was conducted
+	Observers: AZ = Antonia Zanella, LB = Lauren Bianco, ND = Niraj Dayanandan
+	Neighbourhood: neighbourhood in which the site is located
+	Temperature: temperature recorded at the start of the survey, in Celsius (as seen on Windy app)
+	Humidity: humidity level recorded at the start of the survey, in % (as seen on Windy app)
+	CloudCover: cloud cover observed at the start of the survey
+	WindSpeed: wind speed recorded at the start of the survey, in km/h (as seen on Windy app)
+	Precipitation: precipitation perception observed at the start of the survey
+	Notes: any extra notes based on the field visit
+
+2. Surveys
+- this sheet describes survey data and characteristics of the sites for each chunk of each infrastructure
+- column names:
+	InfrastructureID: the unique key assigned to each infrastructure. RV = ruelle verte, CON = control ruelle, SS = street segment, CON-SS = control street segment. VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	Chunk: Each infrastructure is split equally into three chunks, based on the survey methodology. Chunks are defined pre-fieldwork and labeled in the field.
+	Start Time: time the survey started in that chunk
+	End Time: time the survey ended in that chunk
+	Start Street Reference: name of the street that is closer to chunk #1 of the infrastructure. For the street segments it will be the street that corners it. For the ruelles it can be a parallel or perpendicular street
+	Artificial Light: type of artificial light observed in the field visit, according to catagories suggested in the Firefly Atlas
+	Artificial Light Source: source of the artificial light observed in the field visit
+	Presence/Absence: whether there was presence or absence of fireflies
+	Fireflies Observed: number of fireflies observed
+	Notes: any extra notes based on the field visit
+
+3. Fireflies
+- this sheet describes specific observations about each firefly that can lead to species identification
+- column names:
+	InfrastructureID: the unique key assigned to each infrastructure. RV = ruelle verte, CON = control ruelle, SS = street segment, CON-SS = control street segment. VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	FireflyID = unique numerical ID assigned to each firefly observed in fieldwork
+	Number Of Flashes: number of flashes observed within a pattern
+	Time Between Flashes: time between flashes observed within a pattern
+	Notes: any extra notes based on the field visit

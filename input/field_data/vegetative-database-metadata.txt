@@ -1,0 +1,75 @@
+This dataset is split into 5 tabs: 
+
+1. Ruelles
+- this sheet describes the qualitative characteristics of each ruelle, as recorded in the field
+- column names: 
+	InfrastructureID: the unique key assigned to each green infrastructure. RV = ruelle verte, SS = street segment. VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	Date: date the fieldwork was conducted
+	Time: time the fieldwork started 
+	Observers: IR = Isabella Richmond, AZ = Antonia Zanella
+	SensorDeployment: the date/time where all sensors had been deployed for this area and data collection can begin
+	SensorRetrieval: the date/time where sensors had begun to be retrived for this area and data collection stops
+	Permeable/Impermeable: whether the ground was impermeable or permeable. Only indicated to be impermeable if there is 0% permeable cover.
+	PercentagePermeability: indicates the percent of the ground cover that is permeable, the rest is impermeable
+	TypePermeability: what type of ground is the % that is permeable?
+	Shape: what is the configuration of the ruelle/street segment
+	Segment: each ruelle is split into segments based on its shape (e.g., L has two segments). Segments were labelled in the field.
+	StreetReference: the street that is parallel and closest to the segment
+	Width: width of the segment in metres
+	Picture: was a picture taken in the field (yes/no)
+	Spontaneous/Planted: was the majority of the vegetation in the ruelle spontaneous or planted based on visual observation
+	Notes: extra notes re: spontaneous/planted
+	Comments: any extra comments based on the field visit
+
+2. Ruelles_VC
+- this sheet describes the vegetative complexity (VC) data 
+- column names: 
+	InfrastructureID: the unique key assigned to each green infrastructure. RV = ruelle verte, SS = street segment. VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	Segment: each ruelle is split into segments based on its shape (e.g., L has two segments). Segments were labelled in the field.
+	Distance: distance from the start of the segment. VC was measured every 10 m, so distance increases in 10 m increments.
+	Grass: level 1 - is there grass present? 0 = no, 1 = yes
+	Herbaceous: level 2 - is there herbaceous vegetation present? 0 = no, 1 = yes
+	Wall: level 3 - is there vegetation growing on the walls/fences (e.g., ivy) 0 = no, 1 = yes
+	Shrub: level 4 - are there shrubs present? 0 = no, 1 = yes
+	Canopy: level 5 - is there canopy present? 0 = no, 1 = yes
+	Layers: total number of layers at this spot
+
+3. StreetSegments
+- this sheet describes the characteristics of each street segment, which are parallel to the ruelles and numbers match the ruelle they are next to 
+- column names: 
+	InfrastructureID: the unique key assigned to each green infrastructure. RV = ruelle verte, SS = street segment. VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	Date: date the fieldwork was conducted
+	Time: time the fieldwork started 
+	Observers: IR = Isabella Richmond, AZ = Antonia Zanella
+	StreetName: street segment name 
+	Picture: was a picture taken in the field (yes/no)
+	Spontaneous/Planted: was the majority of the vegetation in the ruelle spontaneous or planted based on visual observation
+	Notes: extra notes re: spontaneous/planted
+	InfraVerteType: is there a bioswale or garden square present on the street segment? if so, what kind(s) is it?
+	Width: width of the green infrastructure (e.g., bioswale)
+	Length: length of the green infrastructure (e.g., bioswale)
+	VegetativeDescription: what is contained in the green infrastructure?
+	Comments: extra comments on the street or green infrastructure present
+
+4. StreetSegments_VC
+- this sheet describes the vegetative complexity (VC) data 
+- column names: same as Ruelles_VC
+	Comments: indicates which end of the street we started on
+
+5. TreeDiversity
+- this sheet outlines tree species and sizes collected in the field 
+- column names:
+	InfrastructureID: the unique key assigned to each green infrastructure. RV = ruelle verte, SS = street segment. VSMPE = Villeray-Saint Michel-Parc Extension, TR = Trois-Rivieres.
+	Date: date the fieldwork was conducted
+	Time: time the fieldwork started 
+	Observers: IR = Isabella Richmond, AZ = Antonia Zanella
+	Segment: each ruelle is split into segments based on its shape (e.g., L has two segments). Segments were labelled in the field.
+	TreeNumber: each tree is assigned an ascending number in order
+	CommonName: common name of the tree 
+	Genus: tree genus
+	Species: tree scientific name
+	DBH: diameter at breast height
+	Comments: any extra comments
+
+6. Notes
+- notes and questions to work through as data input/cleaning occurs
