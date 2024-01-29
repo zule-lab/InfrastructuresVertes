@@ -29,26 +29,23 @@ data_target <- c(
   
   tar_target(
     canopy_path,
-    read_canopy('input/31hl102.tif', 'input/31ig102.tif'),
+    read_canopy(),
     format = 'file'
-    #TODO: add download_file function here
   ),
   
   tar_target(
     rv,
-    read_ruelles('input/ruelles-vertes/ruelles-vertes.shp',
+    read_ruelles('https://donnees.montreal.ca/dataset/ab3ce7bb-09a7-49d7-8f76-461ed4c39937/resource/e1440534-f438-43d3-ab7b-bcd09d72d3cd/download/ruelles-vertes.zip',
                  'input/REQ_ruelles-vertes.kml',
                  'input/TR_ruelles.kml',
                  st_crs(read_stars(canopy_path)))
-    #TODO: add download_file function here
   ),
   
   tar_target(
     controls,
-    read_controls('input/voi_voirie_s_v22_shp/VOI_VOIRIE_S_V22.shp',
+    read_controls('https://donnees.montreal.ca/dataset/0acbc6c8-bbfc-4aae-a0fa-ec74ba0686c6/resource/102dd6af-836d-443e-9bee-bfdd2f525fb8/download/voi_voirie_s_v22_shp.zip',
                   'input/TR_ruelles.kml',
                   canopy_path)
-    #TODO: add download_file function here
   ),
    
   tar_target(
@@ -56,13 +53,11 @@ data_target <- c(
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
       select(-Description) %>%
       mutate(survey = "TRUE")
-    #TODO: add download_file function here
   ),
   
   tar_target(
     quartiers,
-    read_sf('input/quartiers/quartiers_sociologiques_2014.shp')
-    #TODO: add download_file function here
+    download_shp('https://donnees.montreal.ca/dataset/c8f37ad6-16ff-4cdc-9e5a-e47898656fc9/resource/d342d18e-f710-4991-a259-0092bac3d62c/download/quartiers_sociologiques_2014.zip', 'input/quartiers.zip')
   ),
 
   tar_group_by(

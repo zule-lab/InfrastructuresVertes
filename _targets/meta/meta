@@ -3836,3 +3836,19 @@ select_study|function|46078e5bbaee25ee|||||||||||||||
 study_controls|stem|c7ef37d7d9b39f0d|752076b043062b6e|56a580d6c707dfcd|-1571743871||t19748.8168635785s|73b91951eb6812ad|21833|qs|local|vector|||0.36|attribute variables are assumed to be spatially constant throughout all geometries. GDAL Message 1 Layer name controlruelles adjusted to control_ruelles for XML validity.|
 study_rv|stem|49bb43b99385e807|360764b79f270e25|eb431b89d579dc0d|-607345801||t19748.8168753868s|7d45d4ba4902b232|83097|qs|local|vector|||1|attribute variables are assumed to be spatially constant throughout all geometries. GDAL Message 1 Layer name studyruelles adjusted to study_ruelles for XML validity.|
 survey_rv|stem|b921a129fbfe84b3|f6e712e2e042e43f|2281eb3156229087|1676788210||t19748.8167310392s|af71ff7a19838961|3515|qs|local|vector|||0.02||
+download_csv|function|9ed1b84e3c567016
+download_shp|function|b10d876b1501a079
+download_tif|function|881c7de25fec44c7
+create_figure_1|function|f37bcb2f8c16146c
+select_insects|function|7bf967e61ff8396e
+data_target|object|c065563691cbfeab
+.Random.seed|object|7a2832ecdcaf9a5c
+select_study|function|46078e5bbaee25ee
+select_controls|function|4c3664bdf973211a
+calc_can|function|6d7b1471da695e5c
+read_controls|function|a518e09e72e45cb2
+read_ruelles|function|5b17fd9b1c471251
+download_file|function|d2d5132f79344b91
+read_canopy|function|7b22d75d3fbb010d
+canopy_path|stem|0c31f87dc15b50fd|b8855fc2e9e57241|16b41bd56897664e|-1883911379|C:\Users\I_RICHMO\Documents\Repositories\infrastructures-vertes\results\canopy_mosaic.tif|t19751.7992743008s|6c203a6bbc8504b1|2050|file|local|vector|||7.75||
+quartiers|stem|34fc29a024b7ad36|1e9e37c4a9457958|4648abbcd52f7152|561056203||t19751.7993118188s|614f1d612c0876d1|116651|qs|local|vector|||3.22||
