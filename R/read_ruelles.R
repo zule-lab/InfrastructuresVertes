@@ -6,7 +6,7 @@ read_ruelles <- function(mtl_rv, req_rv, tr_rv, crs) {
   
 # ruelles from Ville de Montreal ------------------------------------------
   
-  mtl_rv <- read_sf(mtl_rv) %>% 
+  mtl_rv <- mtl_rv %>% 
     # filter for the neighbourhood
     filter(CODE_ARR == "VSMPE") %>%
     # select relevant columns
