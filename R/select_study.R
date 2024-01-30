@@ -48,7 +48,13 @@ select_study <- function(can_cov_rv_bind, quartiers) {
                           RUELLE_ID == "VSMPE-I-1410006" | 
                           RUELLE_ID == "VSMPE-I-1410004" | 
                           RUELLE_ID == "VSMPE-L-1410003") %>%
-    distinct(RUELLE_ID, .keep_all = T) %>%
+    group_by(RUELLE_ID) %>% 
+    summarize(CODE_ARR = first(CODE_ARR),
+              ruelle_area = sum(ruelle_area),
+              canopy = mean(canopy), 
+              per_can = mean(per_can),
+              Q_socio = first(Q_socio),
+              geometry = st_union(geometry)) %>% 
     mutate(RUELLE_CODE = paste0("RV-", CODE_ARR, "-", row_number()))
   
   # manually select TR study site ruelles 
