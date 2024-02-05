@@ -26,10 +26,14 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     mutate(Q_socio = replace(Q_socio, Q_socio == 'Parc-Extension', 'Parc-Ex'))
     
   tr_rv <- study_rv %>% 
-    filter(CODE_ARR == "TR")
+    filter(CODE_ARR == "TR") %>% 
+    mutate(group = "Green Alley")
   tr_con <- study_controls %>% 
-    filter(CODE_ARR == "TR")
+    filter(CODE_ARR == "TR") %>%
+    mutate(group = "Control")
   tr <- rbind(tr_rv, tr_con)
+  
+  tr_pts <- st_centroid(tr)
   
   
 
@@ -87,15 +91,44 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
 
 # 3R map ------------------------------------------------------------------
   
-  bbtr <- st_bbox(st_buffer(tr, 500))
+  bbtr <- st_bbox(st_buffer(tr, 1000))
+  
+  bbopq <- st_bbox(st_buffer(st_transform(tr, 4326), 500))
   
   
+  trrds <- opq(bbopq) %>% 
+    add_osm_feature(key = 'route', value = 'road') %>% 
+    osmdata_sf()
+  bigrds <- trrds$osm_lines
+  bigrds <- bigrds %>% 
+    filter(grepl('Autoroute', name) | grepl('Pont Radisson', name)) %>% 
+    st_as_sf(st_make_valid())
   
   
+  water <- opq(bbopq) %>%
+    add_osm_feature(key = 'natural', value = 'water') %>%
+    osmdata_sf()
+  # We only want multipolygons (aka large rivers)
+  mpols <- water$osm_multipolygons
+  mpols <- st_cast(mpols, "MULTIPOLYGON")
+  mpols <- st_as_sf(st_make_valid(mpols))
   
-  ggplot() + 
-    geom_sf(data = tr)
-
-
+  
+  trmap <- ggplot() + 
+    geom_sf(data = tr, aes(fill = group, colour = group), linewidth = 0.8) + 
+    geom_sf(data = tr_pts, aes(size = per_can), colour = "black", shape = 1) +
+    geom_sf(data = mpols, fill = 'lightblue', colour = "lightblue", linewidth = 0.5) +
+    geom_sf(data = bigrds, colour = "black", fill = "black", linewidth = 0.8) + 
+    scale_colour_manual(values = c("darkgrey", "darkgreen")) +
+    scale_fill_manual(values = c("darkgrey", "darkgreen")) +
+    coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
+    labs(fill = "", colour = "", size = "Percent Canopy") + 
+    theme(panel.border = element_rect(linewidth = 1, fill = NA),
+          panel.background = element_rect(fill = '#f3e3bf'),
+          panel.grid = element_blank(),
+          axis.text = element_text(size = 11, color = 'black'),
+          axis.title = element_blank(),
+          plot.background = element_rect(fill = NA, colour = NA),
+          legend.position = 'top')
   
 }
