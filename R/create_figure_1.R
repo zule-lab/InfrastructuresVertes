@@ -41,16 +41,15 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   
   bb <- st_bbox(st_buffer(mont, 500))
   
-  main <- ggplot() + 
-    geom_sf(data = insects_pts, aes(size = per_can), colour = "black", shape = 1) +
-    geom_sf(data = mont, aes(fill = group, colour = group), linewidth = 0.8) +  
+  main <- ggplot() +
+    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1) +
     geom_sf(data = quartiers, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
     geom_sf(data = rds, colour = "black", fill = "black") + 
-    scale_colour_manual(values = c("darkgrey", "darkgreen")) +
+    scale_colour_manual(values = c(NA, "goldenrod3")) +
     scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
     geom_text_repel(data = quartiers, aes(label = Q_socio, geometry = geometry), stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
-    labs(fill = "", colour = "", size = "Percent Canopy") + 
+    labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
@@ -58,35 +57,6 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
           axis.title = element_blank(),
           plot.background = element_rect(fill = NA, colour = NA),
           legend.position = 'top')
-  
-  inset <- ggplot() + 
-    geom_sf(data = insects %>% filter(insects != 'no'), colour = 'goldenrod3', fill = 'goldenrod3', linewidth = 0.8) +
-    geom_sf(data = quartiers, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
-    geom_sf(data = rds, colour = "black", fill = "black") + 
-    coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
-    guides(fill = "none", colour = "none") +  
-    theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = 'white'),
-          panel.grid = element_blank(),
-          axis.text = element_blank(),
-          axis.title = element_blank(),
-          axis.ticks = element_blank(), 
-          plot.background = element_rect(fill = NA, colour = NA),
-          legend.position = 'top')
-  
-  ggdraw(main) +
-    draw_plot(
-      {
-        inset
-      },
-      # The distance along a (0,1) x-axis to draw the left edge of the plot
-      x = 0.5, 
-      # The distance along a (0,1) y-axis to draw the bottom edge of the plot
-      y = 0.05,
-      # The width and height of the plot expressed as proportion of the entire ggdraw object
-      width = 0.30, 
-      height = 0.30)
-
     
 
 # 3R map ------------------------------------------------------------------
@@ -113,22 +83,24 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   mpols <- st_cast(mpols, "MULTIPOLYGON")
   mpols <- st_as_sf(st_make_valid(mpols))
   
-  
   trmap <- ggplot() + 
-    geom_sf(data = tr, aes(fill = group, colour = group), linewidth = 0.8) + 
-    geom_sf(data = tr_pts, aes(size = per_can), colour = "black", shape = 1) +
+    geom_sf(data = tr_pts, aes(size = per_can, colour = group)) +
     geom_sf(data = mpols, fill = 'lightblue', colour = "lightblue", linewidth = 0.5) +
     geom_sf(data = bigrds, colour = "black", fill = "black", linewidth = 0.8) + 
     scale_colour_manual(values = c("darkgrey", "darkgreen")) +
     scale_fill_manual(values = c("darkgrey", "darkgreen")) +
     coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
-    labs(fill = "", colour = "", size = "Percent Canopy") + 
+    guides(fill = "none", colour = "none", size = "none") +
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
           axis.text = element_text(size = 11, color = 'black'),
           axis.title = element_blank(),
-          plot.background = element_rect(fill = NA, colour = NA),
-          legend.position = 'top')
+          plot.background = element_rect(fill = NA, colour = NA))
+  
+  legend <- get_legend(main)
+  plot_grid(legend, 
+            plot_grid(main + theme(legend.position = 'none'),
+            trmap, align = 'h'), nrow = 2, rel_heights = c(1,5))
   
 }
