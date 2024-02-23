@@ -27,6 +27,30 @@ restore()
 # Targets -----------------------------------------------------------------
 data_target <- c(
   
+  tar_file_read(
+    trees_raw,
+    'input/field_data/trees.csv',
+    read.csv(!!.x)
+  ),
+  
+  tar_file_read(
+    fireflies_raw,
+    'input/field_data/firefly-survey.csv',
+    read.csv(!!.x)
+  ),
+  
+  tar_file_read(
+    ruelle_complexity_raw,
+    'input/field_data/ruelle-complexity.csv',
+    read.csv(!!.x)
+  ),
+  
+  tar_file_read(
+    street_complexity_raw,
+    'input/field_data/street-complexity.csv',
+    read.csv(!!.x)
+  ),
+  
   tar_target(
     canopy_path,
     read_canopy(),
@@ -115,7 +139,7 @@ data_target <- c(
     figure_1,
     create_figure_1(study_rv, study_controls, insects, quartiers)
   )
-  
+
   
 )
 
