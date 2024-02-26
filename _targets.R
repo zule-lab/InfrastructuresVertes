@@ -58,7 +58,7 @@ data_target <- c(
   
   tar_files(
     temp_files_tr,
-    dir('input/field_data/temperature-data/tr', full.names = TRUE)
+    dir('input/field_data/temperature-data-tr/', full.names = TRUE)
   ),
   
   tar_target(
@@ -71,8 +71,8 @@ data_target <- c(
   tar_target(
     tr_temp_dfs, 
     read_csv(temp_files_tr, skip = 3) %>%
-      mutate(plot_id = basename(xfun::sans_ext(temp_files))),
-    pattern = map(temp_files)
+      mutate(plot_id = basename(xfun::sans_ext(temp_files_tr))),
+    pattern = map(temp_files_tr)
   ),
   
   tar_target(
@@ -182,6 +182,11 @@ data_target <- c(
   tar_target(
     veg_complexity,
     plot_veg_complexity(ruelle_complexity_raw, street_complexity_raw)
+  ),
+  
+  tar_target(
+    temp_plot,
+    plot_temp(temp_dfs, tr_temp_dfs)
   )
 
   
