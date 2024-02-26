@@ -3,41 +3,41 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   rds <- st_read(file.path("/vsizip", 'input/roads.zip')) %>% 
     filter(CATEGORIEC == 'Autoroute')
   
-# Data separation ---------------------------------------------------------
+  # Data separation ---------------------------------------------------------
   mont_rv <- study_rv %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Green Alley")
+    mutate(group = "Ruelle Verte")
   mont_con <- study_controls %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Control")
+    mutate(group = "Ruelle Traditionelle")
   
   mont <- rbind(mont_rv, mont_con)
   
   
-  insects$insects <- 'yes'
-
+  insects$insects <- 'oui'
+  
   insects <- left_join(mont, st_set_geometry(insects, NULL))  %>% 
-    mutate(insects = replace(insects, is.na(insects), 'no'))
+    mutate(insects = replace(insects, is.na(insects), 'non'))
   
   insects_pts <- insects %>% 
     st_centroid()
   
   quartiers <- quartiers %>% 
     mutate(Q_socio = replace(Q_socio, Q_socio == 'Parc-Extension', 'Parc-Ex'))
-    
+  
   tr_rv <- study_rv %>% 
     filter(CODE_ARR == "TR") %>% 
-    mutate(group = "Green Alley")
+    mutate(group = "Rruelle Verte")
   tr_con <- study_controls %>% 
     filter(CODE_ARR == "TR") %>%
-    mutate(group = "Control")
+    mutate(group = "Ruelle Traditionelle")
   tr <- rbind(tr_rv, tr_con)
   
   tr_pts <- st_centroid(tr)
   
   
-
-# Montreal map ------------------------------------------------------------
+  
+  # Montreal map ------------------------------------------------------------
   
   bb <- st_bbox(st_buffer(mont, 500))
   
@@ -55,17 +55,18 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
-    labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
+    labs(fill = "", colour = "Lucioles", size = "Pourcentage de canopée") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
-          axis.text = element_text(size = 11, color = 'black'),
+          axis.text = element_text(size = 14, color = 'black'),
           axis.title = element_blank(),
+          legend.text = element_text(size = 14),
           plot.background = element_rect(fill = NA, colour = NA),
           legend.position = 'top')
-    
-
-# 3R map ------------------------------------------------------------------
+  
+  
+  # 3R map ------------------------------------------------------------------
   
   bbtr <- st_bbox(st_buffer(tr, 1000))
   
@@ -94,17 +95,19 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
-          axis.text = element_text(size = 11, color = 'black'),
+          axis.text = element_text(size = 14, color = 'black'),
           axis.title = element_blank(),
           plot.background = element_rect(fill = NA, colour = NA))
   
   
   legend <- get_legend(main)
+  
   full <- plot_grid(legend, 
-            plot_grid(main + theme(legend.position = 'none'),
-            trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), vjust = 0.2), 
-            nrow = 2, rel_heights = c(1,5))
+                    plot_grid(main + theme(legend.position = 'none'),
+                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 16, vjust = 0.2), 
+                    nrow = 2, rel_heights = c(1,5))
   
-  ggsave('graphics/studymap.png', full, width = 15, height = 13, units = 'in', dpi = 400)
+  ggsave('graphics/studymap.png', full, width = 15, height = 13, units = 'in', dpi = 450)
   
+  return(full)
 }
