@@ -51,6 +51,30 @@ data_target <- c(
     read.csv(!!.x)
   ),
   
+  tar_files(
+    temp_files,
+    dir('input/field_data/temperature-data', full.names = TRUE)
+  ),
+  
+  tar_files(
+    temp_files_tr,
+    dir('input/field_data/temperature-data/tr', full.names = TRUE)
+  ),
+  
+  tar_target(
+    temp_dfs, 
+    read_csv(temp_files, skip = 3) %>%
+      mutate(plot_id = str_extract(basename(xfun::sans_ext(temp_files)), "[^_]+")),
+    pattern = map(temp_files)
+  ),
+  
+  tar_target(
+    tr_temp_dfs, 
+    read_csv(temp_files_tr, skip = 3) %>%
+      mutate(plot_id = basename(xfun::sans_ext(temp_files))),
+    pattern = map(temp_files)
+  ),
+  
   tar_target(
     canopy_path,
     read_canopy(),
@@ -75,7 +99,7 @@ data_target <- c(
   tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-      select(-Description) %>%
+      select(-description) %>%
       mutate(survey = "TRUE")
   ),
   
@@ -138,6 +162,26 @@ data_target <- c(
   tar_target(
     figure_1,
     create_figure_1(study_rv, study_controls, insects, quartiers)
+  ),
+  
+  tar_target(
+    tree_species,
+    plot_tree_species(trees_raw)
+  ),
+  
+  tar_target(
+    tree_abundance,
+    plot_tree_abund(trees_raw)
+  ),
+  
+  tar_target(
+    firefly_pa, 
+    plot_pa_firefly(fireflies_raw)
+  ),
+  
+  tar_target(
+    veg_complexity,
+    plot_veg_complexity(ruelle_complexity_raw, street_complexity_raw)
   )
 
   
