@@ -1,0 +1,40 @@
+plot_tree_species <- function(trees_raw){
+  
+  trees <- trees_raw %>% 
+    mutate(Genus = case_when(CommonName == 'Dead' ~ 'Dead',
+                             .default = Genus),
+           Genus = replace_na(Genus, 'Unknown'),
+           Species = replace_na(Species, 'sp.'),
+           scientific_name = paste(Genus, Species, sep = " "),
+           type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
+                            str_detect(InfrastructureID, 'SS') == T ~ 'Segements des Rues',
+                            str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
+           city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
+                            str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières')) %>% 
+    drop_na(DBH) 
+  
+  treecnt <- trees %>% 
+    group_by(type, city, scientific_name) %>% 
+    tally() 
+  
+  
+  spcnt <- treecnt %>% 
+    group_by(type, city) %>% 
+    tally()
+  
+  plot <- ggplot(spcnt) +
+    geom_col(aes(y = n, x = type, colour = city, fill = city), position = position_dodge()) + 
+    scale_fill_manual(values = c("#6e948c", "#122c43")) + 
+    scale_colour_manual(values = c("#6e948c", "#122c43")) + 
+    theme_classic() + 
+    labs(x = "", y = "Le nombre d'espèces d'arbres", fill = "", colour = "", title = "86 espèces d'arbres trouvées") + 
+    theme(legend.position = 'top',
+          axis.text = element_text(size = 12),
+          legend.text = element_text(size = 12),
+          axis.title = element_text(size = 12))
+  
+  ggsave('graphics/treespecies.png', plot, width = 6, height = 8, units = 'in')
+  
+  return(plot)
+  
+}
