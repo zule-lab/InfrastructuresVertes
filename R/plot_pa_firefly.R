@@ -15,6 +15,8 @@ plot_pa_firefly <- function(fireflies_raw){
   plot <- ggplot(presencecnt) + 
     geom_col(aes(x = type, y = n)) + 
     theme_classic() + 
+    theme(axis.title = element_text(size = 14),
+          axis.text = element_text(size = 12, colour = "black")) +
     labs(x = "", y = "Nombre de sites avec présence de lucioles", title = "5 ruelles traditionelles au total, 22 ruelles vertes au total, 27 segments des rues au total")
   
   ggsave('graphics/fireflypresence.png', plot, width = 8, height = 8, units = 'in')
