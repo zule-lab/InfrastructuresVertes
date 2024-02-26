@@ -6,6 +6,7 @@ library(renv)
 library(sf)
 library(stars)
 
+library(readr)
 library(dplyr)
 library(stringr)
 library(tidyr)
