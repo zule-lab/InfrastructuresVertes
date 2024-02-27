@@ -17,7 +17,7 @@ plot_veg_complexity <- function(ruelle_complexity_raw, street_complexity_raw) {
     summarize(total_layers = sum(Layers),
               npoints = n(), 
               avg_complexity = total_layers/npoints) %>% 
-    mutate(type = case_when(str_detect(InfrastructureID, 'SS') == T ~ 'Segements des Rues'),
+    mutate(type = case_when(str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues'),
            city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
                             str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières'))
   

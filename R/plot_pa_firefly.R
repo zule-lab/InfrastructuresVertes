@@ -6,7 +6,7 @@ plot_pa_firefly <- function(fireflies_raw){
     group_by(Infrastructure.ID, Presence.Absence) %>% 
     tally() %>% 
     mutate(type = case_when(str_detect(Infrastructure.ID, 'RV') == T ~ 'Ruelles Vertes',
-                            str_detect(Infrastructure.ID, 'SS') == T ~ 'Segements des Rues',
+                            str_detect(Infrastructure.ID, 'SS') == T ~ 'Segments des Rues',
                             str_detect(Infrastructure.ID, 'CON') == T ~ 'Ruelles Traditionelles')) %>%
     filter(Presence.Absence != "Absence") %>% 
     group_by(type) %>% 
