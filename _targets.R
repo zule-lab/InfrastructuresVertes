@@ -99,7 +99,7 @@ data_target <- c(
   tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-      select(-description) %>%
+      select(-Description) %>%
       mutate(survey = "TRUE")
   ),
   

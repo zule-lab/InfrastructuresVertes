@@ -62,6 +62,7 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
           axis.text = element_text(size = 14, color = 'black'),
           axis.title = element_blank(),
           legend.text = element_text(size = 14),
+          legend.title = element_text(size = 14),
           plot.background = element_rect(fill = NA, colour = NA),
           legend.position = 'top')
   
