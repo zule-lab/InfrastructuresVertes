@@ -13,6 +13,28 @@ plot_tree_abund <- function(trees_raw){
                             str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières')) %>% 
     drop_na(DBH) 
   
+  treecntruelle <- trees %>% 
+    group_by(InfrastructureID) %>% 
+    summarize(nTrees = n(), 
+              type = first(type), 
+              city = first(city)) %>% 
+    group_by(type, city) %>% 
+    summarize(meanabund = mean(nTrees))
+  
+  abund <- ggplot(treecntruelle) +
+    geom_col(aes(y = meanabund, x = type, colour = city, fill = city), position = position_dodge()) + 
+    scale_fill_manual(values = c("#6e948c", "#122c43")) + 
+    scale_colour_manual(values = c("#6e948c", "#122c43")) + 
+    theme_classic() + 
+    labs(x = "", y = "Nombre moyen d'arbres par site", fill = "", colour = "", title = "1,469 arbres mesurés") + 
+    theme(legend.position = 'top',
+          axis.text = element_text(size = 12),
+          legend.text = element_text(size = 12),
+          axis.title = element_text(size = 12))
+  
+  ggsave('graphics/treeabundancepersite.png', abund, width = 6, height = 8, units = 'in')
+  
+  
   treecnt <- trees %>% 
     group_by(type, city) %>% 
     tally() 
