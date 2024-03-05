@@ -3,6 +3,8 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   rds <- st_read(file.path("/vsizip", 'input/roads.zip')) %>% 
     filter(CATEGORIEC == 'Autoroute')
   
+  quartiers_tr <- read_sf('input/Quartiers_3R/Quartier_3R.shp')
+  
   # Data separation ---------------------------------------------------------
   mont_rv <- study_rv %>% 
     filter(CODE_ARR == "VSMPE") %>% 
@@ -75,9 +77,10 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   
   # roads
   trrds <- opq(bbopq) %>% 
-    add_osm_feature(key = 'highway', value = c('motorway', 'trunk', 'primary', 'secondary')) %>% 
+    add_osm_feature(key = 'route', value = 'road') %>% 
     osmdata_sf()
   bigrds <- trrds$osm_lines
+  bigrds <- bigrds %>% filter(name == "Autoroute Félix-Leclerc" | name == "Pont Radisson")
   
   # water
   water <- opq(bbopq) %>%
@@ -85,12 +88,18 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     osmdata_sf()
   mpols <- water$osm_multipolygons
   
+  quartiers_tr$nudge_y <- 0
+  quartiers_tr$nudge_y[quartiers_tr$Name == "Immaculé"] <- 500
+  
+  
   trmap <- ggplot() + 
     geom_sf(data = tr_pts, aes(size = per_can, colour = group)) +
+    geom_sf(data = quartiers_tr, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
     geom_sf(data = mpols, fill = 'lightblue', colour = "lightblue", linewidth = 0.5) +
     geom_sf(data = bigrds, colour = "black", fill = "black", linewidth = 0.8) + 
     scale_colour_manual(values = c("darkgrey", "darkgreen")) +
     scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
+    geom_text(data = quartiers_tr, aes(label = Name, geometry = geometry), nudge_y = quartiers_tr$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
     guides(fill = "none", colour = "none", size = "none") +
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
