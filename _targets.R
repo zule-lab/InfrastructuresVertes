@@ -99,7 +99,7 @@ data_target <- c(
   tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
-      select(-Description) %>%
+      select(-description) %>%
       mutate(survey = "TRUE")
   ),
   
@@ -165,13 +165,18 @@ data_target <- c(
   ),
   
   tar_target(
+    trees_clean,
+    clean_trees(trees_raw)
+  ),
+  
+  tar_target(
     tree_species,
-    plot_tree_species(trees_raw)
+    plot_tree_species(trees_clean)
   ),
   
   tar_target(
     tree_abundance,
-    plot_tree_abund(trees_raw)
+    plot_tree_abund(trees_clean)
   ),
   
   tar_target(
