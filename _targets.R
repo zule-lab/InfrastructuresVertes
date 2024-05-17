@@ -219,10 +219,10 @@ data_target <- c(
     plot_veg_complexity(ruelle_complexity_raw, street_complexity_raw)
   ),
   
-  tar_target(
-    temp_plot,
-    plot_temp(temp_dfs, tr_temp_dfs)
-  ),
+  #tar_target(
+  #  temp_plot,
+  #  plot_temp(temp_dfs, tr_temp_dfs)
+  #),
   
   # calculate temperature mitigation
   
