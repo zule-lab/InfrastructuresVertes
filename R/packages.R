@@ -12,6 +12,8 @@ library(stringr)
 library(tidyr)
 library(lubridate)
 
+library(suncalc)
+
 library(units)
 
 library(ggplot2)

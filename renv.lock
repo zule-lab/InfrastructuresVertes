@@ -974,6 +974,18 @@
         "vctrs"
       ]
     },
+    "suncalc": {
+      "Package": "suncalc",
+      "Version": "0.5.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d7f6002de83e84715b882458162207b6",
+      "Requirements": [
+        "data.table",
+        "lubridate",
+        "magrittr"
+      ]
+    },
     "sys": {
       "Package": "sys",
       "Version": "3.4.2",
