@@ -223,13 +223,15 @@ data_target <- c(
   #  temp_plot,
   #  plot_temp(temp_dfs, tr_temp_dfs)
   #),
-  
-  # calculate temperature mitigation
-  
+
   tar_target(
     temp_mit,
     mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
   )
+  
+  # model temp? or still plot raw? 
+  
+  # biodiversity of alleys -- trees? 
 
   
 )
