@@ -2,6 +2,10 @@
 # Framework by Alec L. Robitaille
 
 
+# temperature 
+# biodiversity
+# management
+
 
 # Source ------------------------------------------------------------------
 library(targets)
@@ -63,15 +67,41 @@ data_target <- c(
   
   tar_target(
     temp_dfs, 
-    read_csv(temp_files, skip = 3) %>%
-      mutate(plot_id = str_extract(basename(xfun::sans_ext(temp_files)), "[^_]+")),
+    # skip problematic lines in dataset including column names
+    read_csv(temp_files, skip = 5, col_types = cols(.default = col_character()), col_names = F) %>%  
+      # add back in column names
+      rename(date_time = X1,
+             temp_F = X2,
+             rel_humidity_per = X3,
+             heat_index_F = X4,
+             dew_point_F = X5,
+             point_type = X6) %>% 
+      # add plot ID column based on file name 
+      mutate(plot_id = str_extract(basename(xfun::sans_ext(temp_files)), "[^_]+")) %>%
+      # replace commas with decimals for numeric columns
+      mutate(across(c("temp_F", "rel_humidity_per", "heat_index_F", "dew_point_F"), ~as.numeric(str_replace(.x, ",", ".")))) %>% 
+      # remove unnecessary column 
+      select(-point_type),
     pattern = map(temp_files)
   ),
   
   tar_target(
     tr_temp_dfs, 
-    read_csv(temp_files_tr, skip = 3) %>%
-      mutate(plot_id = basename(xfun::sans_ext(temp_files_tr))),
+    # skip problematic lines in dataset including column names
+    read_csv(temp_files_tr, skip = 5, col_types = cols(.default = col_character()), col_names = F) %>%  
+      # add back in column names
+      rename(date_time = X1,
+             temp_F = X2,
+             rel_humidity_per = X3,
+             heat_index_F = X4,
+             dew_point_F = X5,
+             point_type = X6) %>% 
+      # add plot ID column based on file name 
+      mutate(plot_id = str_extract(basename(xfun::sans_ext(temp_files_tr)), "[^_]+")) %>%
+      # replace commas with decimals for numeric columns
+      mutate(across(c("temp_F", "rel_humidity_per", "heat_index_F", "dew_point_F"), ~as.numeric(str_replace(.x, ",", ".")))) %>% 
+      # remove unnecessary column 
+      select(-point_type),
     pattern = map(temp_files_tr)
   ),
   
@@ -192,6 +222,13 @@ data_target <- c(
   tar_target(
     temp_plot,
     plot_temp(temp_dfs, tr_temp_dfs)
+  ),
+  
+  # calculate temperature mitigation
+  
+  tar_target(
+    temp_mit,
+    mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
   )
 
   
