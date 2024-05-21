@@ -195,16 +195,6 @@ data_target <- c(
   ),
   
   tar_target(
-    tree_species,
-    plot_tree_species(trees_clean)
-  ),
-  
-  tar_target(
-    tree_abundance,
-    plot_tree_abund(trees_clean)
-  ),
-  
-  tar_target(
     firefly_pa, 
     plot_pa_firefly(fireflies_raw)
   ),
@@ -219,19 +209,30 @@ data_target <- c(
     mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
   ),
   
+  # model temp? or still plot raw? 
+  
   #tar_target(
   #  temp_plot,
   #  plot_temp(temp_dfs, tr_temp_dfs)
   #),
   
-  # model temp? or still plot raw? 
-  
-  # biodiversity of alleys -- trees? 
-  
   tar_target(
     tree_div,
     div_tree(trees_clean)
   )
+  
+  # model div? or plot raw? 
+  
+  #tar_target(
+  #  tree_species,
+  #  plot_tree_species(trees_clean)
+  #),
+  #
+  #tar_target(
+  #  tree_abundance,
+  #  plot_tree_abund(trees_clean)
+  #),
+  
   
 
   
