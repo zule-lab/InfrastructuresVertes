@@ -209,12 +209,10 @@ data_target <- c(
     mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
   ),
   
-  # model temp? or still plot raw? 
-  
-  #tar_target(
-  #  temp_plot,
-  #  plot_temp(temp_dfs, tr_temp_dfs)
-  #),
+  tar_target(
+    temp_plot,
+    plot_temp(temp_dfs, tr_temp_dfs)
+  ),
   
   tar_target(
     tree_div,
@@ -232,8 +230,6 @@ data_target <- c(
   #  tree_abundance,
   #  plot_tree_abund(trees_clean)
   #),
-  
-  
 
   
 )
