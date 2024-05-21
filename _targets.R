@@ -2,11 +2,6 @@
 # Framework by Alec L. Robitaille
 
 
-# temperature 
-# biodiversity
-# management
-
-
 # Source ------------------------------------------------------------------
 library(targets)
 tar_source('R')
@@ -218,20 +213,26 @@ data_target <- c(
     veg_complexity,
     plot_veg_complexity(ruelle_complexity_raw, street_complexity_raw)
   ),
+
+  tar_target(
+    temp_mit,
+    mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
+  ),
   
   #tar_target(
   #  temp_plot,
   #  plot_temp(temp_dfs, tr_temp_dfs)
   #),
-
-  tar_target(
-    temp_mit,
-    mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
-  )
   
   # model temp? or still plot raw? 
   
   # biodiversity of alleys -- trees? 
+  
+  tar_target(
+    tree_div,
+    div_tree(trees_clean)
+  )
+  
 
   
 )
