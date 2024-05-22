@@ -27,6 +27,7 @@ plot_temp <- function(temp_mit) {
   ggsave('graphics/mtltemp.png', mtl, height = 10, width = 14, units = 'in')
   ggsave('graphics/trtemp.png', tr, height = 10, width = 14, units = 'in')
   
+  return(list(day_mtl$data, night_mtl$data, day_tr$data, night_tr$data))
   
 }
 
