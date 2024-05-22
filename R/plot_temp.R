@@ -10,26 +10,45 @@ plot_temp <- function(temp_mit) {
               CODE_ARR = first(CODE_ARR), 
               mean_cooling = mean(cooling, na.rm = T))
   
-  day_mtl <- cooling_per_day %>% 
-    filter(CODE_ARR == "VSMPE", tod == "day" & type == "Ruelle Verte")
   
-  night_mtl <- cooling_per_day %>% 
-    filter(CODE_ARR == "VSMPE", tod == "night" & type == "Ruelle Verte")
+  day_mtl <- plot_groups(cooling_per_day, "VSMPE", "day", "Jour")
   
-  day_tr <- cooling_per_day %>% 
-    filter(CODE_ARR == "TR", tod == "day" & type == "Ruelle Verte")
+  night_mtl <- plot_groups(cooling_per_day, "VSMPE", "night", "Nuit")
   
-  night_tr <- cooling_per_day %>% 
-    filter(CODE_ARR == "TR", tod == "night" & type == "Ruelle Verte")
+  day_tr <- plot_groups(cooling_per_day, "TR", "day", "Jour")
+  
+  night_tr <- plot_groups(cooling_per_day, "TR", "night", "Nuit")
+
+  # combine plots
+  mtl <- day_mtl | night_mtl
+  tr <- day_tr | night_tr
+  
+  # save
+  ggsave('graphics/mtltemp.png', mtl, height = 10, width = 14, units = 'in')
+  ggsave('graphics/trtemp.png', tr, height = 10, width = 14, units = 'in')
   
   
-  ggplot(day_tr, aes(date, mean_cooling, group = plot_id)) +
+}
+
+
+plot_groups <- function(cooling_per_day, code, timeofday, lab){
+  
+  df <- cooling_per_day %>% 
+    filter(CODE_ARR == code, tod == timeofday & type == "Ruelle Verte")
+  
+  df2 <- df %>% 
+    group_by(plot_id) %>% 
+    summarize(max = mean(mean_cooling)) %>% 
+    slice_max(max, n = 3) %>% 
+    left_join(., df, by = "plot_id")
+  
+  ggplot(df, aes(date, mean_cooling, group = plot_id)) +
     geom_line(alpha = 0.5, color = "grey20") +
-    labs(x = "", colour = "", y = "Effet de refroidissement (\u00B0C)") +
+    geom_line(data = df2, aes(date, mean_cooling, group = plot_id, colour = -max)) + 
+    scale_color_continuous() + 
+    labs(x = "", colour = "", y = "Effet de refroidissement (\u00B0C)", title = lab) + 
     theme_classic() + 
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-  
-  
-  
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          legend.position = "none")
   
 }

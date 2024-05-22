@@ -697,6 +697,19 @@
       "Hash": "bca377e1c87ec89ebed77bba00635b2e",
       "Requirements": []
     },
+    "patchwork": {
+      "Package": "patchwork",
+      "Version": "1.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9c8ab14c00ac07e9e04d1664c0b74486",
+      "Requirements": [
+        "cli",
+        "ggplot2",
+        "gtable",
+        "rlang"
+      ]
+    },
     "permute": {
       "Package": "permute",
       "Version": "0.9-7",
