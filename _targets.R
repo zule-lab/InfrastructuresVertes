@@ -217,15 +217,13 @@ data_target <- c(
   tar_target(
     tree_div,
     div_tree(trees_clean)
+  ),
+  
+  tar_target(
+    tree_species,
+    plot_tree_species(tree_div, temp_plot)
   )
   
-  # model div? or plot raw? 
-  
-  #tar_target(
-  #  tree_species,
-  #  plot_tree_species(trees_clean)
-  #),
-  #
   #tar_target(
   #  tree_abundance,
   #  plot_tree_abund(trees_clean)
