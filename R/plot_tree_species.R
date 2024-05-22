@@ -1,40 +1,51 @@
-plot_tree_species <- function(trees_raw){
+plot_tree_species <- function(tree_div, temp_plot){
+    
+  # isolate the ruelles that were highlighted in the temperature plot
+  mtl_day <- temp_plot[[1]] %>% 
+    group_by(plot_id) %>% 
+    summarize(max = mean(mean_cooling)) %>% 
+    slice_max(max, n = 3)
   
-  trees <- trees_raw %>% 
-    mutate(Genus = case_when(CommonName == 'Dead' ~ 'Dead',
-                             .default = Genus),
-           Genus = replace_na(Genus, 'Unknown'),
-           Species = replace_na(Species, 'sp.'),
-           scientific_name = paste(Genus, Species, sep = " "),
-           type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
-                            str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
-                            str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
-           city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
-                            str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières')) %>% 
-    drop_na(DBH) 
+  tr_day <- temp_plot[[3]] %>% 
+    group_by(plot_id) %>% 
+    summarize(max = mean(mean_cooling)) %>% 
+    slice_max(max, n = 3)
+    
+  max_temps <- rbind(mtl_day, tr_day)
   
-  treecnt <- trees %>% 
-    group_by(type, city, scientific_name) %>% 
-    tally() 
+  # pull out type of GI and city
+  trees <- tree_div %>% 
+  mutate(type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
+                          str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
+                          str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
+         city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
+                          str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières'),
+         InfrastructureID = str_replace(InfrastructureID, "-0", "-"))
+  
+  # join temps and tree div 
+  full <- left_join(trees, max_temps, by = join_by("InfrastructureID" == "plot_id")) 
   
   
-  spcnt <- treecnt %>% 
-    group_by(type, city) %>% 
-    tally()
-  
-  plot <- ggplot(spcnt) +
-    geom_col(aes(y = n, x = type, colour = city, fill = city), position = position_dodge()) + 
-    scale_fill_manual(values = c("#6e948c", "#122c43")) + 
-    scale_colour_manual(values = c("#6e948c", "#122c43")) + 
+  mtl <- ggplot(full %>% filter(city == "Villeray-Saint Michel-Parc Extension"), 
+         aes(x = type, y = SpeciesRichness)) + 
+    geom_boxplot(outlier.shape = NA) + 
+    geom_point(aes(colour = max), position=position_jitterdodge(), size = 3) +
     theme_classic() + 
-    labs(x = "", y = "Le nombre d'espèces d'arbres", fill = "", colour = "", title = "86 espèces d'arbres trouvées") + 
-    theme(legend.position = 'top',
-          axis.text = element_text(size = 12),
-          legend.text = element_text(size = 12),
-          axis.title = element_text(size = 12))
+    labs(x = "", colour = "", y = "Le nombre d'espèces d'arbres", title = "Villeray-Saint Michel-Parc Extension") + 
+    theme(legend.position = 'none')
   
-  ggsave('graphics/treespecies.png', plot, width = 6, height = 8, units = 'in')
+  tr <- ggplot(full %>% filter(city == "Trois-Rivières"), 
+         aes(x = type, y = SpeciesRichness)) + 
+    geom_boxplot(outlier.shape = NA) + 
+    geom_point(aes(colour = max), position=position_jitterdodge(), size = 3) +
+    theme_classic() + 
+    labs(x = "", colour = "", y = "Le nombre d'espèces d'arbres", title = "Trois-Rivières") + 
+    theme(legend.position = 'none')
   
+  div <- mtl | tr
+    
+  ggsave('graphics/treespecies.png', div, width = 12, height = 8, units = 'in')
+    
   return(plot)
-  
+    
 }
