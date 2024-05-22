@@ -211,7 +211,7 @@ data_target <- c(
   
   tar_target(
     temp_plot,
-    plot_temp(temp_dfs, tr_temp_dfs)
+    plot_temp(temp_mit)
   ),
   
   tar_target(
