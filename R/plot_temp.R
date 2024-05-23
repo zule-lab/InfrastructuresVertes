@@ -27,7 +27,7 @@ plot_temp <- function(temp_mit) {
   ggsave('graphics/mtltemp.png', mtl, height = 10, width = 14, units = 'in')
   ggsave('graphics/trtemp.png', tr, height = 10, width = 14, units = 'in')
   
-  return(list(day_mtl$data, night_mtl$data, day_tr$data, night_tr$data))
+  return(cooling_per_day)
   
 }
 
@@ -37,16 +37,9 @@ plot_groups <- function(cooling_per_day, code, timeofday, lab){
   df <- cooling_per_day %>% 
     filter(CODE_ARR == code, tod == timeofday & type == "Ruelle Verte")
   
-  df2 <- df %>% 
-    group_by(plot_id) %>% 
-    summarize(max = mean(mean_cooling)) %>% 
-    slice_max(max, n = 3) %>% 
-    left_join(., df, by = "plot_id")
-  
   ggplot(df, aes(date, mean_cooling, group = plot_id)) +
     geom_line(alpha = 0.5, color = "grey20") +
-    geom_line(data = df2, aes(date, mean_cooling, group = plot_id, colour = -max)) + 
-    scale_color_continuous() + 
+    geom_hline(yintercept = 0, linetype = 2, color = "black", linewidth = 1 ) + 
     labs(x = "", colour = "", y = "Effet de refroidissement (\u00B0C)", title = lab) + 
     theme_classic() + 
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
