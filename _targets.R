@@ -221,10 +221,15 @@ data_target <- c(
   
   tar_target(
     tree_species,
-    plot_tree_species(tree_div, temp_plot)
+    plot_tree_species(tree_div)
+  ),
+  
+  tar_target(
+    temp_div_tradeoff,
+    plot_temp_div(temp_plot, tree_species)
   )
   
-  #tar_target(
+  ##tar_target(
   #  tree_abundance,
   #  plot_tree_abund(trees_clean)
   #),
