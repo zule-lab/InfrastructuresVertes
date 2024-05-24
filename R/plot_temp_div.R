@@ -23,12 +23,12 @@ plot_temp_div <- function(temp_plot, tree_species){
   )
   
   # plot
-  tradeoff <- ggplot(data = temp_plot, aes(date, mean_cooling, group = plot_id)) +
+   tradeoff <- ggplot(data = temp_plot, aes(date, mean_cooling, group = plot_id)) +
     geom_line(colour = "grey20", alpha = 0.5) +
     geom_hline(yintercept = 0, linetype = 2, color = "black", linewidth = 1 ) + 
     geom_line(data = max_div, aes(colour = SpeciesRichness), linewidth = 1) +
     scale_colour_continuous(trans = 'reverse') +  
-    labs(x = "", colour = "", y = "Effet de refroidissement (\u00B0C)") + 
+    labs(x = "", colour = "Le nombre \nd'espèces \nd'arbres", y = "Effet de refroidissement (\u00B0C)") + 
     theme_classic() + 
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
     facet_wrap(vars(CODE_ARR, tod), scales = "free", labeller = labeller(CODE_ARR = as_labeller(cities), tod = as_labeller(time), .multi_line = F))
