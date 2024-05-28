@@ -43,6 +43,11 @@ plot_groups <- function(cooling_per_day, code, timeofday, lab){
     labs(x = "", colour = "", y = "Effet de refroidissement (\u00B0C)", title = lab) + 
     theme_classic() + 
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-          legend.position = "none")
+          legend.position = "none",
+          axis.text = element_text(size = 16, color = 'black'),
+          axis.title = element_text(size = 16), 
+          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 16),
+          plot.title = element_text(size=16))
   
 }

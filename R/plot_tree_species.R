@@ -17,7 +17,11 @@ plot_tree_species <- function(tree_div, temp_plot){
     scale_colour_manual(values = c("#6e948c", "#122c43")) + 
     theme_classic() + 
     labs(x = "", colour = "", y = "Le nombre d'espèces d'arbres") + 
-    theme(legend.position = 'top')
+    theme(legend.position = 'top',
+          axis.text = element_text(size = 16, color = 'black'),
+          axis.title = element_text(size = 16), 
+          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 16))
   
 
     

@@ -30,7 +30,12 @@ plot_temp_div <- function(temp_plot, tree_species){
     scale_colour_continuous(trans = 'reverse') +  
     labs(x = "", colour = "Le nombre \nd'espèces \nd'arbres", y = "Effet de refroidissement (\u00B0C)") + 
     theme_classic() + 
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+          axis.text = element_text(size = 16, color = 'black'),
+          axis.title = element_text(size = 16),
+          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 16),
+          strip.text = element_text(size = 16)) + 
     facet_wrap(vars(CODE_ARR, tod), scales = "free", labeller = labeller(CODE_ARR = as_labeller(cities), tod = as_labeller(time), .multi_line = F))
   
   

@@ -57,14 +57,14 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
-    labs(fill = "", colour = "Lucioles", size = "Pourcentage de canopée") + 
+    labs(fill = "", colour = "Lucioles", size = "Pourcentage de \ncanopée") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
-          axis.text = element_text(size = 14, color = 'black'),
+          axis.text = element_text(size = 16, color = 'black'),
           axis.title = element_blank(),
-          legend.text = element_text(size = 14),
-          legend.title = element_text(size = 14),
+          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 16),
           plot.background = element_rect(fill = NA, colour = NA),
           legend.position = 'top')
   
@@ -76,14 +76,14 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   bbopq <- st_bbox(st_buffer(st_transform(tr, 4326), 2000))
   
   # roads
-  trrds <- opq(bbopq) %>% 
+  trrds <- opq(bbopq, timeout = 100) %>% 
     add_osm_feature(key = 'route', value = 'road') %>% 
     osmdata_sf()
   bigrds <- trrds$osm_lines
   bigrds <- bigrds %>% filter(name == "Autoroute Félix-Leclerc" | name == "Pont Radisson")
   
   # water
-  water <- opq(bbopq) %>%
+  water <- opq(bbopq, timeout = 100) %>%
     add_osm_feature(key = 'natural', value = 'water') %>%
     osmdata_sf()
   mpols <- water$osm_multipolygons
@@ -105,7 +105,7 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
-          axis.text = element_text(size = 14, color = 'black'),
+          axis.text = element_text(size = 16, color = 'black'),
           axis.title = element_blank(),
           plot.background = element_rect(fill = NA, colour = NA))
   
@@ -114,10 +114,10 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   
   full <- plot_grid(legend, 
                     plot_grid(main + theme(legend.position = 'none'),
-                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 16, vjust = 0.2), 
+                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 18, vjust = 0.2), 
                     nrow = 2, rel_heights = c(1,5))
   
-  ggsave('graphics/studymap.png', full, width = 15, height = 13, units = 'in', dpi = 450)
+  ggsave('graphics/studymap.png', full, width = 14, height = 13, units = 'in', dpi = 450)
   
   return(full)
 }
