@@ -14,7 +14,7 @@ select_controls <- function(can_cov_controls_bind, quartiers) {
                             RUELLE_ID == "104006389" | 
                             RUELLE_ID == "104006429" | 
                             RUELLE_ID == "104006166" | 
-                            RUELLE_ID == "104006387" |
+                            RUELLE_ID == "200438765" |
                             RUELLE_ID == "104006131" | 
                             RUELLE_ID == "104006376") %>%
     distinct(RUELLE_ID, .keep_all = T) %>%
