@@ -65,6 +65,11 @@ targets_data <- c(
   ),
   
   tar_target(
+    can_cov_street,
+    calc_can_street(street_segments_rv, street_segments_control)
+  ),
+  
+  tar_target(
     study_rv,
     select_study(can_cov_rv_bind, quartiers)
   ),

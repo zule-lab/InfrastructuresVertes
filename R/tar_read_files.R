@@ -26,6 +26,18 @@ tar_read_files <- function(){
       read.csv(!!.x)
     ),
     
+    tar_file_read(
+      street_segments_rv,
+      'input/study_street-segments.kml',
+      read_sf(!!.x)
+    ),
+    
+    tar_file_read(
+      street_segments_control,
+      'input/control_street-segments.kml',
+      read_sf(!!.x)
+    ),
+    
     tar_files(
       temp_files,
       dir('input/field_data/temperature-data', full.names = TRUE)
@@ -113,7 +125,9 @@ tar_read_files <- function(){
     tar_target(
       sidewalks, 
       download_shp('https://donnees.montreal.ca/dataset/cbea9e7b-9808-42b3-ac05-7d4313a65f98/resource/9847d07e-cc3d-42c0-a42f-c94ddca24a8a/download/voi_trottoir_s_t12_shp.zip',
-                   'input/sidewalks.zip')
+                   'input/sidewalks.zip') %>% 
+        filter(CATEGORIET == "Trottoir") %>% 
+        st_intersection(., quartiers %>% filter(Arrondisse == "Villeray–Saint-Michel–Parc-Extension"))
     )
     
   )
