@@ -106,7 +106,14 @@ tar_read_files <- function(){
     
     tar_target(
       quartiers,
-      download_shp('https://donnees.montreal.ca/dataset/c8f37ad6-16ff-4cdc-9e5a-e47898656fc9/resource/d342d18e-f710-4991-a259-0092bac3d62c/download/quartiers_sociologiques_2014.zip', 'input/quartiers.zip')
+      download_shp('https://donnees.montreal.ca/dataset/c8f37ad6-16ff-4cdc-9e5a-e47898656fc9/resource/d342d18e-f710-4991-a259-0092bac3d62c/download/quartiers_sociologiques_2014.zip', 
+                   'input/quartiers.zip')
+    ),
+    
+    tar_target(
+      sidewalks, 
+      download_shp('https://donnees.montreal.ca/dataset/cbea9e7b-9808-42b3-ac05-7d4313a65f98/resource/9847d07e-cc3d-42c0-a42f-c94ddca24a8a/download/voi_trottoir_s_t12_shp.zip',
+                   'input/sidewalks.zip')
     )
     
   )
