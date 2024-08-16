@@ -128,6 +128,12 @@ tar_read_files <- function(){
                    'input/sidewalks.zip') %>% 
         filter(CATEGORIET == "Trottoir") %>% 
         st_intersection(., quartiers %>% filter(Arrondisse == "Villeray–Saint-Michel–Parc-Extension"))
+    ),
+    
+    tar_target(
+      tr_roads, 
+      download_shp('https://www.donneesquebec.ca/recherche/dataset/17e9938c-c744-4171-b7bc-53abd7a6d8bc/resource/00b990c9-2a66-46dd-897c-4d50ae65d511/download/reseau-routier-v3r.zip',
+                   'input/tr_roads.zip')
     )
     
   )
