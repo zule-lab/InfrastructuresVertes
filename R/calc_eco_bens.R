@@ -1,4 +1,4 @@
-calc_eco_bens <- function( study_rv, study_controls,  can_cov_street, fireflies_raw, 
+calc_eco_bens <- function( study_rv, study_controls, can_cov_street, fireflies_raw, 
                           ruelle_complexity_raw, street_complexity_raw, trees_clean){
   
   # canopy cover
@@ -6,23 +6,47 @@ calc_eco_bens <- function( study_rv, study_controls,  can_cov_street, fireflies_
     mutate(CODE_ARR = case_when(str_detect(Name, 'VSMPE') == T ~ 'VSMPE', 
                                 str_detect(Name, 'TR') == T ~ 'TR'),
            Q_socio = NA) %>% 
-    rename(RUELLE_CODE = "Name",
+    rename(InfrastructureID = "Name",
            ruelle_area = "street_area")
   
-  study_rv <- study_rv %>% select(-RUELLE_ID)
-  study_controls <- study_controls %>% select(-RUELLE_ID)
+  study_rv <- study_rv %>% select(-RUELLE_ID) %>% rename(InfrastructureID = "RUELLE_CODE")
+  study_controls <- study_controls %>% select(-RUELLE_ID) %>% rename(InfrastructureID = "RUELLE_CODE")
   
-  cancov <- rbind(can_cov_street, study_rv, study_controls)
+  cancov <- rbind(can_cov_street, study_rv, study_controls) %>% select(-Q_socio)
+  
   
   # firefly presence/absence
+  fireflies_can <- fireflies_raw %>% 
+    group_by(Infrastructure.ID) %>% 
+    summarize(fireflies = sum(FirefliesObserved.... )) %>% 
+    rename(InfrastructureID = "Infrastructure.ID") %>% 
+    mutate(firefly_presence = case_when(fireflies == 0 ~ 0, 
+                                        fireflies != 0 ~ 1)) %>% 
+    right_join(., cancov, by = "InfrastructureID")
   
   
+  # tree abundance (veg abundance?)
+  can_fireflies_abund <- trees_clean %>% 
+    mutate(Genus = case_when(CommonName == 'Dead' ~ 'Dead',
+                             .default = Genus),
+           Genus = replace_na(Genus, 'Unknown'),
+           Species = replace_na(Species, 'sp.'),
+           scientific_name = paste(Genus, Species, sep = " "),
+           type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
+                            str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
+                            str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
+           city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
+                            str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières')) %>% 
+    group_by(InfrastructureID) %>% 
+    summarize(nTrees = n(), 
+              type = first(type), 
+              city = first(city)) %>% 
+    right_join(., fireflies_can, by = "InfrastructureID") %>%
+    mutate(nTrees = if_else(is.na(nTrees), 0, nTrees))
   
-  # veg abundance
+  # tree diversity
   
   
-  # veg diversity
- 
   
   # veg complexity 
   vegtotal <- ruelle_complexity_raw %>% 
