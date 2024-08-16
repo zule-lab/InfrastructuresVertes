@@ -1,8 +1,28 @@
-calc_eco_bens <- function(fireflies_raw, ruelle_complexity_raw, street_complexity_raw, trees_clean){
+calc_eco_bens <- function( study_rv, study_controls,  can_cov_street, fireflies_raw, 
+                          ruelle_complexity_raw, street_complexity_raw, trees_clean){
+  
+  # canopy cover
+  can_cov_street <- can_cov_street %>% 
+    mutate(CODE_ARR = case_when(str_detect(Name, 'VSMPE') == T ~ 'VSMPE', 
+                                str_detect(Name, 'TR') == T ~ 'TR'),
+           Q_socio = NA) %>% 
+    rename(RUELLE_CODE = "Name",
+           ruelle_area = "street_area")
+  
+  study_rv <- study_rv %>% select(-RUELLE_ID)
+  study_controls <- study_controls %>% select(-RUELLE_ID)
+  
+  cancov <- rbind(can_cov_street, study_rv, study_controls)
+  
+  # firefly presence/absence
+  
+  
   
   # veg abundance
+  
+  
   # veg diversity
-  # firefly presence
+ 
   
   # veg complexity 
   vegtotal <- ruelle_complexity_raw %>% 
