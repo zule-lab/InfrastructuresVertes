@@ -9,6 +9,18 @@ tar_read_files <- function(){
     ),
     
     tar_file_read(
+      tree_traits,
+      'input/field_data/tree-traits.csv',
+      read.csv(!!.x)
+    ),
+    
+    tar_file_read(
+      ruelle_description,
+      'input/field_data/ruelle-description.csv',
+      read.csv(!!.x)
+    ),
+    
+    tar_file_read(
       fireflies_raw,
       'input/field_data/firefly-survey.csv',
       read.csv(!!.x)
