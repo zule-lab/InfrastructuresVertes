@@ -65,7 +65,7 @@ targets_data <- c(
   ),
   
   tar_target(
-    ,
+    can_cov_street,
     calc_can_street(street_segments_rv, street_segments_control, sidewalks, tr_roads, canopy_path)
   ),
   
@@ -86,8 +86,9 @@ targets_data <- c(
   
   tar_target(
     ecological_benefits,
-    calc_eco_bens(study_rv, study_controls,  can_cov_street, fireflies_raw, 
-                  ruelle_complexity_raw, street_complexity_raw, trees_clean)
+    calc_eco_bens(study_rv, study_controls,  can_cov_street, fireflies_raw,
+                  tree_traits, ruelle_description, ruelle_complexity_raw, 
+                  street_complexity_raw, trees_clean, quartiers)
   )
 )
   
