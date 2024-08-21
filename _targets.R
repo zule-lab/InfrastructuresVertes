@@ -100,44 +100,42 @@ targets_plot <- c(
   tar_target(
     figure_1,
     create_figure_1(study_rv, study_controls, quartiers)
-  ),
+  )
   
   #tar_target(
   #  veg_complexity,
   #  plot_veg_complexity(ecological_benefits)
   #),
 
-  tar_target(
-    temp_mit,
-    mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
-  ),
-  
-  tar_target(
-    temp_plot,
-    plot_temp(temp_mit)
-  ),
-  
-  tar_target(
-    tree_div,
-    div_tree(trees_clean)
-  ),
-  
-  tar_target(
-    tree_species,
-    plot_tree_species(tree_div)
-  ),
-  
-  tar_target(
-    temp_div_tradeoff,
-    plot_temp_div(temp_plot, tree_species)
-  )
-  
-  ##tar_target(
+  #tar_target(
+  #  temp_mit,
+  #  mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
+  #),
+  #
+  #tar_target(
+  #  temp_plot,
+  #  plot_temp(temp_mit)
+  #),
+  #
+  #tar_target(
+  #  tree_div,
+  #  div_tree(trees_clean)
+  #),
+  #
+  #tar_target(
+  #  tree_species,
+  #  plot_tree_species(tree_div)
+  #),
+  #
+  #tar_target(
+  #  temp_div_tradeoff,
+  #  plot_temp_div(temp_plot, tree_species)
+  #)
+  #
+  #tar_target(
   #  tree_abundance,
   #  plot_tree_abund(trees_clean)
   #),
-
-  
 )
 
 
