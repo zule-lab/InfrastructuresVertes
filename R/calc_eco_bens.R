@@ -133,9 +133,6 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
     filter(!(InfrastructureID == "RV-VSMPE-20" & Q_socio == "Saint-Michel"))
   
   
-  # connectivity?
-  
-  
   return(nhood)
   
 }
