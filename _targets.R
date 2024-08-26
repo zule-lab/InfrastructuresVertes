@@ -85,12 +85,6 @@ targets_plot <- c(
   #  temp_plot,
   #  plot_temp(temp_mit)
   #),
-  #
-  #tar_target(
-  #  tree_div,
-  #  div_tree(trees_clean)
-  #),
-  #
   #tar_target(
   #  tree_species,
   #  plot_tree_species(tree_div)
