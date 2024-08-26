@@ -1,4 +1,4 @@
-calc_can_street <- function(street_segments_rv, street_segments_control, sidewalks, tr_roads, canopy_path){
+calc_can_street <- function(street_segments_rv, street_segments_control, sidewalks, tr_sidewalks, canopy_path){
   
   # VSMPE 
   streets_vsmpe_rv <- clean_ss(street_segments_rv, sidewalks, 'VSMPE', 3, canopy_path)
@@ -6,9 +6,9 @@ calc_can_street <- function(street_segments_rv, street_segments_control, sidewal
   streets_vsmpe_controls <- clean_ss(street_segments_control, sidewalks, 'VSMPE', 3, canopy_path)
 
   # TR
-  streets_tr_rv <- clean_ss(street_segments_rv, tr_roads, 'TR', 7, canopy_path)
+  streets_tr_rv <- clean_ss(street_segments_rv, tr_sidewalks %>% st_make_valid(), 'TR', 0, canopy_path)
   
-  streets_tr_controls <- clean_ss(street_segments_control, tr_roads, 'TR', 7, canopy_path)
+  streets_tr_controls <- clean_ss(street_segments_control, tr_sidewalks %>% st_make_valid(), 'TR', 0, canopy_path)
   
   # bind
   streets_can <- rbind(streets_vsmpe_rv, streets_vsmpe_controls, streets_tr_rv, streets_tr_controls)
