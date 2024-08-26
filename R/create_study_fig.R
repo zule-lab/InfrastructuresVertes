@@ -1,4 +1,4 @@
-create_figure_1 <- function(study_rv, study_controls, quartiers){
+create_study_fig <- function(study_rv, study_controls, quartiers){
   
   rds <- st_read(file.path("/vsizip", 'input/roads.zip')) %>% 
     filter(CATEGORIEC == 'Autoroute')

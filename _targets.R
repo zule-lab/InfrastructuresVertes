@@ -62,7 +62,7 @@ targets_data <- c(
   
   tar_target(
     census_data,
-    calc_census()
+    calc_census(da_raw, census_raw, study_rv, study_controls)
   )
 )
   
@@ -72,8 +72,8 @@ targets_data <- c(
 targets_plot <- c(
   
   tar_target(
-    figure_1,
-    create_figure_1(study_rv, study_controls, quartiers)
+    study_fig,
+    create_study_fig(study_rv, study_controls, quartiers)
   )
   
   #tar_target(
