@@ -50,5 +50,6 @@ rsconnect/
 
 # large files
 /input/voi_voirie_s_v22_shp/
+/input/da_raw.zip
 # Custom
 results/
