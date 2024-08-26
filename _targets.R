@@ -75,30 +75,6 @@ targets_plot <- c(
     study_fig,
     create_study_fig(study_rv, study_controls, quartiers)
   )
-  
-  #tar_target(
-  #  veg_complexity,
-  #  plot_veg_complexity(ecological_benefits)
-  #),
-  #
-  #tar_target(
-  #  temp_plot,
-  #  plot_temp(temp_mit)
-  #),
-  #tar_target(
-  #  tree_species,
-  #  plot_tree_species(tree_div)
-  #),
-  #
-  #tar_target(
-  #  temp_div_tradeoff,
-  #  plot_temp_div(temp_plot, tree_species)
-  #)
-  #
-  #tar_target(
-  #  tree_abundance,
-  #  plot_tree_abund(trees_clean)
-  #),
 )
 
 
