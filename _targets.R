@@ -26,48 +26,11 @@ restore()
 
 targets_data <- c(
   
+  # target list for reading all data files
   tar_read_files(),
   
-  tar_group_by(
-    rv_by_ruelle,
-    rv,
-    RUELLE_ID
-  ),
-  
-  tar_group_by(
-    controls_by_ruelle,
-    controls,
-    RUELLE_ID
-  ),
-  
-  tar_target(
-    can_cov_rv,
-    calc_can(rv_by_ruelle, canopy_path),
-    map(rv_by_ruelle),
-    iteration = 'list'
-  ),
-  
-  tar_target(
-    can_cov_controls,
-    calc_can(controls_by_ruelle, canopy_path),
-    map(controls_by_ruelle),
-    iteration = 'list'
-  ),
-  
-  tar_target(
-    can_cov_rv_bind,
-    do.call(rbind, can_cov_rv)
-  ),
-  
-  tar_target(
-    can_cov_controls_bind,
-    do.call(rbind, can_cov_controls)
-  ),
-  
-  tar_target(
-    can_cov_street,
-    calc_can_street(street_segments_rv, street_segments_control, sidewalks, tr_roads, canopy_path)
-  ),
+  # target list for calculating canopy cover
+  tar_canopy(),
   
   tar_target(
     study_rv,
@@ -89,6 +52,17 @@ targets_data <- c(
     calc_eco_bens(study_rv, study_controls,  can_cov_street, fireflies_raw,
                   tree_traits, ruelle_description, ruelle_complexity_raw, 
                   street_complexity_raw, trees_clean, quartiers)
+  ),
+  
+  tar_target(
+    ecosystem_services,
+    calc_eco_serv(temp_dfs, tr_temp_dfs, study_rv, study_controls,
+                  trees_clean, tree_traits)
+  ),
+  
+  tar_target(
+    census_data,
+    calc_census()
   )
 )
   
