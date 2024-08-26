@@ -57,7 +57,7 @@ targets_data <- c(
   tar_target(
     ecosystem_services,
     calc_eco_serv(temp_dfs, tr_temp_dfs, study_rv, study_controls,
-                  trees_clean, tree_traits)
+                  can_cov_street, trees_clean, tree_traits)
   ),
   
   tar_target(
@@ -79,11 +79,6 @@ targets_plot <- c(
   #tar_target(
   #  veg_complexity,
   #  plot_veg_complexity(ecological_benefits)
-  #),
-
-  #tar_target(
-  #  temp_mit,
-  #  mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
   #),
   #
   #tar_target(
