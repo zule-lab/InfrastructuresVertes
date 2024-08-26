@@ -23,11 +23,9 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     mutate(plot_id = str_replace(plot_id, "CON", "CON-VSMPE-"),
            plot_id = str_replace(plot_id, "RV", "RV-VSMPE-"))
   
-  study <- rbind(study_controls, study_rv)
-  
   # join temp data with site info 
-  temp_vsmpe_geom <- left_join(temp_names, study, by = join_by(plot_id == RUELLE_CODE))
-  temp_tr_geom <- left_join(tr_temp_dfs, study, by = join_by(plot_id == RUELLE_CODE))
+  temp_vsmpe_geom <- left_join(temp_names, study, by = join_by(plot_id == InfrastructureID))
+  temp_tr_geom <- left_join(tr_temp_dfs, study, by = join_by(plot_id == InfrastructureID))
   
   # combine all temp data 
   temp_geom <- rbind(temp_vsmpe_geom, temp_tr_geom)
@@ -81,7 +79,7 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
   con <- temp_tod %>% 
     filter(str_detect(plot_id, 'CON')) %>% 
     rename(con_id = plot_id) %>% 
-    select(c(date_time, con_id, per_can, Q_socio, temp_C, rel_humidity_per, heat_index_C))
+    select(c(date_time, con_id, per_can, temp_C, rel_humidity_per, heat_index_C))
   
   rv <- temp_tod %>% 
     filter(str_detect(plot_id, 'RV')) %>% 
@@ -183,11 +181,18 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     right_join(tree_abund)
   
   # potential mean DBH 
-  
-  
-  
-  
   # flowers - showy flowering trees 
+  trees_pot_hgt <- left_join(trees_clean, tree_traits, by = join_by('scientific_name' == 'latin.name')) %>% 
+    group_by(InfrastructureID) %>% 
+    mutate(flowering = case_when(scientific_name == "Rosa acicularis" ~ "showy",
+                                 .default = flowering)) %>% 
+    drop_na(flowering) %>% 
+    summarize(mean_pot_hgt = mean(maximum.height),
+              n = n(), 
+              showy_count = sum(ifelse(flowering == "showy", 1, 0)),
+              prop_showy = showy_count/n) %>% 
+    select(-c(n, showy_count)) %>% 
+    right_join(trees_dbh)
   
   # greenness (not possible?)
   
@@ -195,6 +200,8 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
   
   # food provisioning (not possible?)
   
+  es <- list(cooling, trees_pot_hgt) 
+  names(es) <- c("cooling", "other_es")
   
   
 }
