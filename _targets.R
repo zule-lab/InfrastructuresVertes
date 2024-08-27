@@ -65,11 +65,21 @@ targets_data <- c(
     calc_census(da_raw, census_raw, study_rv, study_controls)
   )
 )
+
+
+# Targets: analysis -------------------------------------------------------
+
+
   
 
 # Targets: plot -----------------------------------------------------------
 
 targets_plot <- c(
+  
+  tar_target(
+    mtl_dags,
+    create_mtl_dags()
+  ),
   
   tar_target(
     study_fig,
