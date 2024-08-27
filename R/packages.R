@@ -20,6 +20,7 @@ library(vegan)
 library(units)
 
 library(ggplot2)
+library(ggdag)
 library(ggrepel)
 library(cowplot)
 library(patchwork)
