@@ -41,18 +41,18 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   # Data separation ---------------------------------------------------------
   mont_rv <- study_rv %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Ruelle Verte")
+    mutate(group = "Green alley")
   mont_con <- study_controls %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Ruelle Traditionelle")
+    mutate(group = "Traditional alley")
   
   mont <- rbind(mont_rv, mont_con)
   
   
-  insects$insects <- 'oui'
+  insects$insects <- 'yes'
   
   insects <- left_join(mont, st_set_geometry(insects, NULL))  %>% 
-    mutate(insects = replace(insects, is.na(insects), 'non'))
+    mutate(insects = replace(insects, is.na(insects), 'no'))
   
   insects_pts <- insects %>% 
     st_centroid()
@@ -62,7 +62,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   
   tr_rv <- study_rv %>% 
     filter(CODE_ARR == "TR") %>% 
-    mutate(group = "Rruelle Verte")
+    mutate(group = "Ruelle Verte")
   tr_con <- study_controls %>% 
     filter(CODE_ARR == "TR") %>%
     mutate(group = "Ruelle Traditionelle")
@@ -90,7 +90,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
-    labs(fill = "", colour = "Lucioles", size = "Pourcentage de \ncanopée") + 
+    labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
@@ -98,8 +98,9 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
           axis.title = element_blank(),
           legend.text = element_text(size = 16),
           legend.title = element_text(size = 16),
+          legend.background = element_rect(fill = NA, colour = NA), 
           plot.background = element_rect(fill = NA, colour = NA),
-          legend.position = 'top')
+          legend.position = 'right')
   
   
   # 3R map ------------------------------------------------------------------
@@ -143,14 +144,14 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
           plot.background = element_rect(fill = NA, colour = NA))
   
   
-  legend <- get_legend(main)
+  legend <- get_plot_component(main, pattern = "guide-box-right")
   
-  full <- plot_grid(legend, 
-                    plot_grid(main + theme(legend.position = 'none'),
-                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 18, vjust = 0.2), 
-                    nrow = 2, rel_heights = c(1,5))
+  full <- plot_grid(plot_grid(main + theme(legend.position = 'none'),
+                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 18), 
+                    legend, 
+                    nrow = 1, rel_widths = c(4,1))
   
-  ggsave('graphics/studymap.png', full, width = 14, height = 13, units = 'in', dpi = 450)
+  ggsave('graphics/studymap.png', full, width = 18, height = 12, units = 'in', dpi = 450)
   
   return(full)
 }
