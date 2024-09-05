@@ -320,6 +320,67 @@ create_mtl_dags <- function(){
                               name == "language" ~ 'exposure',
                               .default = 'NA'))
   
+  cooling <- dagify(
+    cooling ~ canopy_cover,
+    cooling ~ imperv,
+    cooling ~ solar_radiation,
+    cooling ~ vegetation_abundance,
+    imperv ~ management,
+    imperv ~ ruelle_size,
+    imperv ~ funding,
+    management ~ ruelle_size,
+    funding ~ ruelle_type,
+    canopy_cover ~ landscape_structure,
+    canopy_cover ~ vegetation_abundance,
+    canopy_cover ~ management, 
+    vegetation_abundance ~ funding,
+    vegetation_abundance ~ management,
+    vegetation_abundance ~ landscape_structure,
+    ruelle_type ~ community_activity,
+    solar_radiation ~ landscape_structure,
+    ruelle_type ~ language, 
+    ruelle_type ~ income, 
+    ruelle_type ~ awareness,
+    ruelle_type ~ resident_length,
+    awareness ~ resident_length,
+    awareness ~ language,
+    values ~ language,
+    values ~ income,
+    values ~ ethnicity,
+    income ~ ethnicity,
+    income ~ education, 
+    management ~ values, 
+    management ~ income,
+    labels = c(
+      'cooling' = 'Cooling',
+      'solar_radiation' = 'Solar Radiation',
+      'canopy_cover' = 'Canopy Cover',
+      'vegetation_abundance' = 'Vegetation Abundance',
+      'landscape_structure' = 'Landscape Structure',
+      'imperv' = 'Impervious Cover',
+      'ruelle_size' = 'Size of Ruelle',
+      'veg_complexity' = 'Vegetation Complexity',
+      'landscape_structure' = 'Landscape Structure',
+      'management' = 'Management',
+      'funding' = 'Funding',
+      'community_activity' = 'Community Activity',
+      'ruelle_type' = 'Ruelle Type',
+      'language' = 'Language',
+      'income' = 'Income',
+      'awareness' = 'Awareness of \nProgram',
+      'resident_length' = 'Length of \nTime as Resident',
+      'values' = 'Values wrt \nNature',
+      'ethnicity' = 'Ethnicity',
+      'education' = 'Education'),
+    exposure = 'ruelle_type',
+    outcome = 'imperv') %>% 
+    tidy_dagitty() %>%
+    mutate(status = case_when(name == "cooling" ~ 'outcome',
+                              name == "ruelle_type" ~ 'exposure',
+                              name == "income" ~ 'exposure',
+                              name == "language" ~ 'exposure',
+                              .default = 'NA'))
+  
   
   dag_canopy <- plot_dag(canopy)
   dag_firefly <- plot_dag(firefly)
@@ -328,12 +389,12 @@ create_mtl_dags <- function(){
   dag_veg_complex <- plot_dag(veg_complex)
   dag_imperv <- plot_dag(imperv)
   dag_inv <- plot_dag(inv)
-  #dag_cooling <- plot_dag(cooling)
+  dag_cooling <- plot_dag(cooling)
   #dag_tree_size <- plot_dag(tree_size)
   #dag_flower <- plot_dag(flower)
   
   p <- (dag_canopy + dag_firefly + dag_tree_div + dag_veg_complex + dag_imperv) /
-    (dag_inv + dag_tree_abund) # + dag_cooling + dag_tree_size + dag_flower)
+    (dag_inv + dag_tree_abund + dag_cooling) #  + dag_tree_size + dag_flower)
   
   ggsave('graphics/mtl_dags.png', plot = p, width = 30, height = 25, units = "in")
   
