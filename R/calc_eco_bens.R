@@ -1,6 +1,6 @@
 calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_raw,
                           tree_traits, ruelle_description, ruelle_complexity_raw, 
-                          street_complexity_raw, trees_clean, quartiers){
+                          street_complexity_raw, trees_clean, quartiers, census_data){
   
   # canopy cover
   can_cov_street <- can_cov_street %>% 
@@ -132,7 +132,9 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
     # one ruelle slightly crosses over into Saint-Michel so returns duplicate but it isn't truly in SM
     filter(!(InfrastructureID == "RV-VSMPE-20" & Q_socio == "Saint-Michel"))
   
+  # join with census data
+  census <- inner_join(nhood, census_data %>% st_drop_geometry(), by = "InfrastructureID")
   
-  return(nhood)
+  return(census)
   
 }

@@ -1,5 +1,5 @@
 calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
-                          can_cov_street, trees_clean, tree_traits){
+                          can_cov_street, trees_clean, tree_traits, census_data){
   
   # study sites 
   can_cov_street <- can_cov_street %>% 
@@ -194,14 +194,18 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     select(-c(n, showy_count)) %>% 
     right_join(trees_dbh)
   
+  census_trees <- inner_join(trees_pot_hgt, census_data, by = "InfrastructureID")
+  
   # greenness (not possible?)
   
   # management (not possible?)
   
   # food provisioning (not possible?)
   
-  es <- list(cooling, trees_pot_hgt) 
+  es <- list(cooling, census_trees) 
   names(es) <- c("cooling", "other_es")
+  
+  return(es)
   
   
 }
