@@ -222,9 +222,9 @@ create_mtl_dags <- function(){
       'ethnicity' = 'Ethnicity',
       'education' = 'Education'),
     exposure = 'ruelle_type',
-    outcome = 'imperv') %>% 
+    outcome = 'veg_complexity') %>% 
     tidy_dagitty() %>%
-    mutate(status = case_when(name == "imperv" ~ 'outcome',
+    mutate(status = case_when(name == "veg_complexity" ~ 'outcome',
                               name == "ruelle_type" ~ 'exposure',
                               name == "income" ~ 'exposure',
                               name == "language" ~ 'exposure',
@@ -269,9 +269,9 @@ create_mtl_dags <- function(){
       'ethnicity' = 'Ethnicity',
       'education' = 'Education'),
     exposure = 'ruelle_type',
-    outcome = 'veg_complexity') %>% 
+    outcome = 'imperv') %>% 
     tidy_dagitty() %>%
-    mutate(status = case_when(name == "veg_complexity" ~ 'outcome',
+    mutate(status = case_when(name == "imperv" ~ 'outcome',
                               name == "ruelle_type" ~ 'exposure',
                               name == "income" ~ 'exposure',
                               name == "language" ~ 'exposure',
@@ -337,7 +337,7 @@ create_mtl_dags <- function(){
   p <- (dag_canopy + dag_firefly + dag_tree_abund + dag_tree_div + dag_veg_complex) /
     (dag_imperv + dag_inv) #+ dag_cooling + dag_tree_size + dag_flower)
   
-  ggsave('graphics/mtl_dags.png', plot = i, width = 15, height = 12, units = "in")
+  ggsave('graphics/mtl_dags.png', plot = p, width = 30, height = 25, units = "in")
   
 }
 
