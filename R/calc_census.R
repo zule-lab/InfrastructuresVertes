@@ -1,6 +1,19 @@
-calc_census <- function(da_raw, census_raw, study_rv, study_controls){
+calc_census <- function(da_raw, census_raw, study_rv, study_controls, can_cov_street){
   
-  study <- rbind(study_rv, study_controls)
+  # study sites 
+  can_cov_street <- can_cov_street %>% 
+    rename(InfrastructureID = "Name",
+           ruelle_area = "street_area")
+  
+  study_rv <- study_rv %>% 
+    select(-c(RUELLE_ID, CODE_ARR, Q_socio)) %>% 
+    rename(InfrastructureID = "RUELLE_CODE")
+  
+  study_controls <- study_controls %>% 
+    select(-c(RUELLE_ID, CODE_ARR, Q_socio)) %>% 
+    rename(InfrastructureID = "RUELLE_CODE")
+  
+  study <- rbind(study_controls, study_rv, can_cov_street)
   
   study_da <- st_transform(study, st_crs(da_raw)) %>% 
     st_intersection(da_raw) %>% 
@@ -75,7 +88,7 @@ calc_census <- function(da_raw, census_raw, study_rv, study_controls){
   census_da_sf <- st_as_sf(census_da_r, sf_column_name = c("geometry"), crs = st_crs(study_da))
   
   census_da_na <- census_da_sf %>% 
-    drop_na(RUELLE_CODE)  %>%
+    drop_na(InfrastructureID)  %>%
     filter(area > 0) %>%
     mutate(da = as.factor(DAUID)) %>%
     mutate(across(c(totpop:edu_postsec), ~as.numeric(.))) %>%
@@ -105,14 +118,14 @@ calc_census <- function(da_raw, census_raw, study_rv, study_controls){
     # divide the intersected area/total area of DA and multiply the population by that 
     # can then use this population as weight for weighted means
     mutate(popwithin = (as.numeric(areaint)/as.numeric(area))*as.numeric(totpop)) %>% 
-    select(c("RUELLE_CODE","Q_socio","da","geometry","totpop", "popwithin", "popdens", "area", "areaint",
+    select(c("InfrastructureID","da","geometry","totpop", "popwithin", "popdens", "area", "areaint",
              "medinc", "per_en", "per_fr", "per_fren", "per_no_fren", "per_non_imm", "per_imm", 
              "per_amer", "per_eur", "per_afr", "per_asia", "per_oth", 
              "per_edu_no", "per_edu_sec", "per_edu_postsec"))
   
   # population weighted mean
   study_cen <- study_cen_pop %>%
-    group_by(RUELLE_CODE) %>%   
+    group_by(InfrastructureID) %>%   
     summarize(DAcount = n(),
               totarea = sum(areaint),
               geometry = st_union(geometry),
@@ -134,7 +147,7 @@ calc_census <- function(da_raw, census_raw, study_rv, study_controls){
               medinc = weighted.mean(as.numeric(medinc), as.numeric(popwithin), na.rm = T),
               popwithin = sum(as.numeric(popwithin))
     ) %>%
-    distinct(RUELLE_CODE, .keep_all = TRUE)
+    distinct(InfrastructureID, .keep_all = TRUE)
   
   return(study_cen)
   
