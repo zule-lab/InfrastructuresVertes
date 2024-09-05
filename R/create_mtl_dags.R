@@ -206,7 +206,7 @@ create_mtl_dags <- function(){
     management ~ values, 
     management ~ income,
     labels = c(
-      'imperv' = 'Impervious Cover',
+      'veg_complexity' = 'Vegetative Complexity',
       'ruelle_size' = 'Ruelle Size',
       'vegetation_abundance' = 'Vegetation Abundance',
       'landscape_structure' = 'Landscape Structure',
@@ -231,13 +231,10 @@ create_mtl_dags <- function(){
                               .default = 'NA'))
   
   imperv <- dagify(
-    imperv ~ vegetation_abundance,
     imperv ~ management,
     imperv ~ ruelle_size,
+    imperv ~ funding,
     management ~ ruelle_size,
-    vegetation_abundance ~ landscape_structure,
-    vegetation_abundance ~ management,
-    vegetation_abundance ~ funding,
     funding ~ ruelle_type,
     ruelle_type ~ community_activity,
     ruelle_type ~ language, 
@@ -254,8 +251,9 @@ create_mtl_dags <- function(){
     management ~ values, 
     management ~ income,
     labels = c(
+      'imperv' = 'Impervious Cover',
+      'ruelle_size' = 'Size of Ruelle',
       'veg_complexity' = 'Vegetation Complexity',
-      'vegetation_abundance' = 'Vegetation Abundance',
       'landscape_structure' = 'Landscape Structure',
       'management' = 'Management',
       'funding' = 'Funding',
@@ -334,8 +332,8 @@ create_mtl_dags <- function(){
   #dag_tree_size <- plot_dag(tree_size)
   #dag_flower <- plot_dag(flower)
   
-  p <- (dag_canopy + dag_firefly + dag_tree_abund + dag_tree_div + dag_veg_complex) /
-    (dag_imperv + dag_inv) #+ dag_cooling + dag_tree_size + dag_flower)
+  p <- (dag_canopy + dag_firefly + dag_tree_div + dag_veg_complex + dag_imperv) /
+    (dag_inv + dag_tree_abund) # + dag_cooling + dag_tree_size + dag_flower)
   
   ggsave('graphics/mtl_dags.png', plot = p, width = 30, height = 25, units = "in")
   
