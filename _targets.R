@@ -48,27 +48,33 @@ targets_data <- c(
   ),
   
   tar_target(
+    census_data,
+    calc_census(da_raw, census_raw, study_rv, study_controls, can_cov_street)
+  ),
+  
+  tar_target(
     ecological_benefits,
     calc_eco_bens(study_rv, study_controls,  can_cov_street, fireflies_raw,
                   tree_traits, ruelle_description, ruelle_complexity_raw, 
-                  street_complexity_raw, trees_clean, quartiers)
+                  street_complexity_raw, trees_clean, quartiers, census_data)
   ),
   
   tar_target(
     ecosystem_services,
     calc_eco_serv(temp_dfs, tr_temp_dfs, study_rv, study_controls,
-                  can_cov_street, trees_clean, tree_traits)
-  ),
-  
-  tar_target(
-    census_data,
-    calc_census(da_raw, census_raw, study_rv, study_controls)
+                  can_cov_street, trees_clean, tree_traits, census_data)
   )
 )
 
 
 # Targets: analysis -------------------------------------------------------
 
+targets_analysis <- c(
+  
+  
+  
+  
+)
 
   
 
