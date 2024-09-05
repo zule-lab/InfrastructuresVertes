@@ -71,7 +71,7 @@ targets_data <- c(
 
 targets_analysis <- c(
   
-  
+  # ch 3 analysis add date/ruelle as random effects for cooling, neighbourhood for all models 
   
   
 )
