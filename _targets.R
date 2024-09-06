@@ -232,6 +232,11 @@ data_target <- c(
   tar_target(
     temp_can_tradeoff,
     plot_temp_can(temp_mit, study_rv, study_controls)
+  ),
+  
+  tar_target(
+    temp_17h,
+    plot_temp_17h(temp_mit)
   )
   
   
