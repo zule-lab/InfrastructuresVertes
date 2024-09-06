@@ -237,6 +237,11 @@ data_target <- c(
   tar_target(
     temp_17h,
     plot_temp_17h(temp_mit)
+  ),
+  
+  tar_target(
+    temp_var_can, 
+    plot_temp_var_can(temp_mit, study_rv, study_controls)
   )
   
   
