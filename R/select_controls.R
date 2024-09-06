@@ -14,7 +14,7 @@ select_controls <- function(can_cov_controls_bind, quartiers) {
                             RUELLE_ID == "104006389" | 
                             RUELLE_ID == "104006429" | 
                             RUELLE_ID == "104006166" | 
-                            RUELLE_ID == "104006387" |
+                            RUELLE_ID == "200438765" |
                             RUELLE_ID == "104006131" | 
                             RUELLE_ID == "104006376") %>%
     distinct(RUELLE_ID, .keep_all = T) %>%
@@ -22,19 +22,19 @@ select_controls <- function(can_cov_controls_bind, quartiers) {
   
   rv_tr <- can_cov_controls_bind %>% 
     filter(
-             RUELLE_ID == "Godbout-Jutras-1" | 
-             RUELLE_ID == "Godbout-Jutras-2" | 
-             RUELLE_ID == "Wiliams-Gingras-2" | 
-             RUELLE_ID == "Caron-St.Paul" | 
-             RUELLE_ID == "Wolfe-Amherst-2" | 
-             RUELLE_ID == "Hon.Mercier-Chapleau" | 
-             RUELLE_ID == "Montacalm-Wolfe" |
-             RUELLE_ID == "Ste.Angele-Ste.Cecile-1" | 
-             RUELLE_ID == "Ste.Angele-Ste.Cecile-4" | 
-             RUELLE_ID == "Brebeuf-Dumoulin" | 
-             RUELLE_ID == "2eAv-3eAv" | 
-             RUELLE_ID == "5eAv-6eAv" | 
-             RUELLE_ID == "Cloutier-Richard") %>%
+      RUELLE_ID == "Godbout-Jutras-1" | 
+        RUELLE_ID == "Godbout-Jutras-2" | 
+        RUELLE_ID == "Wiliams-Gingras-2" | 
+        RUELLE_ID == "Caron-St.Paul" | 
+        RUELLE_ID == "Wolfe-Amherst-2" | 
+        RUELLE_ID == "Hon.Mercier-Chapleau" | 
+        RUELLE_ID == "Montacalm-Wolfe" |
+        RUELLE_ID == "Ste.Angele-Ste.Cecile-1" | 
+        RUELLE_ID == "Ste.Angele-Ste.Cecile-4" | 
+        RUELLE_ID == "Brebeuf-Dumoulin" | 
+        RUELLE_ID == "2eAv-3eAv" | 
+        RUELLE_ID == "5eAv-6eAv" | 
+        RUELLE_ID == "Cloutier-Richard") %>%
     distinct(RUELLE_ID, .keep_all = T) %>%
     mutate(Q_socio = "Trois-Rivieres", 
            RUELLE_CODE = paste0("CON-", CODE_ARR, "-", row_number()))
