@@ -120,7 +120,7 @@ data_target <- c(
                   'input/TR_ruelles.kml',
                   canopy_path)
   ),
-   
+  
   tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
@@ -132,7 +132,7 @@ data_target <- c(
     quartiers,
     download_shp('https://donnees.montreal.ca/dataset/c8f37ad6-16ff-4cdc-9e5a-e47898656fc9/resource/d342d18e-f710-4991-a259-0092bac3d62c/download/quartiers_sociologiques_2014.zip', 'input/quartiers.zip')
   ),
-
+  
   tar_group_by(
     rv_by_ruelle,
     rv,
@@ -203,7 +203,7 @@ data_target <- c(
     veg_complexity,
     plot_veg_complexity(ruelle_complexity_raw, street_complexity_raw)
   ),
-
+  
   tar_target(
     temp_mit,
     mit_temp(temp_dfs, tr_temp_dfs, study_rv, study_controls)
@@ -227,13 +227,19 @@ data_target <- c(
   tar_target(
     temp_div_tradeoff,
     plot_temp_div(temp_plot, tree_species)
+  ),
+  
+  tar_target(
+    temp_can_tradeoff,
+    plot_temp_can(temp_mit, study_rv, study_controls)
   )
+  
   
   ##tar_target(
   #  tree_abundance,
   #  plot_tree_abund(trees_clean)
   #),
-
+  
   
 )
 
