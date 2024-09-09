@@ -72,11 +72,15 @@ targets_data <- c(
 targets_analysis <- c(
   
   # ch 3 analysis add date/ruelle as random effects for cooling, neighbourhood for all models 
-  
+  # scale data
+  # generative data? 
+  # model
+  # prior predictive 
+  # posterior predictive
   
 )
 
-  
+
 
 # Targets: plot -----------------------------------------------------------
 
