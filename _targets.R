@@ -242,6 +242,11 @@ data_target <- c(
   tar_target(
     temp_var_can, 
     plot_temp_var_can(temp_mit, study_rv, study_controls)
+  ),
+  
+  tar_target(
+    temp_can_corr,
+    plot_temp_can_corr(temp_mit, study_rv, study_controls)
   )
   
   
