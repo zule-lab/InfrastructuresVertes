@@ -159,7 +159,7 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     mutate(nTrees = if_else(is.na(nTrees), 0, nTrees))
   
   # large trees - DBH and max height
-
+  
   # replace commas with decimals 
   trees_clean$DBH <- gsub(",", ".", trees_clean$DBH, fixed = T)
   # replace plus signs with spaces 
@@ -202,7 +202,23 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
   
   # food provisioning (not possible?)
   
-  es <- list(cooling, census_trees) 
+  
+  # join cooling w other variables of interest & scale
+  cool_join <- left_join(cooling, census_trees, by = join_by("plot_id" == "InfrastructureID")) %>% 
+    rename(InfrastructureID = plot_id) %>% 
+    mutate(across(where(is.numeric), ~ scale(.x)[,1], .names = "{.col}_s"))
+  
+  # scale numeric vars & assign type/city to missing rows 
+  census_trees_s <- census_trees %>% 
+    mutate(type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
+                            str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
+                            str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
+           city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
+                            str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières'), 
+           across(where(is.numeric), ~ scale(.x)[,1], .names = "{.col}_s"))
+  
+  # save
+  es <- list(cool_join, census_trees_s) 
   names(es) <- c("cooling", "other_es")
   
   return(es)
