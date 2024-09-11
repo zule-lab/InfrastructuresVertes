@@ -72,11 +72,49 @@ targets_data <- c(
 targets_analysis <- c(
   
   # ch 3 analysis add date/ruelle as random effects for cooling, neighbourhood for all models 
+  # mtl models adjust for language and income 
   # scale data
   # generative data? 
   # model
   # prior predictive 
   # posterior predictive
+  
+  
+  zar_brms(
+    canopy_vsmpe,
+    formula = per_can_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    family = gaussian(),
+    prior = c( 
+      prior(normal(0, 0.5), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.2), class = "sd"),
+      prior(exponential(1), class = "sigma")
+    ),
+    backend = 'cmdstanr',
+    data = ecological_benefits %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    canopy_tr,
+    formula = per_can_s ~ 1 + type,
+    family = gaussian(),
+    prior = c( 
+      prior(normal(0, 0.5), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.2), class = "sd"),
+      prior(exponential(1), class = "sigma")
+    ),
+    backend = 'cmdstanr',
+    data = ecological_benefits %>% filter(city == "Trois-Rivières"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  )
+  
+  
   
 )
 
