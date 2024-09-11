@@ -45,7 +45,7 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
   can_fireflies_abund_div <- left_join(trees_clean, tree_traits, by = join_by('scientific_name' == 'latin.name')) %>% 
     group_by(InfrastructureID) %>% 
     reframe(scientific_name = unique(scientific_name),
-              functional_group = first(FunctionalGroup)) %>% 
+            functional_group = first(FunctionalGroup)) %>% 
     group_by(InfrastructureID) %>% 
     mutate(nSpecies = n()) %>% 
     reframe(functional_group = unique(functional_group),
@@ -105,9 +105,9 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
   can_fireflies_abund_div_complex_imp_inv <- left_join(trees_clean, tree_traits, by = join_by('scientific_name' == 'latin.name')) %>% 
     group_by(InfrastructureID, scientific_name) %>% 
     summarize(n = n(), 
-            Native_SLL = first(Native_SLL), 
-            Native_ETF = first(Native_ETF), 
-            Invasive = first(Invasive)) %>% 
+              Native_SLL = first(Native_SLL), 
+              Native_ETF = first(Native_ETF), 
+              Invasive = first(Invasive)) %>% 
     mutate(native_invasive = case_when(Native_SLL == 1 ~ 'nat',
                                        Native_ETF == 1 ~ 'nat',
                                        Native_SLL == 0 & Native_ETF == 0 & Invasive == 0 ~ 'nonnat',
@@ -135,6 +135,13 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
   # join with census data
   census <- inner_join(nhood, census_data %>% st_drop_geometry(), by = "InfrastructureID")
   
-  return(census)
+  # scale data 
+  scaled <- census %>% 
+    mutate(across(percent_nat:percent_unk, ~ ifelse(is.na(.x), 0, .x)),
+           across(where(is.numeric), ~ scale(.x)[,1], .names = "{.col}_s"))
+  
+  
+  
+  return(scaled)
   
 }
