@@ -79,7 +79,6 @@ targets_analysis <- c(
   # prior predictive 
   # posterior predictive
   
-  
   zar_brms(
     canopy_vsmpe,
     formula = per_can_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
@@ -104,7 +103,6 @@ targets_analysis <- c(
     prior = c( 
       prior(normal(0, 0.5), class = "b"),
       prior(normal(0, 0.5), class = "Intercept"),
-      prior(normal(0, 0.2), class = "sd"),
       prior(exponential(1), class = "sigma")
     ),
     backend = 'cmdstanr',
