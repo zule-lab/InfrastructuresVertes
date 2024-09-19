@@ -15,8 +15,11 @@ calc_census <- function(da_raw, census_raw, study_rv, study_controls, can_cov_st
   
   study <- rbind(study_controls, study_rv, can_cov_street)
   
+  da_area <- da_raw %>% 
+    mutate(area_total = st_area(geometry))
+  
   study_da <- st_transform(study, st_crs(da_raw)) %>% 
-    st_intersection(da_raw) %>% 
+    st_intersection(da_area) %>% 
     mutate(DAUID = as.integer(DAUID),
            areaint = st_area(geometry)) # area of the DA that intersects w the buffer (sq m)
   
@@ -58,7 +61,7 @@ calc_census <- function(da_raw, census_raw, study_rv, study_controls, can_cov_st
   # 2015	  No certificate, diploma or degree
   # 2016	  High (secondary) school diploma or equivalency certificate (167)
   # 2017	  Postsecondary certificate, diploma or degree
-
+  
   
   census_da_w <- census_da_f %>% pivot_wider(names_from = sofac, values_from = sonum)
   
@@ -117,8 +120,8 @@ calc_census <- function(da_raw, census_raw, study_rv, study_controls, can_cov_st
     # to calculate the approximate population within the neighbourhood bounds (assuming equal density throughout the DA)
     # divide the intersected area/total area of DA and multiply the population by that 
     # can then use this population as weight for weighted means
-    mutate(popwithin = (as.numeric(areaint)/as.numeric(area))*as.numeric(totpop)) %>% 
-    select(c("InfrastructureID","da","geometry","totpop", "popwithin", "popdens", "area", "areaint",
+    mutate(popwithin = (as.numeric(areaint)/as.numeric(area_total))*as.numeric(totpop)) %>% 
+    select(c("InfrastructureID","da","geometry","totpop", "popwithin", "popdens", "area", "area_total", "areaint",
              "medinc", "per_en", "per_fr", "per_fren", "per_no_fren", "per_non_imm", "per_imm", 
              "per_amer", "per_eur", "per_afr", "per_asia", "per_oth", 
              "per_edu_no", "per_edu_sec", "per_edu_postsec"))
