@@ -73,8 +73,6 @@ targets_analysis <- c(
   
   # ch 3 analysis add date/ruelle as random effects for cooling, neighbourhood for all models 
   # mtl models adjust for language and income 
-  # scale data
-  # generative data? 
   # model
   # prior predictive 
   # posterior predictive
@@ -84,7 +82,7 @@ targets_analysis <- c(
     formula = per_can_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
     family = gaussian(),
     prior = c( 
-      prior(normal(0, 0.5), class = "b"),
+      prior(normal(0, 0.3), class = "b"),
       prior(normal(0, 0.5), class = "Intercept"),
       prior(normal(0, 0.2), class = "sd"),
       prior(exponential(1), class = "sigma")
@@ -101,8 +99,8 @@ targets_analysis <- c(
     formula = per_can_s ~ 1 + type,
     family = gaussian(),
     prior = c( 
-      prior(normal(0, 0.5), class = "b"),
-      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.7), class = "b"),
+      prior(normal(0, 0.7), class = "Intercept"),
       prior(exponential(1), class = "sigma")
     ),
     backend = 'cmdstanr',
@@ -110,8 +108,35 @@ targets_analysis <- c(
     chains = 4,
     iter = 1000,
     cores = 4
-  )
+  ),
   
+  # prior list
+  tar_target(
+    prior_model_list,
+    list(canopy_vsmpe_brms_sample_prior, canopy_tr_brms_sample_prior) %>%
+      setNames(., c('canopy_vsmpe_prior', 'canopy_tr_prior'))
+    
+  ),
+  
+  # model list
+  tar_target(
+    model_list,
+    list(canopy_vsmpe_brms_sample, canopy_tr_brms_sample) %>%
+      setNames(., c('canopy_vsmpe', 'canopy_tr'))
+  ),
+  
+  
+  # prior checks 
+  tar_render(
+    prior_predictive,
+    'graphics/diagnostics/prior_predictive.qmd'
+  ),
+  
+  # model diagnostics
+  tar_render(
+    model_diagnostics,
+    'graphics/diagnostics/model_diagnostics.qmd'
+  )
   
   
 )
