@@ -63,3 +63,79 @@ mod <- model_list['canopy_tr']
 plot_model(mod[[1]])
 ```
 
+## Model 2: Effect of Ruelle Type on Firefly Presence in VSMPE
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['fireflies_vsmpe']
+plot_model(mod[[1]])
+```
+
+## Model 3a: Effect of Ruelle Type on Tree Species Richness in VSMPE
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['sr_vsmpe']
+plot_model(mod[[1]])
+```
+
+## Model 3b: Effect of Ruelle Type on Tree Species Richness in TR
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['sr_tr']
+plot_model(mod[[1]])
+```
+
+## Model 4a: Effect of Ruelle Type on Tree Functional Diversity in VSMPE
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['fg_vsmpe']
+plot_model(mod[[1]])
+```
+
+## Model 4b: Effect of Ruelle Type on Tree Functional Diversity in TR
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['fg_tr']
+plot_model(mod[[1]])
+```
+
+## Model 5a: Effect of Ruelle Type on Vegetative Complexity in VSMPE
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['vc_vsmpe']
+plot_model(mod[[1]])
+```
+
+## Model 5b: Effect of Ruelle Type on Vegetative Complexity in TR
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['vc_tr']
+plot_model(mod[[1]])
+```
+
+## Model 6a: Effect of Ruelle Type on Proportion of Native Stems in VSMPE
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['pn_vsmpe']
+plot_model(mod[[1]])
+```
+
+## Model 6b: Effect of Ruelle Type on Proportion of Native Stems in TR
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['pn_tr']
+plot_model(mod[[1]])
+```
+
+## Model 7a: Effect of Ruelle Type on Proportion of Invasive Stems in VSMPE
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['pi_vsmpe']
+plot_model(mod[[1]])
+```
+
+## Model 7b: Effect of Ruelle Type on Proportion of Invasive Stems in TR
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- model_list['pi_vsmpe']
+plot_model(mod[[1]])
+```

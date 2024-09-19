@@ -66,8 +66,7 @@ Prior predictive checks are used to ensure that the values selected for priors f
 
 For Trois-Rivieres, there is only a categorical predictor variable. Therefore, only the posterior predictive check is presented.
 
-## Model 1a: Canopy cover in Montreal
-
+## Model 1a: Canopy cover in Villeray-Saint Michel-Parc Extension (VSMPE)
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 mod <- prior_model_list['canopy_vsmpe_prior']
 figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Canopy Cover (%)')
@@ -76,8 +75,86 @@ plot(pp_check(mod[[1]], ndraws = 100))
 ```
 
 
-## Model 1b: Canopy cover in TR
+## Model 1b: Canopy cover in Trois-Rivieres (TR)
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 mod <- prior_model_list['canopy_tr_prior']
+plot(pp_check(mod[[1]], ndraws = 100))
+```
+
+## Model 2: Firefly presence in VSMPE 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['fireflies_vsmpe_prior']
+figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Firefly Presence')
+do.call(grid.arrange, figs)
+plot(pp_check(mod[[1]], ndraws = 100))
+```
+
+## Model 3a: Species richness in VSMPE 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['sr_vsmpe_prior']
+figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Tree Species Richness')
+do.call(grid.arrange, figs)
+plot(pp_check(mod[[1]], ndraws = 1000))
+```
+
+## Model 3b: Species richness in TR 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['sr_tr_prior']
+plot(pp_check(mod[[1]], ndraws = 1000))
+```
+
+## Model 4a: Functional richness in VSMPE 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['fg_vsmpe_prior']
+figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Tree Functional Diversity')
+do.call(grid.arrange, figs)
+plot(pp_check(mod[[1]], ndraws = 1000))
+```
+
+## Model 4b: Functional richness in TR 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['fg_tr_prior']
+plot(pp_check(mod[[1]], ndraws = 1000))
+```
+
+## Model 5a: Vegetative complexity in VSMPE 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['vc_vsmpe_prior']
+figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Vegetative Complexity')
+do.call(grid.arrange, figs)
+plot(pp_check(mod[[1]], ndraws = 1000))
+```
+
+## Model 5b: Vegetative complexity in TR 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['vc_tr_prior']
+plot(pp_check(mod[[1]], ndraws = 1000))
+```
+
+## Model 6a: Proportion native trees in VSMPE 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['pn_vsmpe_prior']
+figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Proportion Native Stems')
+do.call(grid.arrange, figs)
+plot(pp_check(mod[[1]], ndraws = 100))
+```
+
+## Model 6b: Proportion native trees in TR 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['pn_vsmpe_prior']
+plot(pp_check(mod[[1]], ndraws = 100))
+```
+
+## Model 7a: Proportion invasive trees in VSMPE 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['pi_vsmpe_prior']
+figs <- plot_prior(mod[[1]], -3, 3, 'Predicted Proportion Invasive Stems')
+do.call(grid.arrange, figs)
+plot(pp_check(mod[[1]], ndraws = 100))
+```
+
+## Model 7b: Proportion invasive trees in TR 
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+mod <- prior_model_list['pi_vsmpe_prior']
 plot(pp_check(mod[[1]], ndraws = 100))
 ```
