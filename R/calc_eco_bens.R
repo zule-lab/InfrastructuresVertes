@@ -43,15 +43,16 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
   
   # tree diversity - functional groups & SR
   can_fireflies_abund_div <- left_join(trees_clean, tree_traits, by = join_by('scientific_name' == 'latin.name')) %>% 
-    group_by(InfrastructureID) %>% 
-    reframe(scientific_name = unique(scientific_name),
-            functional_group = first(FunctionalGroup)) %>% 
+    group_by(InfrastructureID, scientific_name) %>% 
+    reframe(functional_group = first(FunctionalGroup)) %>% 
     group_by(InfrastructureID) %>% 
     mutate(nSpecies = n()) %>% 
     reframe(functional_group = unique(functional_group),
             nSpecies = first(nSpecies)) %>% 
     group_by(InfrastructureID) %>% 
     mutate(nFG = n()) %>% 
+    select(-functional_group) %>% 
+    distinct() %>% 
     right_join(., can_fireflies_abund) %>% 
     mutate(type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
                             str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
