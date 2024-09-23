@@ -71,12 +71,6 @@ targets_data <- c(
 
 targets_analysis <- c(
   
-  # ch 3 analysis add date/ruelle as random effects for cooling, neighbourhood for all models 
-  # mtl models adjust for language and income 
-  # model
-  # prior predictive 
-  # posterior predictive
-  
   zar_brms(
     canopy_vsmpe,
     formula = per_can_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
@@ -295,15 +289,156 @@ targets_analysis <- c(
     cores = 4
   ),
   
+  # TODO cooling model
+  # TODO: ecosystem_services missing Q_socio
+  # TODO: scale cooling df
+  
+  zar_brms(
+    ta_vsmpe,
+    formula = nTrees ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    family = poisson(),
+    prior = c( 
+      prior(normal(0, 0.2), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.1), class = "sd")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    ta_tr,
+    formula = nTrees ~ 1 + type,
+    family = poisson(),
+    prior = c( 
+      prior(normal(0, 0.2), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Trois-Rivières"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    dbh_vsmpe,
+    formula = meanDBH_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    family = gaussian(),
+    prior = c( 
+      prior(normal(0, 0.3), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.2), class = "sd"),
+      prior(exponential(1), class = "sigma")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    dbh_tr,
+    formula = meanDBH_s ~ 1 + type,
+    family = gaussian(),
+    prior = c( 
+      prior(normal(0, 0.7), class = "b"),
+      prior(normal(0, 0.7), class = "Intercept"),
+      prior(exponential(1), class = "sigma")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Trois-Rivières"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    hgt_vsmpe,
+    formula = mean_pt_hgt_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    family = gaussian(),
+    prior = c( 
+      prior(normal(0, 0.3), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.2), class = "sd"),
+      prior(exponential(1), class = "sigma")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    hgt_tr,
+    formula = mean_pt_hgt_s ~ 1 + type,
+    family = gaussian(),
+    prior = c( 
+      prior(normal(0, 0.7), class = "b"),
+      prior(normal(0, 0.7), class = "Intercept"),
+      prior(exponential(1), class = "sigma")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Trois-Rivières"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    pf_vsmpe,
+    formula = prop_showy_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    family = zero_one_inflated_beta(),
+    prior = c( 
+      prior(normal(0, 0.5), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(normal(0, 0.2), class = "sd"),
+      prior(gamma(0.01, 0.01), class = "phi"),
+      prior(beta(1, 1), class = "zoi"),
+      prior(beta(1, 1), class = "coi")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
+  zar_brms(
+    pf_tr,
+    formula = prop_showy_s ~ 1 + type,
+    family = zero_one_inflated_beta(),
+    prior = c( 
+      prior(normal(0, 0.5), class = "b"),
+      prior(normal(0, 0.5), class = "Intercept"),
+      prior(gamma(0.01, 0.01), class = "phi"),
+      prior(beta(1, 1), class = "zoi"),
+      prior(beta(1, 1), class = "coi")
+    ),
+    backend = 'cmdstanr',
+    data = ecosystem_services[[2]] %>% filter(city == "Trois-Rivières"),
+    chains = 4,
+    iter = 1000,
+    cores = 4
+  ),
+  
   # prior list
   tar_target(
     prior_model_list,
     list(canopy_vsmpe_brms_sample_prior, canopy_tr_brms_sample_prior, fireflies_vsmpe_brms_sample_prior, sr_vsmpe_brms_sample_prior, 
          sr_tr_brms_sample_prior, fg_vsmpe_brms_sample_prior, fg_tr_brms_sample_prior, vc_vsmpe_brms_sample_prior, vc_tr_brms_sample_prior,
-          pn_vsmpe_brms_sample_prior, pn_tr_brms_sample_prior, pi_vsmpe_brms_sample_prior, pi_tr_brms_sample_prior) %>%
+          pn_vsmpe_brms_sample_prior, pn_tr_brms_sample_prior, pi_vsmpe_brms_sample_prior, pi_tr_brms_sample_prior, ta_vsmpe_brms_sample_prior,
+         ta_tr_brms_sample_prior, ta_vsmpe_brms_sample_prior, dbh_vsmpe_brms_sample_prior, dbh_tr_brms_sample_prior, hgt_vsmpe_brms_sample_prior,
+         hgt_tr_brms_sample_prior, pf_vsmpe_brms_sample_prior, pf_tr_brms_sample_prior) %>%
       setNames(., c('canopy_vsmpe_prior', 'canopy_tr_prior', 'fireflies_vsmpe_prior', 'sr_vsmpe_prior', 'sr_tr_prior',
                     'fg_vsmpe_prior', 'fg_tr_prior', 'vc_vsmpe_prior', 'vc_tr_prior', 'pn_vsmpe_prior', 'pn_tr_prior',
-                    'pi_vsmpe_prior', 'pi_tr_prior'))
+                    'pi_vsmpe_prior', 'pi_tr_prior', 'ta_vsmpe_prior', 'ta_tr_prior', 'dbh_vsmpe_prior', 'dbh_tr_prior', 
+                    'hgt_vsmpe_prior', 'hgt_tr_prior', 'pf_vsmpe_prior', 'pf_tr_prior'))
     
   ),
   
@@ -312,9 +447,11 @@ targets_analysis <- c(
     model_list,
     list(canopy_vsmpe_brms_sample, canopy_tr_brms_sample, fireflies_vsmpe_brms_sample, sr_vsmpe_brms_sample, sr_tr_brms_sample,
          fg_vsmpe_brms_sample, fg_tr_brms_sample, vc_vsmpe_brms_sample, vc_tr_brms_sample, pn_vsmpe_brms_sample, pn_tr_brms_sample,
-         pi_vsmpe_brms_sample, pi_tr_brms_sample) %>%
+         pi_vsmpe_brms_sample, pi_tr_brms_sample, ta_vsmpe_brms_sample, ta_tr_brms_sample, ta_vsmpe_brms_sample, dbh_vsmpe_brms_sample, 
+         dbh_tr_brms_sample, hgt_vsmpe_brms_sample, hgt_tr_brms_sample, pf_vsmpe_brms_sample, pf_tr_brms_sample) %>%
       setNames(., c('canopy_vsmpe', 'canopy_tr', 'fireflies_vsmpe', 'sr_vsmpe', 'sr_tr', 'fg_vsmpe', 'fg_tr',
-                    'vc_vsmpe', 'vc_tr', 'pn_vsmpe', 'pn_tr', 'pi_vsmpe', 'pi_tr'))
+                    'vc_vsmpe', 'vc_tr', 'pn_vsmpe', 'pn_tr', 'pi_vsmpe', 'pi_tr', 'ta_vsmpe', 'ta_tr', 'dbh_vsmpe', 'dbh_tr',
+                    'hgt_vsmpe', 'hgt_tr', 'pf_vsmpe', 'pf_tr'))
   ),
   
   
