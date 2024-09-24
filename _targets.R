@@ -62,7 +62,8 @@ targets_data <- c(
   tar_target(
     ecosystem_services,
     calc_eco_serv(temp_dfs, tr_temp_dfs, study_rv, study_controls,
-                  can_cov_street, trees_clean, tree_traits, census_data)
+                  can_cov_street, trees_clean, tree_traits, census_data,
+                  quartiers)
   )
 )
 
@@ -290,8 +291,7 @@ targets_analysis <- c(
   ),
   
   # TODO cooling model
-  # TODO: ecosystem_services missing Q_socio
-  # TODO: scale cooling df
+  # TODO: Q_socio not in cooling?
   
   zar_brms(
     ta_vsmpe,
@@ -359,7 +359,7 @@ targets_analysis <- c(
   
   zar_brms(
     hgt_vsmpe,
-    formula = mean_pt_hgt_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    formula = mean_pot_hgt_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
     family = gaussian(),
     prior = c( 
       prior(normal(0, 0.3), class = "b"),
@@ -376,7 +376,7 @@ targets_analysis <- c(
   
   zar_brms(
     hgt_tr,
-    formula = mean_pt_hgt_s ~ 1 + type,
+    formula = mean_pot_hgt_s ~ 1 + type,
     family = gaussian(),
     prior = c( 
       prior(normal(0, 0.7), class = "b"),
@@ -392,7 +392,7 @@ targets_analysis <- c(
   
   zar_brms(
     pf_vsmpe,
-    formula = prop_showy_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+    formula = prop_showy ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
     family = zero_one_inflated_beta(),
     prior = c( 
       prior(normal(0, 0.5), class = "b"),
@@ -411,7 +411,7 @@ targets_analysis <- c(
   
   zar_brms(
     pf_tr,
-    formula = prop_showy_s ~ 1 + type,
+    formula = prop_showy ~ 1 + type,
     family = zero_one_inflated_beta(),
     prior = c( 
       prior(normal(0, 0.5), class = "b"),
@@ -430,10 +430,10 @@ targets_analysis <- c(
   # prior list
   tar_target(
     prior_model_list,
-    list(canopy_vsmpe_brms_sample_prior, canopy_tr_brms_sample_prior, fireflies_vsmpe_brms_sample_prior, sr_vsmpe_brms_sample_prior, 
+    list(canopy_vsmpe_brms_sample_prior, canopy_tr_brms_sample_prior, fireflies_vsmpe_brms_sample_prior, sr_vsmpe_brms_sample_prior,
          sr_tr_brms_sample_prior, fg_vsmpe_brms_sample_prior, fg_tr_brms_sample_prior, vc_vsmpe_brms_sample_prior, vc_tr_brms_sample_prior,
-          pn_vsmpe_brms_sample_prior, pn_tr_brms_sample_prior, pi_vsmpe_brms_sample_prior, pi_tr_brms_sample_prior, ta_vsmpe_brms_sample_prior,
-         ta_tr_brms_sample_prior, ta_vsmpe_brms_sample_prior, dbh_vsmpe_brms_sample_prior, dbh_tr_brms_sample_prior, hgt_vsmpe_brms_sample_prior,
+         pn_vsmpe_brms_sample_prior, pn_tr_brms_sample_prior, pi_vsmpe_brms_sample_prior, pi_tr_brms_sample_prior, ta_vsmpe_brms_sample_prior,
+         ta_tr_brms_sample_prior, dbh_vsmpe_brms_sample_prior, dbh_tr_brms_sample_prior, hgt_vsmpe_brms_sample_prior,
          hgt_tr_brms_sample_prior, pf_vsmpe_brms_sample_prior, pf_tr_brms_sample_prior) %>%
       setNames(., c('canopy_vsmpe_prior', 'canopy_tr_prior', 'fireflies_vsmpe_prior', 'sr_vsmpe_prior', 'sr_tr_prior',
                     'fg_vsmpe_prior', 'fg_tr_prior', 'vc_vsmpe_prior', 'vc_tr_prior', 'pn_vsmpe_prior', 'pn_tr_prior',
