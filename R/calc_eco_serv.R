@@ -1,5 +1,6 @@
 calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
-                          can_cov_street, trees_clean, tree_traits, census_data){
+                          can_cov_street, trees_clean, tree_traits, census_data,
+                          quartiers){
   
   # study sites 
   can_cov_street <- can_cov_street %>% 
@@ -203,11 +204,6 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
   # food provisioning (not possible?)
   
   
-  # join cooling w other variables of interest & scale
-  cool_join <- left_join(cooling, census_trees, by = join_by("plot_id" == "InfrastructureID")) %>% 
-    rename(InfrastructureID = plot_id) %>% 
-    mutate(across(where(is.numeric), ~ scale(.x)[,1], .names = "{.col}_s"))
-  
   # scale numeric vars & assign type/city to missing rows 
   census_trees_s <- census_trees %>% 
     mutate(type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
@@ -217,8 +213,23 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
                             str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières'), 
            across(where(is.numeric), ~ scale(.x)[,1], .names = "{.col}_s"))
   
+  
+  # neighbourhood
+  nhood <- census_trees_s %>% 
+    st_as_sf() %>% 
+    st_transform(st_crs(quartiers)) %>% 
+    st_join(., quartiers, by= st_intersection, left = T)  %>% 
+    select(-c(geometry.y, id, Arrondisse, Abrev, nbr_RUI, Table)) %>% 
+    # one ruelle slightly crosses over into Saint-Michel so returns duplicate but it isn't truly in SM
+    filter(!(InfrastructureID == "RV-VSMPE-20" & Q_socio == "Saint-Michel"))
+  
+  
+  # join cooling w other variables of interest & scale
+  cool_join <- left_join(cooling, nhood, by = join_by("plot_id" == "InfrastructureID")) %>% 
+    rename(InfrastructureID = plot_id) 
+  
   # save
-  es <- list(cool_join, census_trees_s) 
+  es <- list(cool_join, nhood) 
   names(es) <- c("cooling", "other_es")
   
   return(es)
