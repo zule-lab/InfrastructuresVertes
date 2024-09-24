@@ -81,7 +81,7 @@ lapply(seq_along(vsmpe), function(x){
   print(names(vsmpe[x]))
   figs <- plot_prior(vsmpe[[x]], -3, 3, paste(names(vsmpe[x])))
   do.call(grid.arrange, figs)
-  plot(pp_check(vsmpe[[x]], ndraws = 100))
+  pp_check(vsmpe[[x]], ndraws = 100)
   
 })
 
@@ -91,6 +91,8 @@ lapply(seq_along(vsmpe), function(x){
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 
 lapply(seq_along(tr), function(x){
+  
+  print(names(tr[x]))
   
   plot(pp_check(tr[[x]], ndraws = 100))
   
