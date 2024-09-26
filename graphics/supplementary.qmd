@@ -91,12 +91,45 @@ plot_model <- function(model){
 
 Table S1. Site characteristics 
 
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: table-s1
+
+tar_load(ecological_benefits)
+
+ecological_benefits %>% 
+  mutate(parallel_street = case_when(
+    InfrastructureID == 'CON-SS-TR-10' ~ '',
+    
+  ))
+  select(c(InfrastructureID, city, type, per_can, firefly_presence, npoints)) %>% 
+  mutate(type = case_when(type == 'Segments des Rues' ~ 'street segment',
+                          type == 'Ruelles Vertes' ~ 'green alley',
+                          type == 'Ruelles Traditionelles' ~ 'grey alley'))
+
+
+```
+
+
 
 
 
 Table S2. Tree species characteristics 
 
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: table-s2
 
+
+
+
+```
 
 
 
@@ -125,6 +158,13 @@ Prior predictive checks are used to ensure that the values selected for priors f
 For Trois-Rivieres, there is only a categorical predictor variable. Therefore, only the posterior predictive check is presented.
 
 ```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: prior-setup
+
+
 tar_load(prior_model_list)
 
 vsmpe <- prior_model_list[grepl("vsmpe", names(prior_model_list))] %>% 
@@ -138,7 +178,13 @@ tr <- prior_model_list[grepl("tr", names(prior_model_list))] %>%
 
 
 ## Villeray-Saint Michel-Parc Extension
-```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: prior-plots-vsmpe
+
 
 invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
@@ -152,7 +198,13 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 ```
 
 ## Trois-Rivieres
-```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: prior-plots-tr
+
 
 invisible(capture.output(lapply(seq_along(tr), function(x){
   
@@ -172,6 +224,12 @@ The first plot of the series shows trace plots for each of our parameters, where
 
 
 ```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: diagnostics-setup
+
 
 tar_load(model_list)
 
@@ -189,7 +247,13 @@ tr <- model_list[grepl("tr", names(model_list))] %>%
 
 
 ## Villeray-Saint Michel-Parc Extension
-```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: diagnostic-plots-vsmpe
+
 
 invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
@@ -200,7 +264,12 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 ```
 
 ## Trois-Rivieres
-```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: diagnostic-plots-tr
 
 invisible(capture.output(lapply(seq_along(tr), function(x){
   
