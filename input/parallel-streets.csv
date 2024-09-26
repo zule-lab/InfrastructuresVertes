@@ -1,7 +1,7 @@
-InfrastructureID,parallel_street
+ï»¿InfrastructureID,parallel_street
 CON-VSMPE-1,d'Outremont
 CON-VSMPE-2,d'Outremont
-CON-VSMPE-3,de l'Epée
+CON-VSMPE-3,de l'EpÃ©e
 CON-VSMPE-4,51e
 CON-VSMPE-5,9e
 CON-VSMPE-6,2e
@@ -16,24 +16,24 @@ CON-TR-4,Gingras
 CON-TR-5,Cloutier
 CON-TR-6,Jutras
 CON-TR-7,Jutras
-CON-TR-8,Honoré Mercier
+CON-TR-8,HonorÃ© Mercier
 CON-TR-9,Montcalm
-CON-TR-10,Ste Angèle
-CON-TR-11,Ste Angèle
+CON-TR-10,Ste AngÃ¨le
+CON-TR-11,Ste AngÃ¨le
 CON-TR-12,Williams
 CON-TR-13,Amherst
-RV-VSMPE-1,de l'Epée
+RV-VSMPE-1,de l'EpÃ©e
 RV-VSMPE-2,Durocher
-RV-VSMPE-3,de l'Epée
+RV-VSMPE-3,de l'EpÃ©e
 RV-VSMPE-4,Stuart
 RV-VSMPE-5,Hutchison
-RV-VSMPE-6,de l'Epée
+RV-VSMPE-6,de l'EpÃ©e
 RV-VSMPE-7,d'Outremont
 RV-VSMPE-8,Durocher
 RV-VSMPE-9,Bloomfield
 RV-VSMPE-10,Durocher
 RV-VSMPE-11,2e
-RV-VSMPE-12,Louis-Hébert
+RV-VSMPE-12,Louis-HÃ©bert
 RV-VSMPE-13,13e
 RV-VSMPE-14,1re
 RV-VSMPE-15,6e
@@ -56,8 +56,8 @@ RV-VSMPE-31,de Chateaubriand
 RV-VSMPE-32,de Normanville
 RV-VSMPE-33,Drolet
 RV-VSMPE-34,Casgrain
-RV-VSMPE-35,de Gaspé
-RV-VSMPE-36,de Gaspé
+RV-VSMPE-35,de GaspÃ©
+RV-VSMPE-36,de GaspÃ©
 RV-VSMPE-37,Casgrain
 RV-VSMPE-38,Chabot
 RV-VSMPE-39,Henri-Julien
@@ -65,12 +65,12 @@ RV-VSMPE-40,des Belges
 RV-TR-1,Avenue 4
 RV-TR-2,Avenue 5
 RV-TR-3,Amherst
-RV-TR-4,Honoré Mercier
-RV-TR-5,Brébeuf
+RV-TR-4,HonorÃ© Mercier
+RV-TR-5,BrÃ©beuf
 RV-TR-6,Godbout
 RV-TR-7,Godbout
 RV-TR-8,Mgr Cooke
-RV-TR-9,Ste Cécile
+RV-TR-9,Ste CÃ©cile
 RV-TR-10,St Paul
 RV-TR-11,Gingras
 RV-TR-12,Williams
