@@ -103,19 +103,6 @@ targets_analysis <- c(
       setNames(., c('canopy_vsmpe', 'canopy_tr', 'fireflies_vsmpe', 'sr_vsmpe', 'sr_tr', 'fg_vsmpe', 'fg_tr',
                     'vc_vsmpe', 'vc_tr', 'pn_vsmpe', 'pn_tr', 'pi_vsmpe', 'pi_tr', 'ta_vsmpe', 'temp_vsmpe', 'temp_tr', 
                     'ta_tr', 'dbh_vsmpe', 'dbh_tr','hgt_vsmpe', 'hgt_tr', 'pf_vsmpe', 'pf_tr'))
-  ),
-  
-  
-  # prior predictive checks 
-  tar_render(
-    prior_predictive,
-    'graphics/diagnostics/prior_predictive.qmd'
-  ),
-  
-  # model diagnostics
-  tar_render(
-    model_diagnostics,
-    'graphics/diagnostics/model_diagnostics.qmd'
   )
   
   
