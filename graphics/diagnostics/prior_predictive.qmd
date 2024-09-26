@@ -1,6 +1,10 @@
 ---
-title: "Title: "
-format: html
+title: "Paper Title"
+format:
+  html: 
+    fig-width: 40
+    fig-height: 40
+
 ---
 
 Authors: Isabella C. Richmond^1^\*, Kayleigh Hutt-Taylor^1,2^, Lauren Bianco^1^, Antonia Vieira Zanella^3^, François Bérubé^4^, Paola Faddoul^4^, Kelly Vu^4^, Étienne Perreault-Mandeville^5^, Patrick Boivin^6^, Danielle Dagenais^6^, Nathalie Boucher^5^, Thi Thanh Hiên Pham^4^, Carly D. Ziter^1^
@@ -76,26 +80,25 @@ For Trois-Rivieres, there is only a categorical predictor variable. Therefore, o
 ## Villeray-Saint Michel-Parc Extension
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 
-lapply(seq_along(vsmpe), function(x){
+invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
-  print(names(vsmpe[x]))
   figs <- plot_prior(vsmpe[[x]], -3, 3, paste(names(vsmpe[x])))
-  do.call(grid.arrange, figs)
-  pp_check(vsmpe[[x]], ndraws = 100)
   
-})
-
+  wrap_plots(figs, nrow = 2, ncol = 2) / pp_check(vsmpe[[x]], ndraws = 100) + 
+    plot_layout(nrow = 2) + 
+    plot_annotation(title = print(names(vsmpe[x])))
+  
+})))
 ```
 
 ## Trois-Rivieres
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 
-lapply(seq_along(tr), function(x){
+invisible(capture.output(lapply(seq_along(tr), function(x){
   
-  print(names(tr[x]))
+  pp_check(tr[[x]], ndraws = 100) + 
+    plot_annotation(title = print(names(tr[x])))
   
-  plot(pp_check(tr[[x]], ndraws = 100))
-  
-})
+})))
 
 ```
