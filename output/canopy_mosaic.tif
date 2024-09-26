@@ -1,0 +1,24 @@
+<VRTDataset rasterXSize="103029" rasterYSize="93308">
+  <SRS dataAxisToSRSAxisMapping="1,2">PROJCS["NAD83 / Quebec Lambert",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222100887,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["latitude_of_origin",44],PARAMETER["central_meridian",-68.5],PARAMETER["standard_parallel_1",60],PARAMETER["standard_parallel_2",46],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32198"]]</SRS>
+  <GeoTransform> -4.1039326988517575e+05,  1.0000000000000000e+00,  0.0000000000000000e+00,  2.7412386164624617e+05,  0.0000000000000000e+00, -1.0000000000000000e+00</GeoTransform>
+  <VRTRasterBand dataType="Byte" band="1">
+    <NoDataValue>-9999</NoDataValue>
+    <ColorInterp>Gray</ColorInterp>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="0">/home/icrichmond/infrastructuresvertes/input/mon-canopy.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="20481" RasterYSize="15267" DataType="Byte" BlockXSize="20481" BlockYSize="52" />
+      <SrcRect xOff="0" yOff="0" xSize="20481" ySize="15267" />
+      <DstRect xOff="0" yOff="78041" xSize="20481" ySize="15267" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="0">/home/icrichmond/infrastructuresvertes/input/tr-canopy.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="20012" RasterYSize="14972" DataType="Byte" BlockXSize="20012" BlockYSize="53" />
+      <SrcRect xOff="0" yOff="0" xSize="20012" ySize="14972" />
+      <DstRect xOff="83017" yOff="0" xSize="20012" ySize="14972" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+</VRTDataset>
