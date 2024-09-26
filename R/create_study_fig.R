@@ -44,7 +44,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     mutate(group = "Green alley")
   mont_con <- study_controls %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Traditional alley")
+    mutate(group = "Grey alley")
   
   mont <- rbind(mont_rv, mont_con)
   
@@ -87,7 +87,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     geom_sf(data = quartiers, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
     geom_sf(data = rds, colour = "black", fill = "black") + 
     scale_colour_manual(values = c(NA, "goldenrod3")) +
-    scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
+    scale_fill_manual(values = c("darkgreen", "darkgrey")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
     labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
