@@ -1,0 +1,212 @@
+---
+title: "Supplementary Information - Paper Title"
+format: html
+---
+
+Authors: Isabella C. Richmond^1^\*, Kayleigh Hutt-Taylor^1,2^, Lauren Bianco^1^, Antonia Vieira Zanella^3^, François Bérubé^4^, Paola Faddoul^4^, Kelly Vu^4^, Étienne Perreault-Mandeville^5^, Patrick Boivin^6^, Danielle Dagenais^6^, Nathalie Boucher^5^, Thi Thanh Hiên Pham^4^, Carly D. Ziter^1^
+
+1 Department of Biology, Concordia University, Montreal Canada, H4B 1R6
+
+2 Tree Canada
+
+3 Department of Geography, Federal University of Paraná, Paraná Brazil,
+
+4 Département d'études urbaines et touristiques, Université du Québec à Montréal, Montreal Canada,
+
+5 Organisme Respire
+
+6 École d'urbanisme et d'architecture de paysage, Université de Montréal, Montreal Canada
+
+\* isabella.richmond\@mail.concordia.ca
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: setup
+
+source('R/packages.R')
+
+plot_prior <- function(mod, xmin, xmax, ylab){
+  
+  # how to sequence data
+  seq_d <- seq(xmin, xmax, by = 0.5)
+  
+  # pull variables from model 
+  vars <- colnames(mod$data)[-1]
+  
+  # identify categorical variables 
+  factors <- names(Filter(is.factor,mod$data[-1]))
+  
+  # identify numeric variables 
+  numeric <- names(Filter(is.numeric,mod$data[-1]))
+  
+  figlist <- lapply(numeric, function(x){
+    
+    df <- data.frame(matrix(ncol=length(vars),nrow=0, dimnames=list(NULL, vars)))
+    
+    df %<>%
+      summarise_at(x, ~seq_d) %>%
+      bind_rows(df, .) %>%
+      mutate(across(all_of(factors), as.factor)) %>% 
+      mutate(across(all_of(numeric), ~ replace(., is.na(.), 0)))
+    
+    epred <- add_epred_draws(df, mod)
+    
+    ggplot(epred, aes(x = get(x), y = .epred)) +
+      geom_line(aes(group = .draw), alpha = 0.1) +
+      labs(y = ylab, x = x) +
+      theme_classic()
+    
+  })
+}
+
+
+plot_model <- function(model){
+    
+    # basic model fit plots
+    plot(model)
+  
+    # Gelman plot
+    ac <- as_draws_df(model) %>% 
+      mutate(chain = .chain) %>% 
+      mcmc_acf(pars = vars(b_Intercept), lags = 35)
+    
+    plot(ac)
+  
+    coda::gelman.plot(as.mcmc(model)[, "b_Intercept", ])
+  
+    # posterior check
+    plot(pp_check(model, ndraws = 100))
+  }
+
+
+```
+
+
+
+
+## Tables 
+
+Table S1. Site characteristics 
+
+
+
+
+Table S2. Tree species characteristics 
+
+
+
+
+
+
+
+
+
+
+
+## Figures 
+
+
+Figure S1. DAGS 
+
+
+
+Figure S2. Mathstats notation for my models 
+
+
+
+
+# Prior Predictive Checks 
+
+Prior predictive checks are used to ensure that the values selected for priors for our models allow a biologically reasonable range of values. For numeric predictor variables, we simulate predictive draws for prior only models and visualize the slope/intercept of the values. We then do a "posterior predictive check" but with the prior only model, to see if the data is captured in the priors. Note that all data is scaled and centered in these data.
+
+For Trois-Rivieres, there is only a categorical predictor variable. Therefore, only the posterior predictive check is presented.
+
+```{r}
+tar_load(prior_model_list)
+
+vsmpe <- prior_model_list[grepl("vsmpe", names(prior_model_list))] %>% 
+  setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
+                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+tr <- prior_model_list[grepl("tr", names(prior_model_list))] %>% 
+  setNames(., c('Canopy Cover', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
+                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+
+```
+
+
+## Villeray-Saint Michel-Parc Extension
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+
+invisible(capture.output(lapply(seq_along(vsmpe), function(x){
+  
+  figs <- plot_prior(vsmpe[[x]], -3, 3, paste(names(vsmpe[x])))
+  
+  wrap_plots(figs, nrow = 2, ncol = 2) / pp_check(vsmpe[[x]], ndraws = 100) + 
+    plot_layout(nrow = 2) + 
+    plot_annotation(title = print(names(vsmpe[x])))
+  
+})))
+```
+
+## Trois-Rivieres
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+
+invisible(capture.output(lapply(seq_along(tr), function(x){
+  
+  pp_check(tr[[x]], ndraws = 100) + 
+    plot_annotation(title = print(names(tr[x])))
+  
+})))
+
+```
+
+
+# Model Diagnostics 
+
+These model diagnostic plots assess whether the chains of our models are converged and well mixed, and if the model is well specified and has an adequate fit.
+
+The first plot of the series shows trace plots for each of our parameters, where we want to see stationary and well-mixed chains. The second plot shows an autocorrelation plot by chain and parameter. We want our autocorrelation to quickly drop to zero with increasing lag. Thirdly, the Gelman plot indicates if the chains converge, where we want the value to decrease by the end of runtime. Finally, we have the posterior predictive check where we want the black line to be within/close to the blue lines, to indicate that our model is adequately generative.
+
+
+```{r}
+
+tar_load(model_list)
+
+vsmpe <- model_list[grepl("vsmpe", names(model_list))] %>% 
+  setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
+                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+
+tr <- model_list[grepl("tr", names(model_list))] %>% 
+  setNames(., c('Canopy Cover', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
+                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+
+
+```
+
+
+
+## Villeray-Saint Michel-Parc Extension
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+
+invisible(capture.output(lapply(seq_along(vsmpe), function(x){
+  
+  plot_model(vsmpe[[x]]) + 
+    plot_annotation(title = print(names(vsmpe[x])))
+  
+})))
+```
+
+## Trois-Rivieres
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+
+invisible(capture.output(lapply(seq_along(tr), function(x){
+  
+  plot_model(tr[[x]]) 
+    plot_annotation(title = print(names(tr[x])))
+  
+})))
+
+```
