@@ -2,8 +2,8 @@ tar_model_es <- function(){
   
   c(
     zar_brms(
-      cooling_vsmpe,
-      formula = cooling_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio) + (1 | date) + (1 | tod) + (1 | InfrastructureID),
+      temp_vsmpe,
+      formula = temp_C_s ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio) + (1 | date) + (1 | tod) + (1 | InfrastructureID),
       family = gaussian(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
@@ -19,8 +19,8 @@ tar_model_es <- function(){
     ),
     
     zar_brms(
-      cooling_tr,
-      formula = cooling_s ~ 1 + type + (1 | date) + (1 | tod) + (1 | InfrastructureID),
+      temp_tr,
+      formula = temp_C_s ~ 1 + type + (1 | date) + (1 | tod) + (1 | InfrastructureID),
       family = gaussian(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
