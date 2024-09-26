@@ -89,7 +89,7 @@ plot_model <- function(model){
 
 ## Tables 
 
-Table S1. Site characteristics 
+Table S1. Site characteristics. Infrastructure ID is the unique ID assigned to each individual site, where CON indicates a grey alley, RV indicates a green alley, and SS indicates a street segment. Parallel street names one of the parallel streets to each alley, and for street segments it indicates the street segment that was sampled for each alley. City is where the sampling occurred, VSMPE = Villeray-Saint Michel-Parc Extension and TR = Trois-Rivières. Infrastructure type indicates the site type, with three potential options, green alley, grey alley, and street segment. Percent canopy indicates the percent canopy of the site in decimal form. Firefly presence is a binomial variable, where 1 indicates that fireflies were found, 0 indicates no fireflies were found, and a blank indicates that the site was not sampled for fireflies. Number of points is the number of points where vegetative complexity was sampled (i.e., number of 10 m intervals).
 
 ```{r}
 #| echo: false
@@ -100,20 +100,36 @@ Table S1. Site characteristics
 
 tar_load(ecological_benefits)
 
+strts <- read.csv('input/parallel-streets.csv', encoding = 'UTF-8') %>% 
+  mutate(street_segments = str_replace_all(InfrastructureID, c('CON-TR' = 'CON-SS-TR', 'CON-VSMPE' = 'CON-SS-VSMPE', 'RV-TR' ='RV-SS-TR', 'RV-VSMPE' = 'SS-VSMPE'))) %>% 
+  pivot_longer(cols = c(InfrastructureID, street_segments), values_to = 'InfrastructureID') %>% 
+  select(-name)
+
+
+
 ecological_benefits %>% 
-  mutate(parallel_street = case_when(
-    InfrastructureID == 'CON-SS-TR-10' ~ '',
-    
-  ))
-  select(c(InfrastructureID, city, type, per_can, firefly_presence, npoints)) %>% 
+  inner_join(., strts) %>%
+  select(c(InfrastructureID, parallel_street, city, type, per_can, firefly_presence, npoints)) %>% 
   mutate(type = case_when(type == 'Segments des Rues' ~ 'street segment',
                           type == 'Ruelles Vertes' ~ 'green alley',
-                          type == 'Ruelles Traditionelles' ~ 'grey alley'))
+                          type == 'Ruelles Traditionelles' ~ 'grey alley'),
+         city = case_when(city == 'Villeray-Saint Michel-Parc Extension' ~ 'VSMPE',
+                          city == 'Trois-Rivières' ~ 'TR')) %>% 
+  st_drop_geometry() %>% 
+  flextable() %>% 
+  set_header_labels(
+    InfrastructureID = "Infrastructure ID",
+    parallel_street = "Parallel Street",
+    city = "City",
+    type = "Infrastructure Type",
+    per_can = "Percent Canopy",
+    firefly_presence = "Firefly Presence",
+    npoints = "Number of Points"
+  ) %>% 
+  colformat_double(j = 'per_can', digits=2)
 
 
 ```
-
-
 
 
 
