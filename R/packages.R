@@ -27,6 +27,8 @@ suppressPackageStartupMessages({
   library(patchwork)
   library(gridExtra)
   
+  library(flextable)
+  
   library(osmdata)
   
   library(zarg)
