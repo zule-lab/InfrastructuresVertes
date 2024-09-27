@@ -89,7 +89,7 @@ targets_analysis <- c(
          hgt_vsmpe_brms_sample_prior, hgt_tr_brms_sample_prior, pf_vsmpe_brms_sample_prior, pf_tr_brms_sample_prior) %>%
       setNames(., c('canopy_vsmpe_prior', 'canopy_tr_prior', 'fireflies_vsmpe_prior', 'sr_vsmpe_prior', 'sr_tr_prior',
                     'fg_vsmpe_prior', 'fg_tr_prior', 'vc_vsmpe_prior', 'vc_tr_prior', 'pn_vsmpe_prior', 'pn_tr_prior',
-                    'pi_vsmpe_prior', 'pi_tr_prior', 'temp_vsmpe_prior', 'temp_ta_prior', 'ta_vsmpe_prior', 
+                    'pi_vsmpe_prior', 'pi_tr_prior', 'temp_vsmpe_prior', 'temp_tr_prior', 'ta_vsmpe_prior', 
                     'ta_tr_prior', 'dbh_vsmpe_prior', 'dbh_tr_prior', 'hgt_vsmpe_prior', 'hgt_tr_prior', 'pf_vsmpe_prior', 'pf_tr_prior'))
     
   ),
