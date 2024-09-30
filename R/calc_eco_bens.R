@@ -134,7 +134,10 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
     filter(!(InfrastructureID == "RV-VSMPE-20" & Q_socio == "Saint-Michel"))
   
   # join with census data
-  census <- inner_join(nhood, census_data %>% st_drop_geometry(), by = "InfrastructureID")
+  census_filt <- census_data %>% 
+    mutate(InfrastructureID = str_trim(InfrastructureID))
+  
+  census <- inner_join(nhood, census_filt %>% st_drop_geometry(), by = "InfrastructureID")
   
   # scale data 
   scaled <- census %>% 
