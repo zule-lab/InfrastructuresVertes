@@ -52,7 +52,6 @@ targets_data <- c(
     calc_census(da_raw, census_raw, study_rv, study_controls, can_cov_street)
   ),
   
-  #TODO: missing CON-SS-TR-6 and CON-SS-VSMPE-9
   tar_target(
     ecological_benefits,
     calc_eco_bens(study_rv, study_controls,  can_cov_street, fireflies_raw,
