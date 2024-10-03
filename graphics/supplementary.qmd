@@ -2,7 +2,11 @@
 title: "Supplementary Information - Paper Title"
 format:
   html:
+    fig-width: 15
+    fig-height: 25
     toc: true
+    toc-location: right
+    toc-depth: 3
 ---
 
 Authors: Isabella C. Richmond^1^\*, Kayleigh Hutt-Taylor^1,2^, Lauren Bianco^1^, Antonia Vieira Zanella^3^, François Bérubé^4^, Paola Faddoul^4^, Kelly Vu^4^, Étienne Perreault-Mandeville^5^, Patrick Boivin^6^, Danielle Dagenais^6^, Nathalie Boucher^5^, Thi Thanh Hiên Pham^4^, Carly D. Ziter^1^
@@ -68,7 +72,7 @@ plot_prior <- function(mod, xmin, xmax, ylab){
 plot_model <- function(model){
     
     # basic model fit plots
-    b <- plot(model)
+    b <- mcmc_trace(model)
   
     # Gelman plot
     ac <- as_draws_df(model) %>% 
@@ -87,11 +91,8 @@ plot_model <- function(model){
     pp <- pp_check(model, ndraws = 100)
     
     
-    patch <- wrap_plots(b, ncol = 1) / ac / rh / neff / pp + 
+   b / ac / rh / neff / pp + 
       plot_layout(ncol = 1) 
-    
-    return(patch)
-
 
 
   }
@@ -156,7 +157,7 @@ ecological_benefits %>%
 
 
 
-Table S2. Tree species characteristics 
+Table S2. Tree species characteristics for species found in this study. Species represents binomial nomenclature for the species, max height represents the maximum height (in metres) for the species, flowers indicate if the species has showy or non-showy flowers when in bloom, native is a binomial category that indicates if the species is native to the St Lawrence Lowlands ecoregion (1 = yes, 0 = no), invasive is a binomial category that indicates if the species is invasive to the region (1 = yes, 0 = no), functional group represents the functional group assigned by Paquette et al. for that species (Paquette et al., 2021, Praise for diversity: A functional approach to reduce risks in urban forests). Blank cells indicate that we could not find the information for that species.
 
 ```{r}
 #| echo: false
@@ -165,6 +166,25 @@ Table S2. Tree species characteristics
 #| message: false
 #| label: table-s2
 
+tar_load(tree_traits)
+
+tree_traits %>% 
+  select(-c(X, X., Native_ETF)) %>% 
+  flextable() %>% 
+  set_header_labels(
+    latin.name = "Species",
+    maximum.height = "Max Height (m)",
+    flowering = "Flowers",
+    native_SLL = "Native",
+    Invasive = "Invasive",
+    FunctionalGroup = "Functional Group"
+  ) %>% 
+  set_table_properties(
+  opts_html = list(
+    scroll = list(
+      height = "500px",
+      freeze_first_column = TRUE
+    )))
 
 
 
@@ -173,15 +193,31 @@ Table S2. Tree species characteristics
 
 
 
+Table S3. Interview data 
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: table-s3
 
 
 
+
+
+```
 
 
 ## Figures 
 
 
 Figure S1. DAGS 
+
+![](/graphics/mtl_dags_eb.png)
+Figure S1. DAGs that indicate the system assumptions for ecological benefits measured in this study. Blue indicates the response variable of interest, green indicates the variable of interest and all variables adjusted for. 
+
+![](/graphics/mtl_dags_es.png)
 
 
 
@@ -222,6 +258,8 @@ tr <- prior_model_list[grepl("tr", names(prior_model_list))] %>%
 #| eval: true
 #| warning: false
 #| message: false
+#| column: screen
+#| out-width: 100%
 #| label: prior-plots-vsmpe
 
 
@@ -242,6 +280,8 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 #| eval: true
 #| warning: false
 #| message: false
+#| column: screen
+#| out-width: 100%
 #| label: prior-plots-tr
 
 
@@ -291,6 +331,8 @@ tr <- model_list[grepl("tr", names(model_list))] %>%
 #| eval: true
 #| warning: false
 #| message: false
+#| column: screen
+#| out-width: 100%
 #| label: diagnostic-plots-vsmpe
 
 
@@ -308,13 +350,15 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 #| eval: true
 #| warning: false
 #| message: false
+#| column: screen
+#| out-width: 100%
 #| label: diagnostic-plots-tr
 
-invisible(capture.output(lapply(seq_along(tr), function(x){
+lapply(seq_along(tr), function(x){
   
   plot_model(tr[[x]]) 
     plot_annotation(title = print(names(tr[x])))
   
-})))
+})
 
 ```
