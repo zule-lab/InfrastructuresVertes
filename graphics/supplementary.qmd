@@ -157,7 +157,7 @@ ecological_benefits %>%
 
 
 
-Table S2. Tree species characteristics for species found in this study. Species represents binomial nomenclature for the species, max height represents the maximum height (in metres) for the species, flowers indicate if the species has showy or non-showy flowers when in bloom, native is a binomial category that indicates if the species is native to the St Lawrence Lowlands ecoregion (1 = yes, 0 = no), invasive is a binomial category that indicates if the species is invasive to the region (1 = yes, 0 = no), functional group represents the functional group assigned by Paquette et al. for that species (Paquette et al., 2021, Praise for diversity: A functional approach to reduce risks in urban forests). Blank cells indicate that we could not find the information for that species.
+Table S2. Tree species characteristics for species found in this study. Species represents binomial nomenclature for the species, max height represents the maximum height (in metres) for the species, flowers indicate if the species has showy or non-showy flowers when in bloom, native is a binomial category that indicates if the species is native to the St Lawrence Lowlands ecoregion (1 = yes, 0 = no), invasive is a binomial category that indicates if the species is invasive to the region (1 = yes, 0 = no), functional group represents the functional group assigned by Paquette et al. for that species (Paquette et al., 2021, Praise for diversity: A functional approach to reduce risks in urban forests). Blank cells indicate that we could not find the information for that species. 
 
 ```{r}
 #| echo: false
@@ -214,10 +214,10 @@ Table S3. Interview data
 
 Figure S1. DAGS 
 
-![](/graphics/mtl_dags_eb.png)
+![](graphics/mtl_dags_eb.png)
 Figure S1. DAGs that indicate the system assumptions for ecological benefits measured in this study. Blue indicates the response variable of interest, green indicates the variable of interest and all variables adjusted for. 
 
-![](/graphics/mtl_dags_es.png)
+![](graphics/mtl_dags_es.png)
 
 
 
