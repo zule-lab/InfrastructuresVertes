@@ -3,7 +3,7 @@ title: "Supplementary Information - Paper Title"
 format:
   html:
     fig-width: 15
-    fig-height: 25
+    fig-height: 50
     toc: true
     toc-location: right
     toc-depth: 3
@@ -69,7 +69,7 @@ plot_prior <- function(mod, xmin, xmax, ylab){
 }
 
 
-plot_model <- function(model){
+plot_model_1 <- function(model){
     
     # basic model fit plots
     b <- mcmc_trace(model)
@@ -79,6 +79,11 @@ plot_model <- function(model){
       mutate(chain = .chain) %>% 
       mcmc_acf(pars = vars(b_Intercept), lags = 35)
     
+    b / ac + 
+      plot_layout(ncol = 1) 
+}
+
+plot_model_2 <- function(model){
     # rhat values
     rhats <- brms::rhat(model)
     rh <- mcmc_rhat(rhats)
@@ -90,8 +95,8 @@ plot_model <- function(model){
     # posterior check
     pp <- pp_check(model, ndraws = 100)
     
-    
-   b / ac / rh / neff / pp + 
+   
+   rh / neff / pp + 
       plot_layout(ncol = 1) 
 
 
@@ -212,12 +217,11 @@ Table S3. Interview data
 ## Figures 
 
 
-Figure S1. DAGS 
+![](mtl_dags_eb.png)
+Figure S1a. DAGs that indicate the system assumptions for ecological benefits measured in this study. Blue indicates the response variable of interest, green indicates the variable of interest and all variables adjusted for. 
 
-![](graphics/mtl_dags_eb.png)
-Figure S1. DAGs that indicate the system assumptions for ecological benefits measured in this study. Blue indicates the response variable of interest, green indicates the variable of interest and all variables adjusted for. 
-
-![](graphics/mtl_dags_es.png)
+![](mtl_dags_es.png)
+Figure S1b. DAGs that indicate the system assumptions for ecosystem services measured in this study. Blue indicates the response variable of interest, green indicates the variable of interest and all variables adjusted for. 
 
 
 
@@ -338,8 +342,12 @@ tr <- model_list[grepl("tr", names(model_list))] %>%
 
 invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
-  plot_model(vsmpe[[x]]) + 
+  plot_model_1(vsmpe[[x]]) + 
     plot_annotation(title = print(names(vsmpe[x])))
+  
+  plot_model_2(vsmpe[[x]])
+  
+  
   
 })))
 ```
@@ -354,11 +362,15 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 #| out-width: 100%
 #| label: diagnostic-plots-tr
 
-lapply(seq_along(tr), function(x){
+invisible(capture.output(lapply(seq_along(tr), function(x){
   
-  plot_model(tr[[x]]) 
+  plot_model_1(tr[[x]]) + 
     plot_annotation(title = print(names(tr[x])))
   
-})
+  plot_model_2(tr[[x]])
+  
+  
+  
+})))
 
 ```
