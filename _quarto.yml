@@ -1,2 +1,3 @@
 project:
   execute-dir: project
+  type: website
