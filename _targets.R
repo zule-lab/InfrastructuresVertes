@@ -186,7 +186,7 @@ data_target <- c(
   
   tar_target(
     figure_1,
-    create_figure_1(study_rv, study_controls, insects, quartiers)
+    create_figure_1(study_rv, study_controls, quartiers)
   ),
   
   tar_target(

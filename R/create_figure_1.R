@@ -1,17 +1,50 @@
-create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
+create_figure_1 <- function(study_rv, study_controls, quartiers){
   
   rds <- st_read(file.path("/vsizip", 'input/roads.zip')) %>% 
     filter(CATEGORIEC == 'Autoroute')
   
   quartiers_tr <- read_sf('input/Quartiers_3R/Quartier_3R.shp')
   
+  # Insect ruelles ----------------------------------------------------------
+  
+  all <- rbind(study_rv, study_controls)
+  
+  insects <- all %>%
+    filter(RUELLE_CODE == "RV-VSMPE-2" | 
+             RUELLE_CODE == "RV-VSMPE-3" | 
+             RUELLE_CODE == "RV-VSMPE-6" | 
+             RUELLE_CODE == "RV-VSMPE-8" | 
+             RUELLE_CODE == "RV-VSMPE-10" | 
+             RUELLE_CODE == "RV-VSMPE-30" | 
+             RUELLE_CODE == "RV-VSMPE-22" | 
+             RUELLE_CODE == "RV-VSMPE-39" | 
+             RUELLE_CODE == "RV-VSMPE-29" |
+             RUELLE_CODE == "RV-VSMPE-35" |
+             RUELLE_CODE == "RV-VSMPE-26" |
+             RUELLE_CODE == "RV-VSMPE-31" |
+             RUELLE_CODE == "RV-VSMPE-36" |
+             RUELLE_CODE == "RV-VSMPE-25" |
+             RUELLE_CODE == "RV-VSMPE-23" |
+             RUELLE_CODE == "RV-VSMPE-32" |
+             RUELLE_CODE == "RV-VSMPE-40" |
+             RUELLE_CODE == "RV-VSMPE-13" |
+             RUELLE_CODE == "RV-VSMPE-16" |
+             RUELLE_CODE == "RV-VSMPE-17" |
+             RUELLE_CODE == "RV-VSMPE-20" |
+             RUELLE_CODE == "RV-VSMPE-21" |
+             RUELLE_CODE == "CON-VSMPE-1" |
+             RUELLE_CODE == "CON-VSMPE-7" |
+             RUELLE_CODE == "CON-VSMPE-8" |
+             RUELLE_CODE == "CON-VSMPE-10" |
+             RUELLE_CODE == "CON-VSMPE-4" )
+  
   # Data separation ---------------------------------------------------------
   mont_rv <- study_rv %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Ruelle Verte")
+    mutate(group = "Ruelle verte")
   mont_con <- study_controls %>% 
     filter(CODE_ARR == "VSMPE") %>% 
-    mutate(group = "Ruelle Traditionelle")
+    mutate(group = "Ruelle grise")
   
   mont <- rbind(mont_rv, mont_con)
   
@@ -29,10 +62,10 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
   
   tr_rv <- study_rv %>% 
     filter(CODE_ARR == "TR") %>% 
-    mutate(group = "Rruelle Verte")
+    mutate(group = "Ruelle verte")
   tr_con <- study_controls %>% 
     filter(CODE_ARR == "TR") %>%
-    mutate(group = "Ruelle Traditionelle")
+    mutate(group = "Ruelle grise")
   tr <- rbind(tr_rv, tr_con)
   
   tr_pts <- st_centroid(tr)
@@ -57,7 +90,7 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
     scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
-    labs(fill = "", colour = "Lucioles", size = "Pourcentage de \ncanopée") + 
+    labs(fill = "", colour = "Lucioles", size = "Pourcentage de canopée") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
           panel.background = element_rect(fill = '#f3e3bf'),
           panel.grid = element_blank(),
@@ -65,8 +98,9 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
           axis.title = element_blank(),
           legend.text = element_text(size = 16),
           legend.title = element_text(size = 16),
+          legend.background = element_rect(fill = NA, colour = NA), 
           plot.background = element_rect(fill = NA, colour = NA),
-          legend.position = 'top')
+          legend.position = 'right')
   
   
   # 3R map ------------------------------------------------------------------
@@ -110,14 +144,14 @@ create_figure_1 <- function(study_rv, study_controls, insects, quartiers){
           plot.background = element_rect(fill = NA, colour = NA))
   
   
-  legend <- get_legend(main)
+  legend <- get_plot_component(main, pattern = "guide-box-right")
   
-  full <- plot_grid(legend, 
-                    plot_grid(main + theme(legend.position = 'none'),
-                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 18, vjust = 0.2), 
-                    nrow = 2, rel_heights = c(1,5))
+  full <- plot_grid(plot_grid(main + theme(legend.position = 'none'),
+                              trmap, align = 'h', labels = c('a) Montréal', 'b) Trois-Rivières'), label_size = 18), 
+                    legend, 
+                    nrow = 1, rel_widths = c(4,1))
   
-  ggsave('graphics/studymap.png', full, width = 14, height = 13, units = 'in', dpi = 450)
+  ggsave('graphics/studymap.png', full, width = 18, height = 12, units = 'in', dpi = 450)
   
   return(full)
 }
