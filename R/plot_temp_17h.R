@@ -25,9 +25,12 @@ plot_temp_17h <- function(cooling){
     geom_line(data = df[df$type == "Ruelle verte",], aes(color = "Ruelle verte"), alpha = 0.2) +
     geom_line(data = df[df$type == "Ruelle traditionelle",], aes(color = "Moyenne ruelle\ntraditionelle")) +
     scale_colour_manual(values = c("red", "grey20")) +
-    labs(x = "", colour = "", y = "Température à 17h00 (\u00B0C)", subtitle = "a) Villeray-Saint Michel-Parc Extension") +
+    labs(x = "", colour = "", y = "Température à 17h00 (\u00B0C)", title = "a) Villeray-Saint Michel-Parc Extension") +
     theme_classic() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 12),
+          axis.text.y = element_text(size = 12),
+          legend.text = element_text(size = 12), 
+          axis.title = element_text(size = 12))
   
   
   tr <- cooling %>%
@@ -55,9 +58,12 @@ plot_temp_17h <- function(cooling){
     geom_line(data = df_tr[df_tr$type == "Ruelle verte",], aes(color = "Ruelle verte"), alpha = 0.2) +
     geom_line(data = df_tr[df_tr$type == "Ruelle grise",], aes(color = "Moyenne ruelle\n grise")) +
     scale_colour_manual(values = c("red", "grey20")) +
-    labs(x = "", colour = "", y = "Température à 17h00 (\u00B0C)", subtitle = "b) Trois-Rivières") +
+    labs(x = "", colour = "", y = "Température à 17h00 (\u00B0C)", title = "b) Trois-Rivières") +
     theme_classic() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 12),
+          axis.text.y = element_text(size = 12),
+          legend.text = element_text(size = 12), 
+          axis.title = element_text(size = 12))
   
   
   pt <- p / p2 
