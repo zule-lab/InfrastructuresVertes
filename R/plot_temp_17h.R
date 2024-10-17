@@ -4,8 +4,8 @@ plot_temp_17h <- function(cooling){
     filter(str_detect(plot_id, 'VSMPE') == T) %>%
     separate(date_time, c("date", "time"), sep = " ") %>%
     filter(time == '17:00:00') %>%
-    mutate(type = case_when(str_detect(plot_id, "CON") == T ~ 'Ruelle Traditionelle',
-                            str_detect(plot_id, "RV") == T ~ 'Ruelle Verte')) %>%
+    mutate(type = case_when(str_detect(plot_id, "CON") == T ~ 'Ruelle traditionelle',
+                            str_detect(plot_id, "RV") == T ~ 'Ruelle verte')) %>%
     select(c(date, type, plot_id, temp_C))
   
   con <- cooling %>%
@@ -15,15 +15,15 @@ plot_temp_17h <- function(cooling){
     group_by(date) %>%
     distinct(con_id, .keep_all = T) %>%
     summarize(temp_C = mean(temp_C_con),
-              type ='Ruelle Traditionelle',
+              type ='Ruelle traditionelle',
               plot_id = 'control_group')
   
   df <- rbind(con, t)
   
   
   p <- ggplot(df, aes(date, temp_C, group = plot_id)) +
-    geom_line(data = df[df$type == "Ruelle Verte",], aes(color = "Ruelle Verte"), alpha = 0.2) +
-    geom_line(data = df[df$type == "Ruelle Traditionelle",], aes(color = "Moyenne Ruelle\nTraditionelle")) +
+    geom_line(data = df[df$type == "Ruelle verte",], aes(color = "Ruelle verte"), alpha = 0.2) +
+    geom_line(data = df[df$type == "Ruelle traditionelle",], aes(color = "Moyenne ruelle\ntraditionelle")) +
     scale_colour_manual(values = c("red", "grey20")) +
     labs(x = "", colour = "", y = "Température à 17h00 (\u00B0C)", subtitle = "a) Villeray-Saint Michel-Parc Extension") +
     theme_classic() +
@@ -52,8 +52,8 @@ plot_temp_17h <- function(cooling){
   
   
   p2 <- ggplot(df_tr, aes(date, temp_C, group = plot_id)) +
-    geom_line(data = df[df$type == "Ruelle verte",], aes(color = "Ruelle verte"), alpha = 0.2) +
-    geom_line(data = df[df$type == "Ruelle grise",], aes(color = "Moyenne ruelle\n grise")) +
+    geom_line(data = df_tr[df_tr$type == "Ruelle verte",], aes(color = "Ruelle verte"), alpha = 0.2) +
+    geom_line(data = df_tr[df_tr$type == "Ruelle grise",], aes(color = "Moyenne ruelle\n grise")) +
     scale_colour_manual(values = c("red", "grey20")) +
     labs(x = "", colour = "", y = "Température à 17h00 (\u00B0C)", subtitle = "b) Trois-Rivières") +
     theme_classic() +
