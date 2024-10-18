@@ -247,13 +247,13 @@ data_target <- c(
   tar_target(
     temp_can_corr,
     plot_temp_can_corr(temp_mit, study_rv, study_controls)
+  ),
+  
+  
+  tar_target(
+    tree_abundance,
+    plot_tree_abund(trees_clean)
   )
-  
-  
-  ##tar_target(
-  #  tree_abundance,
-  #  plot_tree_abund(trees_clean)
-  #),
   
   
 )
