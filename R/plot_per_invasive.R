@@ -28,7 +28,8 @@ plot_per_invasive <- function(trees_clean, tree_traits){
     group_by(InfrastructureID, city) %>%
     distinct(type) %>% 
     left_join(per_inv, by = "InfrastructureID") %>%
-    mutate(percent = ifelse(is.na(percent), 0, percent))
+    mutate(percent = ifelse(is.na(percent), 0, percent)) %>% 
+    filter(!is.na(native_invasive))
   
   labls <- c("Espèces invasives", "Espèces indigènes")
   names(labls) <- c("inv", "nat")
