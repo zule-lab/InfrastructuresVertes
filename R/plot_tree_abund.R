@@ -6,9 +6,9 @@ plot_tree_abund <- function(trees_raw){
            Genus = replace_na(Genus, 'Unknown'),
            Species = replace_na(Species, 'sp.'),
            scientific_name = paste(Genus, Species, sep = " "),
-           type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
-                            str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
-                            str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
+           type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles vertes',
+                            str_detect(InfrastructureID, 'SS') == T ~ 'Segments des rues',
+                            str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles grises'),
            city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
                             str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières')) %>% 
     drop_na(DBH) 
