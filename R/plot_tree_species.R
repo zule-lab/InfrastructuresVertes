@@ -1,11 +1,11 @@
-plot_tree_species <- function(tree_div, temp_plot){
+plot_tree_species <- function(tree_div){
     
   # pull out type of GI and city
   trees <- tree_div %>% 
   mutate(InfrastructureID = str_replace(InfrastructureID, "RV-SS", "SS"),
-         type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
-                          str_detect(InfrastructureID, 'SS') == T ~ 'Segments des Rues',
-                          str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles Traditionelles'),
+         type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles vertes',
+                          str_detect(InfrastructureID, 'SS') == T ~ 'Segments des rues',
+                          str_detect(InfrastructureID, 'CON') == T ~ 'Ruelles grises'),
          city = case_when(str_detect(InfrastructureID, 'VSMPE') == T ~ 'Villeray-Saint Michel-Parc Extension',
                           str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières'),
          InfrastructureID = str_replace(InfrastructureID, "-0", "-"))
