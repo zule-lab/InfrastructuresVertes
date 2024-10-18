@@ -297,10 +297,19 @@ data_target <- c(
     plot_per_invasive(trees_clean, tree_traits)
   ),
   
-  #TODO:
   tar_target(
     plot_can, 
     plot_canopy_cov(study_rv, study_controls, can_cov_street)
+  ),
+  
+  tar_target(
+    max_height,
+    plot_max_height(trees_clean, tree_traits)
+  ),
+  
+  tar_target(
+    prop_showy, 
+    plot_prop_showy(trees_clean, tree_traits)
   )
   
   
