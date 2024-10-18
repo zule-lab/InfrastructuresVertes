@@ -23,11 +23,18 @@ plot_per_invasive <- function(trees_clean, tree_traits){
                             str_detect(InfrastructureID, 'TR') == T ~ 'Trois-Rivières')) %>% 
     filter(native_invasive != 'nonnat')
   
+  
+  full_df <- trees_clean %>% 
+    group_by(InfrastructureID, city) %>%
+    distinct(type) %>% 
+    left_join(per_inv, by = "InfrastructureID") %>%
+    mutate(percent = ifelse(is.na(percent), 0, percent))
+  
   labls <- c("Espèces invasives", "Espèces indigènes")
   names(labls) <- c("inv", "nat")
   
   
-  plot <- ggplot(per_inv, aes(x = type, y = percent, colour = city)) + 
+  plot <- ggplot(full_df, aes(x = type.x, y = percent, colour = city.x)) + 
     geom_boxplot() + 
     geom_point(position=position_jitterdodge()) + 
     scale_colour_manual(values = c("#6e948c", "#122c43")) +
