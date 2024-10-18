@@ -50,6 +50,30 @@ data_target <- c(
     read.csv(!!.x)
   ),
   
+  tar_file_read(
+    tree_traits,
+    'input/field_data/tree-traits.csv',
+    read.csv(!!.x)
+  ),
+  
+  tar_file_read(
+    tr_sidewalks, 
+    'input/tr_sidewalks.gpkg',
+    read_sf(!!.x)
+  ),
+  
+  tar_file_read(
+    street_segments_rv,
+    'input/study_street-segments.kml',
+    read_sf(!!.x)
+  ),
+  
+  tar_file_read(
+    street_segments_control,
+    'input/control_street-segments.kml',
+    read_sf(!!.x)
+  ),
+  
   tar_files(
     temp_files,
     dir('input/field_data/temperature-data', full.names = TRUE)
@@ -122,6 +146,14 @@ data_target <- c(
   ),
   
   tar_target(
+    sidewalks, 
+    download_shp('https://donnees.montreal.ca/dataset/cbea9e7b-9808-42b3-ac05-7d4313a65f98/resource/9847d07e-cc3d-42c0-a42f-c94ddca24a8a/download/voi_trottoir_s_t12_shp.zip',
+                 'input/sidewalks.zip') %>% 
+      filter(CATEGORIET == "Trottoir") %>% 
+      st_intersection(., quartiers %>% filter(Arrondisse == "Villeray–Saint-Michel–Parc-Extension"))
+  ),
+  
+  tar_target(
     survey_rv,
     read_sf('input/VSMPE_surveys_ruelles-vertes.kml') %>%
       select(-description) %>%
@@ -167,6 +199,11 @@ data_target <- c(
   tar_target(
     can_cov_controls_bind,
     do.call(rbind, can_cov_controls)
+  ),
+  
+  tar_target(
+    can_cov_street,
+    calc_can_street(street_segments_rv, street_segments_control, sidewalks, tr_sidewalks, canopy_path)
   ),
   
   tar_target(
@@ -253,6 +290,17 @@ data_target <- c(
   tar_target(
     tree_abundance,
     plot_tree_abund(trees_clean)
+  ),
+  
+  tar_target(
+    per_invasive,
+    plot_per_invasive(trees_clean, tree_traits)
+  ),
+  
+  #TODO:
+  tar_target(
+    plot_can, 
+    plot_canopy_cov(study_rv, study_controls, can_cov_street)
   )
   
   
