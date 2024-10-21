@@ -43,7 +43,7 @@ plot_prior <- function(mod, xmin, xmax, ylab){
   vars <- colnames(mod$data)[-1]
   
   # identify categorical variables 
-  factors <- names(Filter(is.factor,mod$data[-1]))
+  factors <- names(Filter(is.character,mod$data[-1]))
   
   # identify numeric variables 
   numeric <- names(Filter(is.numeric,mod$data[-1]))
@@ -66,6 +66,23 @@ plot_prior <- function(mod, xmin, xmax, ylab){
       theme_classic()
     
   })
+  
+  cat_figlist <- lapply(factors, function(x){
+  
+  
+  mod$data %>% 
+    data_grid(type = get(x)) %>% 
+    add_epred_draws(mod) %>% 
+    ggplot(aes(x = .epred, y = get(x))) +
+    geom_jitter(alpha = 0.2, colour = 'darkgrey') +
+    geom_boxplot(outlier.shape = NA, alpha = 0, linewidth = 1) +
+    coord_flip() + 
+    labs(x = ylab, y = "") + 
+    theme_classic()
+    })
+  
+  list <- c(figlist, cat_figlist)
+  
 }
 
 
@@ -95,8 +112,8 @@ plot_model_2 <- function(model){
     # posterior check
     pp <- pp_check(model, ndraws = 100)
     
-   
-   rh / neff / pp + 
+    
+    rh / neff / pp + 
       plot_layout(ncol = 1) 
 
 
@@ -271,8 +288,7 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
   figs <- plot_prior(vsmpe[[x]], -3, 3, paste(names(vsmpe[x])))
   
-  wrap_plots(figs, nrow = 2, ncol = 2) / pp_check(vsmpe[[x]], ndraws = 100) + 
-    plot_layout(nrow = 2) + 
+  wrap_plots(figs, nrow = 3, ncol = 2) + 
     plot_annotation(title = print(names(vsmpe[x])))
   
 })))
@@ -291,7 +307,9 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 
 invisible(capture.output(lapply(seq_along(tr), function(x){
   
-  pp_check(tr[[x]], ndraws = 100) + 
+  figs <- plot_prior(tr[[x]], -3, 3, paste(names(tr[x])))
+  
+  wrap_plots(figs, nrow = 1, ncol = 1) + 
     plot_annotation(title = print(names(tr[x])))
   
 })))
