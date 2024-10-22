@@ -44,6 +44,8 @@ plot_prior <- function(mod, xmin, xmax, ylab){
   
   # identify categorical variables 
   factors <- names(Filter(is.character,mod$data[-1]))
+  # remove any that are random effects 
+  factors <- factors[! factors %in% mod$ranef$group]
   
   # identify numeric variables 
   numeric <- names(Filter(is.numeric,mod$data[-1]))
@@ -68,18 +70,24 @@ plot_prior <- function(mod, xmin, xmax, ylab){
   })
   
   cat_figlist <- lapply(factors, function(x){
+    
+    md <- mod$data %>% 
+      data_grid(type = get(x))
+    
+    
+    df <- data.frame(matrix(ncol=length(numeric),nrow= nrow(md), dimnames=list(NULL, numeric))) %>% 
+      cbind(., md) %>% 
+      mutate(across(all_of(numeric), ~ replace(., is.na(.), 0))) %>% 
+      add_epred_draws(mod, re_formula = NA)  %>% 
+      ggplot(aes(x = .epred, y = get(x))) +
+      geom_jitter(alpha = 0.2, colour = 'darkgrey') +
+      geom_boxplot(outlier.shape = NA, alpha = 0, linewidth = 1) +
+      coord_flip() + 
+      labs(x = ylab, y = "") + 
+      theme_classic()
+    
   
-  
-  mod$data %>% 
-    data_grid(type = get(x)) %>% 
-    add_epred_draws(mod) %>% 
-    ggplot(aes(x = .epred, y = get(x))) +
-    geom_jitter(alpha = 0.2, colour = 'darkgrey') +
-    geom_boxplot(outlier.shape = NA, alpha = 0, linewidth = 1) +
-    coord_flip() + 
-    labs(x = ylab, y = "") + 
-    theme_classic()
-    })
+  })
   
   list <- c(figlist, cat_figlist)
   
@@ -363,11 +371,17 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   plot_model_1(vsmpe[[x]]) + 
     plot_annotation(title = print(names(vsmpe[x])))
   
+})))
+
+
+invisible(capture.output(lapply(seq_along(vsmpe), function(x){
+  
   plot_model_2(vsmpe[[x]])
   
-  
-  
 })))
+
+
+
 ```
 
 ## Trois-Rivieres
@@ -385,9 +399,12 @@ invisible(capture.output(lapply(seq_along(tr), function(x){
   plot_model_1(tr[[x]]) + 
     plot_annotation(title = print(names(tr[x])))
   
+})))
+
+
+invisible(capture.output(lapply(seq_along(tr), function(x){
+  
   plot_model_2(tr[[x]])
-  
-  
   
 })))
 
