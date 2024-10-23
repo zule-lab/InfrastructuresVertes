@@ -2,8 +2,6 @@
 title: "Supplementary Information - Paper Title"
 format:
   html:
-    fig-width: 15
-    fig-height: 50
     toc: true
     toc-location: right
     toc-depth: 3
@@ -43,7 +41,7 @@ plot_prior <- function(mod, xmin, xmax, ylab){
   vars <- colnames(mod$data)[-1]
   
   # identify categorical variables 
-  factors <- names(Filter(is.character,mod$data[-1]))
+  factors <- names(Filter(is.character ,mod$data[-1]))
   # remove any that are random effects 
   factors <- factors[! factors %in% mod$ranef$group]
   
@@ -105,7 +103,7 @@ plot_model_1 <- function(model){
       mcmc_acf(pars = vars(b_Intercept), lags = 35)
     
     b / ac + 
-      plot_layout(ncol = 1) 
+      plot_layout(ncol = 1, heights = c(3,1)) 
 }
 
 plot_model_2 <- function(model){
@@ -362,23 +360,22 @@ tr <- model_list[grepl("tr", names(model_list))] %>%
 #| warning: false
 #| message: false
 #| column: screen
-#| out-width: 100%
+#| fig-width: 20
+#| fig-height: 20
 #| label: diagnostic-plots-vsmpe
 
 
 invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
-  plot_model_1(vsmpe[[x]]) + 
-    plot_annotation(title = print(names(vsmpe[x])))
+  p1 <- plot_model_1(vsmpe[[x]]) 
+  
+  p2 <- plot_model_2(vsmpe[[x]])
+  
+  wrap_plots(p1, p2, ncol = 1) + plot_annotation(title = print(names(vsmpe[x])), theme = theme(plot.title = element_text(size = 16)))
   
 })))
 
 
-invisible(capture.output(lapply(seq_along(vsmpe), function(x){
-  
-  plot_model_2(vsmpe[[x]])
-  
-})))
 
 
 
@@ -391,21 +388,19 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 #| warning: false
 #| message: false
 #| column: screen
-#| out-width: 100%
+#| fig-height: 20
+#| fig-width: 20
 #| label: diagnostic-plots-tr
 
 invisible(capture.output(lapply(seq_along(tr), function(x){
   
-  plot_model_1(tr[[x]]) + 
-    plot_annotation(title = print(names(tr[x])))
+  p1 <- plot_model_1(tr[[x]]) 
+  
+  p2 <- plot_model_2(tr[[x]])
+  
+  wrap_plots(p1, p2, ncol = 1) + plot_annotation(title = print(names(tr[x])), theme = theme(plot.title = element_text(size = 16)))
   
 })))
 
-
-invisible(capture.output(lapply(seq_along(tr), function(x){
-  
-  plot_model_2(tr[[x]])
-  
-})))
 
 ```
