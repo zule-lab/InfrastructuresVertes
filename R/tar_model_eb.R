@@ -198,8 +198,7 @@ tar_model_eb <- function(){
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 0.5), class = "Intercept"),
-        prior(gamma(0.01, 0.01), class = "phi")
+        prior(normal(0, 0.5), class = "Intercept")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Trois-Rivières"),
