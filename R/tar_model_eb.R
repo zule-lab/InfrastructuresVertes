@@ -146,15 +146,12 @@ tar_model_eb <- function(){
     
     zar_brms(
       pn_vsmpe,
-      formula = percent_nat ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
-      family = zero_one_inflated_beta(),
+      formula = number_trees_nat | trials(total_trees) ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+      family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
         prior(normal(0, 0.5), class = "Intercept"),
-        prior(normal(0, 0.2), class = "sd"),
-        prior(gamma(0.01, 0.01), class = "phi"),
-        prior(beta(1, 1), class = "zoi"),
-        prior(beta(1, 1), class = "coi")
+        prior(normal(0, 0.2), class = "sd")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
@@ -165,14 +162,11 @@ tar_model_eb <- function(){
     
     zar_brms(
       pn_tr,
-      formula = percent_nat ~ 1 + type,
-      family = zero_one_inflated_beta(),
+      formula = number_trees_nat | trials(total_trees) ~ 1 + type,
+      family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 0.5), class = "Intercept"),
-        prior(gamma(0.01, 0.01), class = "phi"),
-        prior(beta(1, 1), class = "zoi"),
-        prior(beta(1, 1), class = "coi")
+        prior(normal(0, 0.5), class = "Intercept")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Trois-Rivières"),
@@ -184,15 +178,12 @@ tar_model_eb <- function(){
     
     zar_brms(
       pi_vsmpe,
-      formula = percent_inv ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
-      family = zero_one_inflated_beta(),
+      formula = number_trees_inv | trials(total_trees) ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+      family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
         prior(normal(0, 0.5), class = "Intercept"),
-        prior(normal(0, 0.2), class = "sd"),
-        prior(gamma(0.01, 0.01), class = "phi"),
-        prior(beta(1, 1), class = "zoi"),
-        prior(beta(1, 1), class = "coi")
+        prior(normal(0, 0.2), class = "sd")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
@@ -203,14 +194,12 @@ tar_model_eb <- function(){
     
     zar_brms(
       pi_tr,
-      formula = percent_inv ~ 1 + type,
-      family = zero_one_inflated_beta(),
+      formula = number_trees_inv | trials(total_trees) ~ 1 + type,
+      family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
         prior(normal(0, 0.5), class = "Intercept"),
-        prior(gamma(0.01, 0.01), class = "phi"),
-        prior(beta(1, 1), class = "zoi"),
-        prior(beta(1, 1), class = "coi")
+        prior(gamma(0.01, 0.01), class = "phi")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Trois-Rivières"),

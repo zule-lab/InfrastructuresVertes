@@ -118,9 +118,9 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
     group_by(InfrastructureID, native_invasive) %>% 
     summarize(total_trees = first(total_trees), 
               group_trees = sum(n),
-              percent = group_trees/total_trees) %>% 
-    pivot_wider(id_cols = InfrastructureID, names_from = native_invasive, values_from = percent, names_prefix = "percent_") %>% 
-    rename(percent_unk = percent_NA) %>% 
+              percent = group_trees/total_trees)  %>%
+    pivot_wider(id_cols = c(InfrastructureID, total_trees), names_from = native_invasive, values_from = group_trees, names_prefix = 'number_trees_') %>% 
+    rename(number_trees_unknown = number_trees_NA) %>% 
     right_join(., can_fireflies_abund_div_complex_imp)
   
   
@@ -141,7 +141,7 @@ calc_eco_bens <- function(study_rv, study_controls,  can_cov_street, fireflies_r
   
   # scale data 
   scaled <- census %>% 
-    mutate(across(percent_nat:percent_unk, ~ ifelse(is.na(.x), 0, .x)),
+    mutate(across(total_trees:number_trees_unknown, ~ ifelse(is.na(.x), 0, .x)),
            across(where(is.numeric), ~ scale(.x)[,1], .names = "{.col}_s"))
   
   
