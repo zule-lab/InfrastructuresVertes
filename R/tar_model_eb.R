@@ -86,7 +86,7 @@ tar_model_eb <- function(){
       formula = nFG ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
       family = negbinomial(),
       prior = c( 
-        prior(normal(0, 0.5), class = "b"),
+        prior(normal(0, 0.2), class = "b"),
         prior(normal(0, 0.5), class = "Intercept"),
         prior(normal(0, 0.1), class = "sd")
       ),
