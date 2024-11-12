@@ -102,7 +102,7 @@ tar_model_eb <- function(){
       formula = nFG ~ 1 + type,
       family = poisson(),
       prior = c( 
-        prior(normal(0, 0.2), class = "b"),
+        prior(normal(0, 0.5), class = "b"),
         prior(normal(0, 0.5), class = "Intercept")
       ),
       backend = 'cmdstanr',
@@ -150,7 +150,7 @@ tar_model_eb <- function(){
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 0.5), class = "Intercept"),
+        prior(normal(0, 1.5), class = "Intercept"),
         prior(normal(0, 0.2), class = "sd")
       ),
       backend = 'cmdstanr',
@@ -166,7 +166,7 @@ tar_model_eb <- function(){
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 0.5), class = "Intercept")
+        prior(normal(0, 1.5), class = "Intercept")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Trois-Rivières"),
@@ -182,7 +182,7 @@ tar_model_eb <- function(){
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 0.5), class = "Intercept"),
+        prior(normal(0, 1.5), class = "Intercept"),
         prior(normal(0, 0.2), class = "sd")
       ),
       backend = 'cmdstanr',
@@ -198,7 +198,7 @@ tar_model_eb <- function(){
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 0.5), class = "Intercept")
+        prior(normal(0, 1.5), class = "Intercept")
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Trois-Rivières"),
