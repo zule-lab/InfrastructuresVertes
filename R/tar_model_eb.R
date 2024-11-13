@@ -151,7 +151,7 @@ tar_model_eb <- function(){
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
         prior(normal(0, 1.5), class = "Intercept"),
-        prior(normal(0, 0.2), class = "sd")
+        prior(normal(0, 0.2), class = "sd") # set lower bound? 
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
@@ -182,7 +182,7 @@ tar_model_eb <- function(){
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 1.5), class = "Intercept"),
+        prior(normal(-1.4, 0.5), class = "Intercept"),
         prior(normal(0, 0.2), class = "sd")
       ),
       backend = 'cmdstanr',
