@@ -19,6 +19,7 @@ suppressPackageStartupMessages({
   library(vegan)
   
   library(units)
+  library(scales)
   
   library(ggplot2)
   library(ggdag)

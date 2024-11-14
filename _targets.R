@@ -101,7 +101,7 @@ targets_analysis <- c(
          pi_vsmpe_brms_sample, pi_tr_brms_sample, temp_vsmpe_brms_sample, temp_tr_brms_sample, ta_vsmpe_brms_sample, ta_tr_brms_sample, 
          dbh_vsmpe_brms_sample, dbh_tr_brms_sample, hgt_vsmpe_brms_sample, hgt_tr_brms_sample, pf_vsmpe_brms_sample, pf_tr_brms_sample) %>%
       setNames(., c('canopy_vsmpe', 'canopy_tr', 'fireflies_vsmpe', 'sr_vsmpe', 'sr_tr', 'fg_vsmpe', 'fg_tr',
-                    'vc_vsmpe', 'vc_tr', 'pn_vsmpe', 'pn_tr', 'pi_vsmpe', 'pi_tr', 'ta_vsmpe', 'temp_vsmpe', 'temp_tr', 
+                    'vc_vsmpe', 'vc_tr', 'pn_vsmpe', 'pn_tr', 'pi_vsmpe', 'pi_tr', 'temp_vsmpe', 'temp_tr', 'ta_vsmpe',
                     'ta_tr', 'dbh_vsmpe', 'dbh_tr','hgt_vsmpe', 'hgt_tr', 'pf_vsmpe', 'pf_tr'))
   )
   

@@ -1,20 +1,20 @@
 ﻿EcosystemService,TotalMentions,TotalPeopleMentions
-maintenance,18,14
-management,38,15
-wild,27,13
-edibles,40,17
-flowers,52,17
-colors,13,8
-odor,19,12
-air_quality,2,2
-temp_reg,59,25
-greening,66,26
-biodiversity,33,14
-trees,58,20
-large_trees,31,20
-supports_wildlife,48,18
-vines/climbing,23,12
-native/non-native,8,4
-stormwater_manag,10,7
-permeable_surfaces,3,2
-allergies,1,1
+Maintenance,18,14
+Management,38,15
+Wildness,27,13
+Edible Plants,40,17
+Flowers,52,17
+Colours,13,8
+Odor,19,12
+Air Quality,2,2
+Temperature Regulation (Cooling),59,25
+Greening,66,26
+Biodiversity,33,14
+Trees,58,20
+Large Trees,31,20
+Supports Wildlife,48,18
+Vines,23,12
+Native Species,8,4
+Stormwater Management,10,7
+Permeable Surface,3,2
+Allergies,1,1

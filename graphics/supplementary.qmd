@@ -35,7 +35,7 @@ source('R/packages.R')
 plot_prior <- function(mod, xmin, xmax, ylab){
   
   # how to sequence data
-  seq_d <- seq(xmin, xmax, by = 0.5)
+  seq_d <- seq(xmin, xmax, by = 0.25)
   
   # pull variables from model 
   vars <- colnames(mod$data)[-1]
@@ -47,16 +47,20 @@ plot_prior <- function(mod, xmin, xmax, ylab){
   
   # identify numeric variables 
   numeric <- names(Filter(is.numeric,mod$data[-1]))
+  numeric <- subset(numeric, numeric != "total_trees" & numeric != "n")
   
   figlist <- lapply(numeric, function(x){
     
     df <- data.frame(matrix(ncol=length(vars),nrow=0, dimnames=list(NULL, vars)))
     
     df %<>%
-      summarise_at(x, ~seq_d) %>%
-      bind_rows(df, .) %>%
+      summarise_at(x, ~seq_d) %>% 
+      bind_rows(df, .) %>% 
       mutate(across(all_of(factors), as.factor)) %>% 
-      mutate(across(all_of(numeric), ~ replace(., is.na(.), 0)))
+      mutate(across(all_of(numeric), ~ replace(., is.na(.), 0))) %>%
+      distinct() %>%
+      mutate(total_trees = 85,
+             n = 85)
     
     epred <- add_epred_draws(df, mod)
     
@@ -75,7 +79,9 @@ plot_prior <- function(mod, xmin, xmax, ylab){
     
     df <- data.frame(matrix(ncol=length(numeric),nrow= nrow(md), dimnames=list(NULL, numeric))) %>% 
       cbind(., md) %>% 
-      mutate(across(all_of(numeric), ~ replace(., is.na(.), 0))) %>% 
+      mutate(across(all_of(numeric), ~ replace(., is.na(.), 0)),
+             total_trees = 50,
+             n = 50) %>% 
       add_epred_draws(mod, re_formula = NA)  %>% 
       ggplot(aes(x = .epred, y = get(x))) +
       geom_jitter(alpha = 0.2, colour = 'darkgrey') +
@@ -221,7 +227,7 @@ tree_traits %>%
 
 
 
-Table S3. Interview data 
+Table S3. Data showing the number of mentions that each ecosystem service category received in the interviews. Total mentions refers to the total number of times an ecosystem service was mentioned, regardless of if the same person brought it up multiple times. Number of people mentioned refers to the total number of people who mentioned that ecosystem service, without incorporating how many times they mentioned it. A darker colour depicts a higher number of mentions. 
 
 ```{r}
 #| echo: false
@@ -230,7 +236,27 @@ Table S3. Interview data
 #| message: false
 #| label: table-s3
 
+tar_load(interviews)
 
+t <- col_bin("Greens", domain = 0:75)
+
+interviews %>% 
+  flextable() %>% 
+  bg(
+    j = c("TotalMentions", "TotalPeopleMentions"),
+    bg = t, part = "body"
+  ) %>% 
+  set_header_labels(
+    EcosystemService = "Ecosystem Service",
+    TotalMentions = "Total Mentions",
+    TotalPeopleMentions = "Number of People Mentioned"
+  ) %>%
+  set_table_properties(
+    opts_html = list(
+      scroll = list(
+      height = "500px",
+      freeze_first_column = TRUE))
+  )
 
 
 
@@ -245,10 +271,6 @@ Figure S1a. DAGs that indicate the system assumptions for ecological benefits me
 
 ![](mtl_dags_es.png)
 Figure S1b. DAGs that indicate the system assumptions for ecosystem services measured in this study. Blue indicates the response variable of interest, green indicates the variable of interest and all variables adjusted for. 
-
-
-
-Figure S2. Mathstats notation for my models 
 
 
 
@@ -292,7 +314,7 @@ tr <- prior_model_list[grepl("tr", names(prior_model_list))] %>%
 
 invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
-  figs <- plot_prior(vsmpe[[x]], -3, 3, paste(names(vsmpe[x])))
+  figs <- plot_prior(vsmpe[[x]], -2, 2, paste(names(vsmpe[x])))
   
   wrap_plots(figs, nrow = 3, ncol = 2) + 
     plot_annotation(title = print(names(vsmpe[x])))
@@ -313,7 +335,7 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
 
 invisible(capture.output(lapply(seq_along(tr), function(x){
   
-  figs <- plot_prior(tr[[x]], -3, 3, paste(names(tr[x])))
+  figs <- plot_prior(tr[[x]], -2, 2, paste(names(tr[x])))
   
   wrap_plots(figs, nrow = 1, ncol = 1) + 
     plot_annotation(title = print(names(tr[x])))
@@ -404,3 +426,11 @@ invisible(capture.output(lapply(seq_along(tr), function(x){
 
 
 ```
+
+
+## Equations 
+
+Below are the mathstats formulas for each of the models included in the paper. 
+
+1. 
+
