@@ -39,6 +39,12 @@ tar_read_files <- function(){
     ),
     
     tar_file_read(
+      interviews,
+      'input/es_coding.csv',
+      read.csv(!!.x)
+    ),
+    
+    tar_file_read(
       street_segments_rv,
       'input/study_street-segments.kml',
       read_sf(!!.x)
