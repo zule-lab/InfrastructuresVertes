@@ -40,7 +40,7 @@ tar_model_eb <- function(){
       family = bernoulli(),
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
-        prior(normal(0, 1.5), class = "Intercept"),
+        prior(normal(0, 0.5), class = "Intercept"),
         prior(normal(0, 0.2), class = "sd")
       ),
       backend = 'cmdstanr',
