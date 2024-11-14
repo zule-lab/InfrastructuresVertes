@@ -37,7 +37,7 @@ tar_model_es <- function(){
     zar_brms(
       ta_vsmpe,
       formula = nTrees ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
-      family = poisson(),
+      family = negbinomial(),
       prior = c( 
         prior(normal(0, 0.2), class = "b"),
         prior(normal(0, 0.5), class = "Intercept"),
