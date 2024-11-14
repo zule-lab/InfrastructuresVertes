@@ -59,7 +59,8 @@ plot_prior <- function(mod, xmin, xmax, ylab){
       mutate(across(all_of(factors), as.factor)) %>% 
       mutate(across(all_of(numeric), ~ replace(., is.na(.), 0))) %>%
       distinct() %>%
-      mutate(total_trees = 85)
+      mutate(total_trees = 85,
+             n = 85)
     
     epred <- add_epred_draws(df, mod)
     
