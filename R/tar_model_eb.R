@@ -83,8 +83,8 @@ tar_model_eb <- function(){
     
     zar_brms(
       fg_vsmpe,
-      formula = nFG ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
-      family = negbinomial(),
+      formula = nFG | trials(8) ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+      family = binomial(),
       prior = c( 
         prior(normal(0, 0.2), class = "b"),
         prior(normal(0, 0.5), class = "Intercept"),
@@ -99,10 +99,10 @@ tar_model_eb <- function(){
     
     zar_brms(
       fg_tr,
-      formula = nFG ~ 1 + type,
-      family = poisson(),
+      formula = nFG | trials(8) ~ 1 + type,
+      family = binomial(),
       prior = c( 
-        prior(normal(0, 0.5), class = "b"),
+        prior(normal(0, 0.2), class = "b"),
         prior(normal(0, 0.5), class = "Intercept")
       ),
       backend = 'cmdstanr',
@@ -151,7 +151,7 @@ tar_model_eb <- function(){
       prior = c( 
         prior(normal(0, 0.5), class = "b"),
         prior(normal(0, 1.5), class = "Intercept"),
-        prior(normal(0, 0.2), class = "sd") # set lower bound? 
+        prior(normal(0, 0.2), class = "sd") 
       ),
       backend = 'cmdstanr',
       data = ecological_benefits %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
