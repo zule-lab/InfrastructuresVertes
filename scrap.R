@@ -57,8 +57,6 @@ t +
 
 
 
-# contrast 
-
 # contrast
 
 ruelle_effect_draws <- mod %>%
@@ -75,7 +73,7 @@ ruelle_effect_draws <- mod %>%
 
 
 
-s <- ggplot(ruelle_effect_draws, aes(x = .value, fill = contrast)) +
+ s <- ggplot(ruelle_effect_draws, aes(x = .value, fill = contrast)) +
   stat_halfeye(alpha = 0.7) +
   labs(x = "Average marginal effect of alley type", y = "Density", fill = "") +
   theme_classic() +
@@ -88,7 +86,7 @@ satx <- c(as.numeric(na.omit(layer_scales(s)$x$break_positions())))
 s +
   scale_x_continuous(name = "Average marginal effect of alley type (canopy cover %)",
                      breaks = satx,
-                     labels = (round(satx * sd(ecological_benefits$per_can) + mean(ecological_benefits$per_can), 1))*100)
+                     labels = (round(satx * (sd(ecological_benefits$per_can))*100)))
 
 
 
