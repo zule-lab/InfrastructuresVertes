@@ -83,7 +83,7 @@ tar_model_eb <- function(){
     
     zar_brms(
       fg_vsmpe,
-      formula = nFG | trials(8) ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
+      formula = nFG | trials(9) ~ 1 + type + per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | Q_socio),
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.2), class = "b"),
@@ -99,7 +99,7 @@ tar_model_eb <- function(){
     
     zar_brms(
       fg_tr,
-      formula = nFG | trials(8) ~ 1 + type,
+      formula = nFG | trials(9) ~ 1 + type,
       family = binomial(),
       prior = c( 
         prior(normal(0, 0.2), class = "b"),
