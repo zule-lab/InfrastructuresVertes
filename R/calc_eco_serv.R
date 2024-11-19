@@ -125,7 +125,8 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
               n = n(), 
               showy_count = sum(ifelse(flowering == "showy", 1, 0)),
               prop_showy = showy_count/n) %>% 
-    right_join(trees_dbh)
+    right_join(trees_dbh) %>%
+    replace_na(list(n = 0, showy_count = 0))
   
   census_trees <- inner_join(trees_pot_hgt, census_data, by = "InfrastructureID")
   
