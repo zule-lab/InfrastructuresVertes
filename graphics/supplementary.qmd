@@ -203,7 +203,7 @@ Table S2. Tree species characteristics for species found in this study. Species 
 tar_load(tree_traits)
 
 tree_traits %>% 
-  select(-c(X, X., Native_ETF)) %>% 
+  select(-c(X,Native_ETF)) %>% 
   flextable() %>% 
   set_header_labels(
     latin.name = "Species",
@@ -293,10 +293,14 @@ tar_load(prior_model_list)
 
 vsmpe <- prior_model_list[grepl("vsmpe", names(prior_model_list))] %>% 
   setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+                'Percent Native', 'Percent Invasive', 
+                #'Temperature', 
+                'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 tr <- prior_model_list[grepl("tr", names(prior_model_list))] %>% 
   setNames(., c('Canopy Cover', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+                'Percent Native', 'Percent Invasive', 
+                #'Temperature', 
+                'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 
 ```
 
@@ -364,11 +368,15 @@ tar_load(model_list)
 
 vsmpe <- model_list[grepl("vsmpe", names(model_list))] %>% 
   setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+                'Percent Native', 'Percent Invasive', 
+                #'Temperature', 
+                'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 
 tr <- model_list[grepl("tr", names(model_list))] %>% 
   setNames(., c('Canopy Cover', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 'Temperature', 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
+                'Percent Native', 'Percent Invasive', 
+                #'Temperature', 
+                'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 
 
 ```
