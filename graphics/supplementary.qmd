@@ -71,10 +71,20 @@ plot_prior <- function(mod, xmin, xmax, ylab){
     
   })
   
+  # make data grid appropriate for each model
+  if (length(factors) == 1) {
+    md <- data_grid(mod$data, 
+                    type,
+                    .model = mod)
+  } else {
+    md <- data_grid(mod$data, 
+                    type,
+                    tod,
+                    .model = mod)
+  }
+  
+  
   cat_figlist <- lapply(factors, function(x){
-    
-    md <- mod$data %>% 
-      data_grid(type = get(x))
     
     
     df <- data.frame(matrix(ncol=length(numeric),nrow= nrow(md), dimnames=list(NULL, numeric))) %>% 
@@ -101,7 +111,7 @@ plot_prior <- function(mod, xmin, xmax, ylab){
 plot_model_1 <- function(model){
     
     # basic model fit plots
-    b <- mcmc_trace(model)
+    b <- mcmc_trace(model, pars = vars(starts_with('b_'), Intercept, any_of('sigma'), any_of(c(starts_with('sd_')))))
   
     # Gelman plot
     ac <- as_draws_df(model) %>% 
@@ -292,14 +302,12 @@ For Trois-Rivieres, there is only a categorical predictor variable. Therefore, o
 tar_load(prior_model_list)
 
 vsmpe <- prior_model_list[grepl("vsmpe", names(prior_model_list))] %>% 
-  setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 
-                #'Temperature', 
+  setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 
+                'Vertical Complexity', 'Percent Native', 'Percent Invasive', 'Temperature', 
                 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 tr <- prior_model_list[grepl("tr", names(prior_model_list))] %>% 
   setNames(., c('Canopy Cover', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 
-                #'Temperature', 
+                'Percent Native', 'Percent Invasive', 'Temperature', 
                 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 
 ```
@@ -341,7 +349,7 @@ invisible(capture.output(lapply(seq_along(tr), function(x){
   
   figs <- plot_prior(tr[[x]], -2, 2, paste(names(tr[x])))
   
-  wrap_plots(figs, nrow = 1, ncol = 1) + 
+  wrap_plots(figs, nrow = 1, ncol = 2) + 
     plot_annotation(title = print(names(tr[x])))
   
 })))
@@ -367,15 +375,13 @@ The first plot of the series shows trace plots for each of our parameters, where
 tar_load(model_list)
 
 vsmpe <- model_list[grepl("vsmpe", names(model_list))] %>% 
-  setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 
-                #'Temperature', 
+  setNames(., c('Canopy Cover', 'Firefly Abundance', 'Species Richness', 'Functional Diversity', 
+                'Vertical Complexity', 'Percent Native', 'Percent Invasive', 'Temperature', 
                 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 
 tr <- model_list[grepl("tr", names(model_list))] %>% 
   setNames(., c('Canopy Cover', 'Species Richness', 'Functional Diversity', 'Vertical Complexity', 
-                'Percent Native', 'Percent Invasive', 
-                #'Temperature', 
+                'Percent Native', 'Percent Invasive', 'Temperature', 
                 'Tree Abundance', 'Tree Size (DBH)', 'Tree Height', 'Percent Flowery'))
 
 
