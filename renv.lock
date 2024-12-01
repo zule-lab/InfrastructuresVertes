@@ -598,6 +598,26 @@
         "proxy"
       ]
     },
+    "emmeans": {
+      "Package": "emmeans",
+      "Version": "1.10.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5c42da2936ccaa3802b4893a65553dc4",
+      "Requirements": [
+        "estimability",
+        "mvtnorm",
+        "numDeriv"
+      ]
+    },
+    "estimability": {
+      "Package": "estimability",
+      "Version": "1.5.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "21ec52af13afbcab1cb317567b639b0a",
+      "Requirements": []
+    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "0.24.0",
