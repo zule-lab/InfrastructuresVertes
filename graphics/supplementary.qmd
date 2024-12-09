@@ -432,5 +432,377 @@ invisible(capture.output(lapply(seq_along(tr), function(x){
 
 Below are the mathstats formulas for each of the models included in the paper. 
 
-1. 
+### Canopy Cover 
 
+1. VSMPE 
+$$
+Canopy_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.3)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+\\
+\sigma \sim Exponential(1)
+$$
+Terms: 
+-   `Canopy` is the centered and scaled percent canopy cover of each site
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+2. TR
+
+$$
+Canopy \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{type[i]}
+$$
+**** still working on this *** 
+
+
+
+
+### Species Richness 
+
+3. VSMPE 
+
+$$
+Species Richness_i \sim Gamma-Poisson(\lambda_i, \phi)
+\\
+log(\lambda_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.2)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.1)
+\\
+\phi \sim Inverse-Gamma(0.4,0.3)
+$$
+
+Terms: 
+-   `Species Richness` is number of unique tree species found at each site 
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+4. TR
+
+
+### Functional Diversity 
+
+5. VSMPE
+
+
+$$
+Functional Groups_i \sim Binomial(9, p_i)
+\\
+logit(p_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.2)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.1)
+
+$$
+
+
+Terms: 
+-   `Functional Groups` is number of unique functional groups found at each site (the maximum number possible is 9)
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+6. TR
+
+
+
+
+### Proportion of Native Species 
+
+7. VSMPE
+
+$$
+Proportion Native_i \sim Binomial(N_i, p_i)
+\\
+logit(p_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 1.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+
+$$
+Terms: 
+-   `N` is the total number of trees found at each site
+-   `Proportion Native` is number of native trees found at each site
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+
+8. TR
+
+
+### Proportion of Invasive Species 
+
+9. VSMPE
+
+$$
+Proportion Invasive_i \sim Binomial(N_i, p_i)
+\\
+logit(p_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(-1.4, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+
+$$
+Terms: 
+-   `N` is the total number of trees found at each site
+-   `Proportion Invasive` is number of invasive trees found at each site
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+10. TR
+
+
+
+### Vegetative Complexity 
+
+11. VSMPE 
+
+$$
+Complexity_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+\\
+\sigma \sim Exponential(1)
+$$
+Terms: 
+-   `Complexity` is the centered and scaled average vegetative complexity of each site
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+12. TR
+
+
+
+### Firefly Presence
+
+13. VSMPE 
+
+$$
+Firefly Presence_i \sim Bernoulli(p_i)
+\\
+logit(p_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(-1.4, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+
+$$
+Terms: 
+-   `Firefly Presence` is binary success of observing a firefly at a site (1 = presence, 0 = absence)
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+### Temperature 
+
+14. VSMPE
+
+
+15. TR
+
+### Tree Abundance
+
+16. VSMPE
+
+$$
+Tree Abundance_i \sim Gamma-Poisson(\lambda_i, \phi)
+\\
+log(\lambda_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.2)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.1)
+\\
+\phi \sim Inverse-Gamma(0.4,0.3)
+$$
+
+Terms: 
+-   `Tree Abundance` is number of individual trees found at a site
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+17. TR
+
+
+### Tree Size (Diameter at Breast Height)
+
+
+18. VSMPE
+
+$$
+DBH_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.3)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+\\
+\sigma \sim Exponential(1)
+$$
+Terms: 
+-   `DBH` is the centered and scaled mean diameter at breast height (DBH) of trees at each site
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+
+19. TR
+
+
+### Tree Size (Potential Maximum Height)
+
+20. VSMPE
+
+$$
+Max Height_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.3)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+\\
+\sigma \sim Exponential(1)
+$$
+Terms: 
+-   `Max Height` is the centered and scaled mean maximum (potential) height of trees at each site
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+21. TR
+
+### Proportion of Trees with Showy Flowers 
+
+22. VSMPE
+
+
+$$
+Proportion Showy_i \sim Binomial(N_i, p_i)
+\\
+logit(p_i) = \alpha_{Q socio[i]} + \beta_{type[i]} + \beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\alpha_j \sim Normal(\bar{\alpha}, \sigma_\alpha)
+\\
+\bar\alpha \sim Normal(0, 0.5)
+\\
+\sigma_\alpha \sim Half-Normal(0, 0.2)
+
+$$
+Terms: 
+-   `N` is the total number of trees found at each site
+-   `Proportion Showy` is number of trees with showy flowers found at each site
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
+
+23. TR
