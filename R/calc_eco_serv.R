@@ -63,6 +63,7 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     st_centroid() %>% 
     st_transform(4326) %>%
     mutate(date = date(date_time),
+           doy = yday(date),
            lon = st_coordinates(geometry)[,1],
            lat = st_coordinates(geometry)[,2])
   
