@@ -926,3 +926,50 @@ $$
 -   `Proportion Showy` is number of trees with showy flowers found at each site
 -   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
 -   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
+
+
+## Interview Questions
+**Données sociodémographiques**
+-   Âge
+-   Genre
+-   Groupe ethnoculturel
+-   Depuis quand au Québec
+-   Composition du ménage
+-   Enfant(s) et âge
+-   Niveau éducation
+-   Situation/parcours professionnel
+-   Tranche de revenu annuel de ménage
+-   Type de logement
+-   Possède une voiture
+
+**Le quartier**
+1. Que représente le quartier pour vous ? Qu’est-ce qui le caractérise ? Qu'est-ce qui est cher pour vous dans le quartier (ou en quoi vous seriez prêt à vous investir) ? 
+2. Parlez-nous à peu près des limites de votre quartier.
+3. Qu'est-ce qu'on retrouve ici en termes d'aménagement vert public ?
+4. D’après vous, quels sont les objectifs et les bienfaits visés de ces aménagements pour la communauté riveraine ? Sont-ils atteints? 
+5. Quels sont les inconvénients de ces aménagements pour les riverain.e.s?
+6. Qu’est-ce que vous aimez le plus (et le moins) à propos de ces espaces verdis ? 
+7. Comment ces espaces améliorent le quartier (social, sécurité routière et urbaine, mobilité, santé) ? 
+8. Selon vous, qu’est-ce que la Ville fait pour assurer la gestion et la qualité de l’aménagement ainsi que l’entretien de ces espaces ? Est-ce qu’elle en fait assez?
+
+**Le quartier, les espaces verdis et les changements**
+9. Qu’est-ce qui a changé dans votre quartier dans les dernières années (infra vertes, aménagement du territoire, démographie, composition sociale, etc.) ? (Si quelque chose, enchaîner avec a, b, c, d)
+Vous souvenez-vous depuis quand a eu lieu les changements ? Qui fait ces changements et pour quelles raisons ? Y avait-il de la mobilisation citoyenne ? 
+-   Qu’est ce qui a changé dans les activités depuis les changements ?
+-   Comment les relations de voisinage (résidentiels, institutionnels) ont changé ? 
+-   Quel lien faites-vous entre l’aménagement d’espaces verdis et les changements dans le quartier ?
+
+**On commence la marche**
+10. Parlez-nous de ce qui attire votre attention ici ? (niveau sensoriel)
+11. Parlez-nous de ce que vous ressentez ici ? (niveau émotionnel)
+12. Parlez-nous de ce que vous faites/feriez ici ? (niveau activité) 
+13. Parlez-nous des interventions/aménagements/équipements (éléments anthropiques)?
+14. Parlez-nous de la richesse, de la diversité, de la cohabitation, des conditions des espèces ?
+
+**Avant de conclure (30 minutes avant la fin) **
+15. Quel(s) espace(s) verdi(s) vous plait le plus et le moins ? Pourquoi ? 
+16. Quel(s) espace(s) verdi(s) devrait être amélioré ? Pourquoi ? 
+17. En comparant les espaces visités, votre perception des espaces a-t-elle changé ? 
+18. Suite à la visite, qu’est-ce que vous pensez qui est différent (ou similaire) entre les espaces verdis et non-verdis ? Qu'est-ce qui est commun, partagé entre les espaces verts visités?
+19. Comment ces espaces sont-ils liés aux autres espaces verts dans la ville/à la nature en ville ? Qu’est-ce qui est commun, partagé entre ces espaces verdis et ceux du reste de la ville?
+20. Avez-vous d’autres commentaires à nous partager ? 
