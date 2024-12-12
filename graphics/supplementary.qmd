@@ -464,12 +464,18 @@ Terms:
 $$
 Canopy \sim Normal(\mu_i, \sigma)
 \\
-\mu_i = \alpha_{type[i]}
+\mu_i = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.7)
+\\
+\beta_j \sim Normal(0, 0.7)
+\\
+\sigma \sim Exponential(1)
 $$
-**** still working on this *** 
-
-
-
+Terms: 
+-   `Canopy` is the centered and scaled percent canopy cover of each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 ### Species Richness 
 
@@ -503,6 +509,20 @@ Terms:
 
 
 4. TR
+$$
+Species Richness_i \sim Poisson(\lambda_i)
+\\
+log(\lambda_i) = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.5)
+\\
+\beta_j \sim Normal(0, 0.2)
+
+$$
+Terms: 
+-   `Species Richness` is number of unique tree species found at each site 
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 
 ### Functional Diversity 
@@ -538,8 +558,20 @@ Terms:
 
 
 6. TR
+$$
+Functional Groups_i \sim Binomial(9, p_i)
+\\
+logit(p_i) = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.5)
+\\
+\beta_j \sim Normal(0, 0.2)
 
-
+$$
+Terms: 
+-   `Functional Groups` is number of unique functional groups found at each site (the maximum number possible is 9)
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 
 ### Proportion of Native Species 
@@ -574,7 +606,19 @@ Terms:
 
 
 8. TR
-
+$$
+Proportion Native_i \sim Binomial(N_i, p_i)
+\\
+logit(p_i) = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 1.5)
+\\
+\beta_j \sim Normal(0, 0.5)
+$$
+-   `N` is the total number of trees found at each site
+-   `Proportion Native` is number of native trees found at each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 ### Proportion of Invasive Species 
 
@@ -607,7 +651,19 @@ Terms:
 
 10. TR
 
-
+$$
+Proportion Invasive_i \sim Binomial(N_i, p_i)
+\\
+logit(p_i) = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 1.5)
+\\
+\beta_j \sim Normal(0, 0.5)
+$$
+-   `N` is the total number of trees found at each site
+-   `Proportion Invasive` is number of invasive trees found at each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 ### Vegetative Complexity 
 
@@ -640,7 +696,18 @@ Terms:
 
 12. TR
 
-
+$$
+Complexity_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.5)
+\\
+\beta_j \sim Normal(0, 0.5)
+$$
+-   `Complexity` is the centered and scaled average vegetative complexity of each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 ### Firefly Presence
 
@@ -710,7 +777,19 @@ Terms:
 
 
 17. TR
+$$
+Tree Abundance_i \sim Poisson(\lambda_i)
+\\
+log(\lambda_i) = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.5)
+\\
+\beta_j \sim Normal(0, 0.2)
 
+$$
+-   `Tree Abundance` is number of individual trees found at a site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 ### Tree Size (Diameter at Breast Height)
 
@@ -743,7 +822,20 @@ Terms:
 
 
 19. TR
-
+$$
+DBH_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.7)
+\\
+\beta_j \sim Normal(0, 0.7)
+\\
+\sigma \sim Exponential(1)
+$$
+-   `DBH` is the centered and scaled mean diameter at breast height (DBH) of trees at each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 ### Tree Size (Potential Maximum Height)
 
@@ -775,11 +867,25 @@ Terms:
 
 21. TR
 
+$$
+Max Height_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.7)
+\\
+\beta_j \sim Normal(0, 0.7)
+\\
+\sigma \sim Exponential(1)
+$$
+-   `Max Height` is the centered and scaled mean maximum (potential) height of trees at each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
+
+
 ### Proportion of Trees with Showy Flowers 
 
 22. VSMPE
-
-
 $$
 Proportion Showy_i \sim Binomial(N_i, p_i)
 \\
@@ -806,3 +912,17 @@ Terms:
 
 
 23. TR
+$$
+Proportion Showy_i \sim Binomial(N_i, p_i)
+\\
+logit(p_i) = \alpha + \beta_1 green_{[i]} + \beta_2street_{[i]}
+\\
+\alpha \sim Normal(0, 0.5)
+\\
+\beta_j \sim Normal(0, 0.5)
+$$
+
+-   `N` is the total number of trees found at each site
+-   `Proportion Showy` is number of trees with showy flowers found at each site
+-   `green` is the factor level from `type` that indicates green alleys. Grey alleys are the default level, absorbed into the intercept. 
+-   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
