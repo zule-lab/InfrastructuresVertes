@@ -3,15 +3,14 @@ tar_model_es <- function(){
   c(
       zar_brms(
         temp_vsmpe,
-        formula = temp_C_s ~ 1 + type * tod + per_fr_s + per_en_s + per_no_fren_s + 
-          medinc_s + (1 | Q_socio) + (1 + type * tod | date) + (1 + type * tod | InfrastructureID),
+        formula = temp_C_s ~ 1 + type + tod + doy + type:tod + type:doy + tod:doy + 
+          per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | date) + (1 | Q_socio) + (1 | InfrastructureID),
         family = gaussian(),
         prior = c( 
           prior(normal(0, 0.5), class = "b"),
           prior(normal(0, 1), class = "Intercept"),
-          prior(normal(0, 0.2), class = "sd"),
-          prior(exponential(1), class = "sigma"),
-          prior(lkj(2), class = "cor")
+          prior(exponential(1), class = "sd"),
+          prior(exponential(1), class = "sigma")
         ),
         backend = 'cmdstanr',
         data = ecosystem_services[[1]] %>% filter(city == "Villeray-Saint Michel-Parc Extension"),
@@ -22,13 +21,13 @@ tar_model_es <- function(){
       
       zar_brms(
         temp_tr,
-        formula = temp_C_s ~ 1 + type * tod + (1 + type * tod | date) + (1 + type * tod | InfrastructureID),
+        formula = temp_C_s ~ 1 + type + tod + doy + type:tod + type:doy + tod:doy + (1 | date) + (1 | InfrastructureID),
         family = gaussian(),
         prior = c( 
           prior(normal(0, 0.5), class = "b"),
           prior(normal(0, 1), class = "Intercept"),
-          prior(normal(0, 0.2), class = "sd"),
-          prior(lkj(2), class = "cor")
+          prior(exponential(1), class = "sd"),
+          prior(exponential(1), class = "sigma")
         ),
         backend = 'cmdstanr',
         data = ecosystem_services[[1]] %>% filter(city == "Trois-Rivières"),
