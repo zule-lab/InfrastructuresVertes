@@ -67,14 +67,6 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
            lon = st_coordinates(geometry)[,1],
            lat = st_coordinates(geometry)[,2])
   
-  min_vsmpe <- temp_coords %>% 
-    group_by(city) %>% 
-    summarize(min_doy = min(doy))
-  
-  temp_coords <- temp_coords %>% 
-    mutate(doy = case_when(city == "Villeray-Saint Michel-Parc Extension" ~ doy - min(doy_min$min_doy),
-                           city == "Trois-Rivières" ~ doy - max(doy_min$min_doy)))
-  
   # calculate for each entry if it is during the daytime or nighttime based on the tod + sunrise/sunset
   temp_tod <- temp_coords %>% 
     select(c(date, lat, lon)) %>% 
@@ -165,6 +157,16 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     drop_na(temp_C) %>% 
     mutate(temp_C_s = scale(temp_C)[,1])  %>% 
     separate(date_time, c("date", "time"), sep = " ")
+  
+  # adjust doy so 0 is the start of each sampling season
+  min_vsmpe <- temp_join %>% 
+    group_by(city) %>% 
+    summarize(min_doy = min(doy))
+  
+  temp_join <- temp_join %>% 
+    mutate(doy = case_when(city == "Villeray-Saint Michel-Parc Extension" ~ doy - min(min_vsmpe$min_doy),
+                           city == "Trois-Rivières" ~ doy - max(min_vsmpe$min_doy)))
+  
   
   # save
   es <- list(temp_join, nhood) 
