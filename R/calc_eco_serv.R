@@ -67,6 +67,14 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
            lon = st_coordinates(geometry)[,1],
            lat = st_coordinates(geometry)[,2])
   
+  min_vsmpe <- temp_coords %>% 
+    group_by(city) %>% 
+    summarize(min_doy = min(doy))
+  
+  temp_coords <- temp_coords %>% 
+    mutate(doy = case_when(city == "Villeray-Saint Michel-Parc Extension" ~ doy - min(doy_min$min_doy),
+                           city == "Trois-Rivières" ~ doy - max(doy_min$min_doy)))
+  
   # calculate for each entry if it is during the daytime or nighttime based on the tod + sunrise/sunset
   temp_tod <- temp_coords %>% 
     select(c(date, lat, lon)) %>% 
@@ -130,13 +138,6 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     replace_na(list(n = 0, showy_count = 0))
   
   census_trees <- inner_join(trees_pot_hgt, census_data, by = "InfrastructureID")
-  
-  # greenness (not possible?)
-  
-  # management (not possible?)
-  
-  # food provisioning (not possible?)
-  
   
   # scale numeric vars & assign type/city to missing rows 
   census_trees_s <- census_trees %>% 
