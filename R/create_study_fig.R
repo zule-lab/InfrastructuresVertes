@@ -1,10 +1,5 @@
 create_study_fig <- function(study_rv, study_controls, quartiers){
   
-  rds <- st_read(file.path("/vsizip", 'input/roads.zip')) %>% 
-    filter(CATEGORIEC == 'Autoroute')
-  
-  quartiers_tr <- read_sf('input/Quartiers_3R/Quartier_3R.shp')
-  
   # Insect ruelles ----------------------------------------------------------
   
   all <- rbind(study_rv, study_controls)
@@ -76,6 +71,15 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   
   bb <- st_bbox(st_buffer(mont, 500))
   
+  bbopq_mtl <- st_buffer(st_make_valid(st_transform(mont, 4326)), 2000)
+  
+  # roads
+  mtlrds <- opq(bbopq_mtl, timeout = 100) %>% 
+    add_osm_feature(key = 'highway', value = c('motorway', 'trunk', 'primary', 'secondary', 'tertiary', 'residential')) %>% 
+    osmdata_sf()
+  bigrds_mtl <- mtlrds$osm_lines
+  
+  
   quartiers$nudge_x <- 0
   quartiers$nudge_x[quartiers$Q_socio == "Parc-Ex"] <- -500
   
@@ -83,11 +87,12 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   quartiers$nudge_y[quartiers$Q_socio == "Villeray"] <- -250
   
   main <- ggplot() +
-    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1) +
+    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.5) +
+    geom_sf(data = bigrds_mtl, colour = "darkgrey", fill = "darkgrey", linewidth = 0.5, alpha = 0.4) +
     geom_sf(data = quartiers, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
-    geom_sf(data = rds, colour = "black", fill = "black") + 
+    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.5) +
     scale_colour_manual(values = c(NA, "goldenrod3")) +
-    scale_fill_manual(values = c("darkgreen", "darkgrey")) + 
+    scale_fill_manual(values = c("darkgreen", "grey30")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
     labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
@@ -111,10 +116,10 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   
   # roads
   trrds <- opq(bbopq, timeout = 100) %>% 
-    add_osm_feature(key = 'route', value = 'road') %>% 
+    add_osm_feature(key = 'highway', value = c('motorway', 'trunk', 'primary', 'secondary', 'tertiary', 'residential')) %>% 
     osmdata_sf()
   bigrds <- trrds$osm_lines
-  bigrds <- bigrds %>% filter(name == "Autoroute Félix-Leclerc" | name == "Pont Radisson")
+  #bigrds <- bigrds %>% filter(name == "Autoroute Félix-Leclerc" | name == "Pont Radisson")
   
   # water
   water <- opq(bbopq, timeout = 100) %>%
@@ -127,13 +132,14 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   
   
   trmap <- ggplot() + 
-    geom_sf(data = tr_pts, aes(size = per_can, colour = group)) +
-    geom_sf(data = quartiers_tr, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
+    geom_sf(data = tr_pts, aes(size = per_can, colour = group), alpha = 0.5) +
     geom_sf(data = mpols, fill = 'lightblue', colour = "lightblue", linewidth = 0.5) +
-    geom_sf(data = bigrds, colour = "black", fill = "black", linewidth = 0.8) + 
-    scale_colour_manual(values = c("darkgrey", "darkgreen")) +
-    scale_fill_manual(values = c("darkgrey", "darkgreen")) + 
-    geom_text(data = quartiers_tr, aes(label = Name, geometry = geometry), nudge_y = quartiers_tr$nudge_y, stat = "sf_coordinates") + 
+    geom_sf(data = bigrds, colour = "darkgrey", fill = "darkgrey", linewidth = 0.5, alpha = 0.4) +
+    geom_sf(data = tr_pts, aes(size = per_can, colour = group), alpha = 0.5) +
+    #geom_sf(data = quartiers_tr, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
+    scale_colour_manual(values = c("grey30", "darkgreen")) +
+    scale_fill_manual(values = c("grey30", "darkgreen")) + 
+    #geom_text(data = quartiers_tr, aes(label = Name, geometry = geometry), nudge_y = quartiers_tr$nudge_y, stat = "sf_coordinates") + 
     coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
     guides(fill = "none", colour = "none", size = "none") +
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
