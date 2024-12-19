@@ -742,8 +742,88 @@ Terms:
 
 14. VSMPE
 
+$$
+Temperature_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{date[i]} + \alpha_{Q socio[i]} + \alpha_{ID[i]} + \gamma_{type[i]} +  \gamma_{tod[i]} + \gamma_{doy[i]} + \\
+\beta_{type}tod + \beta_{tod}doy + \beta_{doy}type  + \beta_{type[i]} + \beta_{tod[i]} + \beta_{doy}doy_i + \\
+\beta_{med inc}med inc_i + \beta_{french}french_i + \beta_{english}english_i + \beta_{none}none_i
+\\
+\alpha_{date[j]} \sim Normal(\bar\alpha, \sigma_{\alpha_{date}})
+\\
+\alpha_{Q socio[j]} \sim Normal(0, \sigma_{\alpha_{Q socio}})
+\\
+\alpha_{ID[j]} \sim Normal(0, \sigma_{\alpha_{ID}})
+\\
+\gamma_j \sim Normal(0, 1)
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\bar\alpha \sim Normal(0, 1)
+\\
+\sigma_{\alpha_{date}} \sim Exponential(1)
+\\
+\sigma_{\alpha_{Q socio}} \sim Exponential(1)
+\\
+\sigma_{\alpha_{ID}} \sim Exponential(1)
+\\
+\sigma \sim Exponential(1)
+
+$$
+Terms: 
+-   $\alpha$ and $\gamma$ both represent intercepts, $\alpha$ is used for random effects and $\gamma$ for fixed interaction effecst 
+-   `Temperature` is the centered and scaled temperature measurement in degrees Celsius
+-   `date` is the calendar date represented as a character with a different level for each day
+-   `Q socio` is the neighbourhood of the site (i.e., Villeray, Saint-Michel, or Parc Extension)
+-   `ID` is the individual identifier for each infrastructure (e.g., )
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `tod` is the time of day of each measurement, split into two categories; day (after sunrise/before sunset) and night (after sunset/before sunrise)
+-   `doy` is the numeric and continuous value representing day of year, which has been subtracted by the first day of sampling so that it starts at 0
+-   `medinc` is the centered and scaled median income of the dissemination area surrounding the site
+-   `french` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak french 
+-   `english` is the centered and scaled percent of residents in the dissemination area surrounding the site that speak english 
+-   `none` is the centered and scaled percent of residents in the dissemination area surrounding the site that do not speak french or english
+
 
 15. TR
+
+$$
+Temperature_i \sim Normal(\mu_i, \sigma)
+\\
+\mu_i = \alpha_{date[i]} + \alpha_{ID[i]} + \gamma_{type[i]} +  \gamma_{tod[i]} + \gamma_{doy[i]} + \\
+\beta_{type}tod + \beta_{tod}doy + \beta_{doy}type  + \beta_{type[i]} + \beta_{tod[i]} + \beta_{doy}doy_i 
+\\
+\alpha_{date[j]} \sim Normal(\bar\alpha, \sigma_{\alpha_{date}})
+\\
+\alpha_{Q socio[j]} \sim Normal(0, \sigma_{\alpha_{Q socio}})
+\\
+\alpha_{ID[j]} \sim Normal(0, \sigma_{\alpha_{ID}})
+\\
+\gamma_j \sim Normal(0, 1)
+\\
+\beta_j \sim Normal(0, 0.5)
+\\
+\bar\alpha \sim Normal(0, 1)
+\\
+\sigma_{\alpha_{date}} \sim Exponential(1)
+\\
+\sigma_{\alpha_{Q socio}} \sim Exponential(1)
+\\
+\sigma_{\alpha_{ID}} \sim Exponential(1)
+\\
+\sigma \sim Exponential(1)
+
+$$
+
+Terms: 
+-   $\alpha$ and $\gamma$ both represent intercepts, $\alpha$ is used for random effects and $\gamma$ for fixed interaction effecst 
+-   `Temperature` is the centered and scaled temperature measurement in degrees Celsius
+-   `date` is the calendar date represented as a character with a different level for each day
+-   `ID` is the individual identifier for each infrastructure (e.g., )
+-   `type` is the type of infrastructure (i.e., green alley, grey alley, or street segment)
+-   `tod` is the time of day of each measurement, split into two categories; day (after sunrise/before sunset) and night (after sunset/before sunrise)
+-   `doy` is the numeric and continuous value representing day of year, which has been subtracted by the first day of sampling so that it starts at 0
+
 
 ### Tree Abundance
 
