@@ -71,7 +71,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   
   bb <- st_bbox(st_buffer(mont, 500))
   
-  bbopq_mtl <- st_buffer(st_make_valid(st_transform(mont, 4326)), 2000)
+  bbopq_mtl <- st_bbox(st_buffer(st_make_valid(st_transform(mont, 4326)), 2000))
   
   # roads
   mtlrds <- opq(bbopq_mtl, timeout = 100) %>% 
@@ -134,7 +134,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   trmap <- ggplot() + 
     geom_sf(data = tr_pts, aes(size = per_can, colour = group), alpha = 0.5) +
     geom_sf(data = mpols, fill = 'lightblue', colour = "lightblue", linewidth = 0.5) +
-    geom_sf(data = bigrds, colour = "darkgrey", fill = "darkgrey", linewidth = 0.5, alpha = 0.4) +
+    geom_sf(data = bigrds, colour = "darkgrey", fill = "darkgrey", linewidth = 0.5, alpha = 0.5) +
     geom_sf(data = tr_pts, aes(size = per_can, colour = group), alpha = 0.5) +
     #geom_sf(data = quartiers_tr, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
     scale_colour_manual(values = c("grey30", "darkgreen")) +
