@@ -1022,6 +1022,31 @@ $$
 -   `street` is the factor level from `type` that indicates street segments. Grey alleys are the default level, absorbed into the intercept.
 
 
+## Methodological Details 
+
+### Canopy Cover 
+We calculated percent canopy cover of all green alleys, grey alleys, and street segments using publicly available LiDAR data collected in 2020 at a spatial resolution of 1 m (Institut National de Santé Publique du Québec and Gouvernement du Québec, 2022). For street segments, we calculated the canopy cover of sidewalks using the same dataset. Sidewalk boundaries were extracted from an open dataset for VSMPE (Ville de Montréal, 2024) and hand-drawn for TR using QGIS 3.16.8 (QGIS Development Team, 2020).
+
+### Tree Diversity
+Tree diversity was assessed in two ways. First, we calculated the species richness of each alley and street segment by counting the number of unique tree species. We identified the species of each individual in the field (Farrar, 1995; Little, 1980). If a tree species could not be identified in the field, it was marked as unknown (n = 1/1,469). If a tree was dead, it was still recorded but was removed from the diversity calculations (n = 7/1,469). We recorded a total of 75 species (Table S2). 
+
+The second diversity metric was functional diversity. Using the original dataset and methodology from Paquette et al. (2021), we assigned a functional group to each of the tree species present in our dataset (Belluau et al., 2021, Table S2). The database published online did not have a functional group assignment for 15 of our species (20%, predominantly cultivars), thus those species were removed from the functional diversity calculations. If a cultivar or hybrid was not present in the database, but both parent species were and they shared the same functional group, we assigned the functional group of the parent species to the cultivar. We then summed how many functional groups each alley or street segment contained.
+
+### Proportion of Invasives/Natives
+To assess the proportion of invasive and native species at each study site, we assigned a status of native or invasive to each of our study species (Padvaiskas et al., subm, Philp, 2024, Table S2). A species’ native range was evaluated using the St. Lawrence Lowlands ecoregion. The St. Lawrence Lowlands ecoregion surrounds the St. Lawrence River ranging from Quebec City south through Montreal and just beyond Ottawa (Minister of Industry, 2010). If the native range of a species fell within a region we deemed it native to that region (Canadian Wildlife Federation, 2024; Dirr and Warren, 2019; Fryer, 2018; Government of Canada, 2013; The Morton Arboretum, 2022; Tree Canada, 2024; United States Department of Agriculture and Natural Resources Conservation Service, 2024; Woody Invasives of the Great Lakes Collaborative, 2019). 
+
+We categorized invasive species based on sources within the Eastern Temperate Forest ecoregion (The Morton Arboretum, 2022; Woody Invasives of the Great Lakes Collaborative, 2019). This is a larger ecoregion which runs west to east from Ontario to Nova Scotia and north to south from Southern Canada to Florida, USA (bplant.org, 2024). Any cultivar of a parent species that was considered invasive was also recorded as invasive. Hybrids with an invasive parent were noted as invasive only if the invasive traits persisted in the hybrid (Dirr and Warren, 2019). Once each species was assigned a status, we calculated the proportion of stems at each site that were native and invasive.
+
+### Vegetative Complexity
+We measured vegetative complexity by walking through each study site and stopping every 10 m. At each stop, we assessed which of the 5 following vegetative layers were present: ground cover, herbaceous vegetation, wall vegetation, shrubs, or canopy. If the presence of one of the layers was less than 1% of the area, it was ignored (e.g., one dandelion does not indicate the presence of an herbaceous vegetation layer). We define wall vegetation as vines and crawling vegetation that live on fences or walls. Average vegetative complexity of alleys and street segments was calculated by summing the total number of layers counted and then dividing by the number of points measured.
+
+### Firefly Presence
+To assess the habitat quality of our study alleys, we selected a subset of alleys in VSMPE and performed a presence/absence survey of fireflies (Family: Lampyridae). Fireflies are known bioindicators in cities, as they require leaf litter, access to water, and low levels of light pollution (Firefly Atlas et al., 2023; Picchi et al., 2013). We selected the 28 green alleys with the highest canopy cover and most vegetative complexity for our subset, the five grey alleys with the least canopy cover and vegetative complexity as our controls, and the associated street segment for all 34 alleys surveyed. We sampled in groups of three between dusk and early nightfall, between 9:00 and 11:30 pm.  Each person surveyed a section of the alley for five minutes and watched for the presence of fireflies. When a firefly was seen, the sampler recorded its presence. After 5 minutes, each person rotated spots and repeated the survey in the next segment. We did this three times for each alley. We did not sample in the rain, when firefly flight does not occur (Firefly Atlas et al., 2023; Picchi et al., 2013). If the presence of a firefly was noted in any of the surveys, the alley was assigned as having fireflies present.
+
+### DBH
+We assessed the presence of large trees in two ways, we calculated the mean observed tree DBH and the mean potential height for each study site. To calculate mean observed DBH, we evaluated tree size by identifying and measuring the diameter at breast height (DBH) of every tree (defined as a woody plant > 2 m tall) found in the alley. If a tree had a split stem with the split above or near DBH, we measured the DBH at the narrowest part of the stem below the fork. If the split occurred below DBH but above 6” from the ground, we measured each stem individually and calculated DBH by taking the square root of the sum of all squared stem DBHs. If the split occurred below 6” from the ground, we counted the stems as separate individuals (Magarik et al., 2020). We then took the average DBH of all the trees in an alley or street segment.
+
+
 ## Interview Questions
 **Données sociodémographiques**
 -   Âge
@@ -1067,3 +1092,5 @@ Vous souvenez-vous depuis quand a eu lieu les changements ? Qui fait ces changem
 18. Suite à la visite, qu’est-ce que vous pensez qui est différent (ou similaire) entre les espaces verdis et non-verdis ? Qu'est-ce qui est commun, partagé entre les espaces verts visités?
 19. Comment ces espaces sont-ils liés aux autres espaces verts dans la ville/à la nature en ville ? Qu’est-ce qui est commun, partagé entre ces espaces verdis et ceux du reste de la ville?
 20. Avez-vous d’autres commentaires à nous partager ? 
+
+## References 
