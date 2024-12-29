@@ -39,4 +39,5 @@ suppressPackageStartupMessages({
   library(emmeans)
   library(bayesplot)
   library(modelr)
+  library(emmeans)
   })

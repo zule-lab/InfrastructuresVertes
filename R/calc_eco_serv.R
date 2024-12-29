@@ -63,6 +63,7 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     st_centroid() %>% 
     st_transform(4326) %>%
     mutate(date = date(date_time),
+           doy = yday(date),
            lon = st_coordinates(geometry)[,1],
            lat = st_coordinates(geometry)[,2])
   
@@ -130,13 +131,6 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
   
   census_trees <- inner_join(trees_pot_hgt, census_data, by = "InfrastructureID")
   
-  # greenness (not possible?)
-  
-  # management (not possible?)
-  
-  # food provisioning (not possible?)
-  
-  
   # scale numeric vars & assign type/city to missing rows 
   census_trees_s <- census_trees %>% 
     mutate(type = case_when(str_detect(InfrastructureID, 'RV') == T ~ 'Ruelles Vertes',
@@ -163,6 +157,16 @@ calc_eco_serv <- function(temp_dfs, tr_temp_dfs, study_rv, study_controls,
     drop_na(temp_C) %>% 
     mutate(temp_C_s = scale(temp_C)[,1])  %>% 
     separate(date_time, c("date", "time"), sep = " ")
+  
+  # adjust doy so 0 is the start of each sampling season
+  min_vsmpe <- temp_join %>% 
+    group_by(city) %>% 
+    summarize(min_doy = min(doy))
+  
+  temp_join <- temp_join %>% 
+    mutate(doy = case_when(city == "Villeray-Saint Michel-Parc Extension" ~ doy - min(min_vsmpe$min_doy),
+                           city == "Trois-Rivières" ~ doy - max(min_vsmpe$min_doy)))
+  
   
   # save
   es <- list(temp_join, nhood) 

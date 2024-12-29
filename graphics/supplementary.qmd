@@ -328,7 +328,7 @@ invisible(capture.output(lapply(seq_along(vsmpe), function(x){
   
   figs <- plot_prior(vsmpe[[x]], -2, 2, paste(names(vsmpe[x])))
   
-  wrap_plots(figs, nrow = 3, ncol = 2) + 
+  wrap_plots(figs, nrow = 4, ncol = 2) + 
     plot_annotation(title = print(names(vsmpe[x])))
   
 })))
@@ -349,7 +349,7 @@ invisible(capture.output(lapply(seq_along(tr), function(x){
   
   figs <- plot_prior(tr[[x]], -2, 2, paste(names(tr[x])))
   
-  wrap_plots(figs, nrow = 1, ncol = 2) + 
+  wrap_plots(figs, nrow = 2, ncol = 2) + 
     plot_annotation(title = print(names(tr[x])))
   
 })))
