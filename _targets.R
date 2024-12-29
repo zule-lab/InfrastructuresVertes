@@ -104,6 +104,11 @@ targets_analysis <- c(
       setNames(., c('canopy_vsmpe', 'canopy_tr', 'fireflies_vsmpe', 'sr_vsmpe', 'sr_tr', 'fg_vsmpe', 'fg_tr',
                     'vc_vsmpe', 'vc_tr', 'pn_vsmpe', 'pn_tr', 'pi_vsmpe', 'pi_tr', 'temp_vsmpe', 'temp_tr', 
                     'ta_vsmpe', 'ta_tr', 'dbh_vsmpe', 'dbh_tr','hgt_vsmpe', 'hgt_tr', 'pf_vsmpe', 'pf_tr'))
+  ),
+  
+  tar_target(
+    mod_tables,
+    results_tables(model_list, ecological_benefits, ecosystem_services)
   )
   
   

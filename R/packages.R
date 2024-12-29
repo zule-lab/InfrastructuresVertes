@@ -36,6 +36,7 @@ suppressPackageStartupMessages({
   library(brms)
   library(cmdstanr)
   library(tidybayes)
+  library(emmeans)
   library(bayesplot)
   library(modelr)
   library(emmeans)
