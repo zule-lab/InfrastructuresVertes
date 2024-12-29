@@ -125,6 +125,11 @@ targets_plot <- c(
     create_study_fig(study_rv, study_controls, quartiers)
   ),
   
+  tar_target(
+    temp_fig,
+    create_temp_fig(temp_vsmpe_brms_sample, temp_tr_brms_sample, ecosystem_services )
+  ),
+  
   tar_render(
     supplementary,
     'graphics/supplementary.qmd'
