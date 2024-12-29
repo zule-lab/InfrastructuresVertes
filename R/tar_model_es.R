@@ -3,7 +3,7 @@ tar_model_es <- function(){
   c(
       zar_brms(
         temp_vsmpe,
-        formula = temp_C_s ~ 1 + type + tod + doy + type:tod + type:doy + tod:doy + 
+        formula = temp_C_s ~ 1 + type + tod + doy + type:tod + doy:type + tod:doy + 
           per_fr_s + per_en_s + per_no_fren_s + medinc_s + (1 | date) + (1 | Q_socio) + (1 | InfrastructureID),
         family = gaussian(),
         prior = c( 
