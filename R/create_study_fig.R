@@ -127,8 +127,8 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     osmdata_sf()
   mpols <- water$osm_multipolygons
   
-  quartiers_tr$nudge_y <- 0
-  quartiers_tr$nudge_y[quartiers_tr$Name == "Immaculé"] <- 500
+  #quartiers_tr$nudge_y <- 0
+  #quartiers_tr$nudge_y[quartiers_tr$Name == "Immaculé"] <- 500
   
   
   trmap <- ggplot() + 
