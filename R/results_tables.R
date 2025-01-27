@@ -43,7 +43,7 @@ results_tables <- function(model_list, ecological_benefits, ecosystem_services){
                               Model == 'pi' ~ .upper / 10, # set total_trees = 10 in emmeans above
                               .default = .upper),
            # round values
-           across(where(is.numeric), ~ round(.x, 2)),
+           across(where(is.numeric), ~ round(.x, 4)),
            # assign units
            Units = case_when(Model == 'canopy' ~ '% canopy cover',
                              Model == 'fireflies' ~ 'prob. of firefly presence',
@@ -115,7 +115,7 @@ results_tables <- function(model_list, ecological_benefits, ecosystem_services){
                               Model == 'pf' ~ .upper / 10, # set n = 10 in emmeans above
                               .default = .upper),
            # round values
-           across(where(is.numeric), ~ round(.x, 2)),
+           across(where(is.numeric), ~ round(.x, 4)),
            # assign units
            Units = case_when(Model == 'ta' ~ '# trees',
                              Model == 'dbh' ~ 'mean DBH (cm)',
