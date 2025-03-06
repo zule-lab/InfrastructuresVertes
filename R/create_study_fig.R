@@ -97,7 +97,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
     labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = '#8e9f8e'),
+          panel.background = element_rect(fill = '#c6cfc6'),
           panel.grid = element_blank(),
           axis.text = element_text(size = 16, color = 'black'),
           axis.title = element_blank(),
@@ -143,7 +143,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
     guides(fill = "none", colour = "none", size = "none") +
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = '#8e9f8e'),
+          panel.background = element_rect(fill = '#c6cfc6'),
           panel.grid = element_blank(),
           axis.text = element_text(size = 16, color = 'black'),
           axis.title = element_blank(),
