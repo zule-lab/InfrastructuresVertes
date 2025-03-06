@@ -87,8 +87,8 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   quartiers$nudge_y[quartiers$Q_socio == "Villeray"] <- -250
   
   main <- ggplot() +
-    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.5) +
-    geom_sf(data = bigrds_mtl, colour = "darkgrey", fill = "darkgrey", linewidth = 0.5, alpha = 0.4) +
+    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1.5, alpha = 0.5) +
+    geom_sf(data = bigrds_mtl, colour = "grey34", fill = "grey34", linewidth = 0.5, alpha = 0.4) +
     geom_sf(data = quartiers, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
     geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.5) +
     scale_colour_manual(values = c(NA, "goldenrod3")) +
@@ -97,7 +97,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
     labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = '#f3e3bf'),
+          panel.background = element_rect(fill = '#8e9f8e'),
           panel.grid = element_blank(),
           axis.text = element_text(size = 16, color = 'black'),
           axis.title = element_blank(),
@@ -133,8 +133,8 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   
   trmap <- ggplot() + 
     geom_sf(data = tr_pts, aes(size = per_can, colour = group), alpha = 0.5) +
-    geom_sf(data = mpols, fill = 'lightblue', colour = "lightblue", linewidth = 0.5) +
-    geom_sf(data = bigrds, colour = "darkgrey", fill = "darkgrey", linewidth = 0.5, alpha = 0.5) +
+    geom_sf(data = mpols, fill = 'lightsteelblue1', colour = "lightsteelblue1", linewidth = 0.5) +
+    geom_sf(data = bigrds, colour = "grey37", fill = "grey37", linewidth = 0.5, alpha = 0.5) +
     geom_sf(data = tr_pts, aes(size = per_can, colour = group), alpha = 0.5) +
     #geom_sf(data = quartiers_tr, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
     scale_colour_manual(values = c("grey30", "darkgreen")) +
@@ -143,7 +143,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
     guides(fill = "none", colour = "none", size = "none") +
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = '#f3e3bf'),
+          panel.background = element_rect(fill = '#8e9f8e'),
           panel.grid = element_blank(),
           axis.text = element_text(size = 16, color = 'black'),
           axis.title = element_blank(),
