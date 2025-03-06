@@ -87,10 +87,10 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
   quartiers$nudge_y[quartiers$Q_socio == "Villeray"] <- -250
   
   main <- ggplot() +
-    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1.5, alpha = 0.5) +
+    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.7) +
     geom_sf(data = bigrds_mtl, colour = "grey34", fill = "grey34", linewidth = 0.5, alpha = 0.4) +
     geom_sf(data = quartiers, fill = NA, colour = "black", linetype = 'dashed', linewidth = 0.5) +
-    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.5) +
+    geom_sf(data = insects_pts, aes(size = per_can, colour = insects, fill = group), shape =21, stroke  = 1, alpha = 0.7) +
     scale_colour_manual(values = c(NA, "goldenrod3")) +
     scale_fill_manual(values = c("darkgreen", "grey30")) + 
     geom_text(data = quartiers, aes(label = Q_socio, geometry = geometry), nudge_x = quartiers$nudge_x, nudge_y = quartiers$nudge_y, stat = "sf_coordinates") + 
