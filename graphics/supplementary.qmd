@@ -268,7 +268,7 @@ df %>%
 ```
 
 Table S4. Data showing the number of mentions that each ecosystem
-service category received in the interviews. Total mentions refers to the total number of times an ecosystem service was mentioned, regardless of if the same person brought it up multiple times. Number of people mentioned refers to the total number of people who mentioned that ecosystem service, without incorporating how many times they mentioned it. A darker colour depicts a higher number of mentions.
+service received in the interviews. Ecosystem service category categorizes each ecosystem service using the four categories proposed in the Millenium Ecosystem Assessment (2005). Total mentions refers to the total number of times an ecosystem service was mentioned, regardless of if the same person brought it up multiple times. Number of people mentioned refers to the total number of people who mentioned that ecosystem service, without incorporating how many times they mentioned it. A darker colour depicts a higher number of mentions.
 
 ```{r}
 #| echo: false
@@ -282,6 +282,7 @@ tar_load(interviews)
 t <- col_bin("Greens", domain = 0:75)
 
 interviews %>% 
+  arrange(desc(TotalMentions)) %>%
   flextable() %>% 
   bg(
     j = c("TotalMentions", "TotalPeopleMentions"),
@@ -289,6 +290,7 @@ interviews %>%
   ) %>% 
   set_header_labels(
     EcosystemService = "Ecosystem Service",
+    Category = "Ecosystem Service Category",
     TotalMentions = "Total Mentions",
     TotalPeopleMentions = "Number of People Mentioned"
   ) %>%
