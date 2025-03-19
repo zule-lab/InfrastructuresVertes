@@ -239,7 +239,7 @@ tree_traits %>%
 
 ```
 
-Table S3. Data displaying the composition of interviewees across different categories. 
+Table S3. Data displaying the composition of interviewees across different categories. Count indicates the number of interviewees who belonged to that category, and Percent indicates the percentage of interviewees who belonged to that category. 
 
 ```{r}
 #| echo: false
@@ -250,12 +250,12 @@ Table S3. Data displaying the composition of interviewees across different categ
 
 tar_load(interviewees)
 
-
-t <- interviewees %>% 
+df <- interviewees %>% 
   select(c(Variable, Levels, Count)) %>% 
-  drop_na(Count) %>% 
-  group_by(Variable) %>% 
-  mutate(Percent =  round(100 *Count/sum(Count), 1)) %>% 
+  drop_na(Count)
+
+df %>% 
+  mutate(Percent =  round(100 *Count/sum(Count), 0)) %>% 
   ungroup() %>%
   flextable() %>%
   set_table_properties(
