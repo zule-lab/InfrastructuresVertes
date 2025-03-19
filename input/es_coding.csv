@@ -1,20 +1,20 @@
-﻿EcosystemService,TotalMentions,TotalPeopleMentions
-Maintenance,18,14
-Management,38,15
-Wildness,27,13
-Edible Plants,40,17
-Flowers,52,17
-Colours,13,8
-Odor,19,12
-Air Quality,2,2
-Temperature Regulation (Cooling),59,25
-Greening,66,26
-Biodiversity,33,14
-Trees,58,20
-Large Trees,31,20
-Supports Wildlife,48,18
-Vines,23,12
-Native Species,8,4
-Stormwater Management,10,7
-Permeable Surface,3,2
-Allergies,1,1
+EcosystemService,Category,TotalMentions,TotalPeopleMentions
+Cultural value of vegetation maintenance,Cultural,18,14
+Cultural value of vegetation management,Cultural,38,15
+Cultural value of wild plants,Cultural,27,13
+Provisioning of food from plants,Provisioning,40,17
+Aesthetic value of flowers,Cultural,52,17
+Aesthetic value of colours,Cultural,13,8
+Cultural experience of odours,Cultural,19,12
+Air quality regulation,Regulating,2,2
+Temperature regulation,Regulating,59,25
+Cultural and aesthetic values of greening,Cultural,66,26
+Presence of biodiversity,Supporting,33,14
+Cultural value of trees ,Cultural,58,20
+Cultural value of large trees,Cultural,31,20
+Supporting wildlife,Supporting/Cultural,48,18
+Aesthetic value of vines,Cultural,23,12
+Presence of native species,Supporting,8,4
+Stormwater management,Regulating,10,7
+Permeable surface management,Regulating,3,2
+Production of allergens,Provisioning/Cultural,1,1
