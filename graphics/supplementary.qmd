@@ -70,7 +70,7 @@ plot_prior <- function(mod, xmin, xmax, ylab){
       mutate(total_trees = 85,
              n = 85)
     
-    epred <- add_epred_draws(df, mod)
+    epred <- add_epred_draws(df, mod, re_formula = NA)
     
     ggplot(epred, aes(x = get(x), y = .epred)) +
       geom_line(aes(group = .draw), alpha = 0.1) +
@@ -515,36 +515,16 @@ segment.
 
 6.  Do you have other comments to share with us?
 
-## Interviewee Composition
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| label: interviewee
-
-part <- read.csv('input/participant_profiles.csv') %>% 
-  select(c(Variable, Levels, Count)) %>% 
-  drop_na(Count)
-
-ggplot(part, aes(x = "", y = Count, fill = Levels)) +
-  geom_col() +
-  coord_polar(theta = "y") + 
-  facet_wrap(~ Variable)
-
-
-```
 
 # C) Figures
 
 ![](mtl_dags_eb.png) Figure S1a. DAGs that indicate the system
-assumptions for ecological benefits measured in this study. Blue
+assumptions for biodiversity support indices measured in this study. Blue
 indicates the response variable of interest, green indicates the
 variable of interest and all variables adjusted for.
 
 ![](mtl_dags_es.png) Figure S1b. DAGs that indicate the system
-assumptions for ecosystem services measured in this study. Blue
+assumptions for ecosystem service indices measured in this study. Blue
 indicates the response variable of interest, green indicates the
 variable of interest and all variables adjusted for.
 
