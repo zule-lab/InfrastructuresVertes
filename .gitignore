@@ -53,3 +53,5 @@ rsconnect/
 /input/da_raw.zip
 # Custom
 results/
+
+/.quarto/
