@@ -1,3 +1,8 @@
 project:
   execute-dir: project
-  type: website
+  
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-depth: 3
