@@ -19,9 +19,10 @@ download_tif <- function(url, dest){
 }
 
 
-download_csv <- function(url){
+download_csv <- function(url, dest){
+  
   temp <- tempfile()
-  download.file(url, temp, mode = "wb")
+  download.file(url, temp, method = "wget", extra = "--no-check-certificate")
   master <- as.character(unzip(temp, list = TRUE)$Name)
   df <- read.csv(unz(temp, master[1]))
   return(df)
@@ -30,7 +31,7 @@ download_csv <- function(url){
 
 download_shp <- function(url, dest){
   temp <- tempfile()
-  download.file(url, dest, mode = "wb")
+  download.file(url, dest, method = "wget", extra = "--no-check-certificate")
   shp <- st_read(file.path("/vsizip", dest))
   return(shp)
 }
