@@ -528,6 +528,8 @@ assumptions for ecosystem service indices measured in this study. Blue
 indicates the response variable of interest, green indicates the
 variable of interest and all variables adjusted for.
 
+![](FigureS2.png) Figure S2. Examples of typical green alleys in Trois-Rivières and Villeray-Saint Michel-Parc Extension. Photos were taken by Isabella C Richmond in the summer of 2023.
+
 # D) Equations
 
 Below are the mathstats formulas for each of the models included in the
