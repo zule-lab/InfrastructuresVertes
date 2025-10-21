@@ -5,7 +5,7 @@
     <NoDataValue>-9999</NoDataValue>
     <ColorInterp>Gray</ColorInterp>
     <ComplexSource>
-      <SourceFilename relativeToVRT="0">/home/icrichmond/infrastructuresvertes/input/mon-canopy.tif</SourceFilename>
+      <SourceFilename relativeToVRT="0">/home/i_richmo/repositories/infrastructuresvertes/input/mon-canopy.tif</SourceFilename>
       <SourceBand>1</SourceBand>
       <SourceProperties RasterXSize="20481" RasterYSize="15267" DataType="Byte" BlockXSize="20481" BlockYSize="52" />
       <SrcRect xOff="0" yOff="0" xSize="20481" ySize="15267" />
@@ -13,7 +13,7 @@
       <NODATA>0</NODATA>
     </ComplexSource>
     <ComplexSource>
-      <SourceFilename relativeToVRT="0">/home/icrichmond/infrastructuresvertes/input/tr-canopy.tif</SourceFilename>
+      <SourceFilename relativeToVRT="0">/home/i_richmo/repositories/infrastructuresvertes/input/tr-canopy.tif</SourceFilename>
       <SourceBand>1</SourceBand>
       <SourceProperties RasterXSize="20012" RasterYSize="14972" DataType="Byte" BlockXSize="20012" BlockYSize="53" />
       <SrcRect xOff="0" yOff="0" xSize="20012" ySize="14972" />
