@@ -1,13 +1,12 @@
 ---
 title: "Supplementary Information - Green alleys in Quebec provide variable biodiversity support and ecosystem services"
 format:
-  html:
+  docx:
     toc: true
     toc-location: right
     toc-depth: 3
-editor: 
-  markdown: 
-    wrap: 72
+    fig-width: 12
+    fig-height: 12
 ---
 
 Authors: Isabella C. Richmond^1^\*, Kayleigh Hutt-Taylor^1,2^, Johanna
