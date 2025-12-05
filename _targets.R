@@ -135,6 +135,11 @@ targets_plot <- c(
     create_temp_fig(temp_vsmpe_brms_sample, temp_tr_brms_sample, ecosystem_services )
   ),
   
+  tar_target(
+    nat_fig,
+    create_nat_fig(pn_vsmpe_brms_sample, pn_tr_brms_sample, ecological_benefits)
+  ),
+  
   tar_render(
     supplementary,
     'graphics/supplementary.qmd'
