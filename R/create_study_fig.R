@@ -97,9 +97,10 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     coord_sf(xlim = bb[c(1, 3)], ylim = bb[c(2, 4)]) +
     labs(fill = "", colour = "Fireflies", size = "Percent Canopy") + 
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = '#c6cfc6'),
+          panel.background = element_rect(fill = 'white'),
           panel.grid = element_blank(),
-          axis.text = element_text(size = 16, color = 'black'),
+          axis.text = element_text(size = 14, color = 'black'),
+          axis.text.x = element_text(angle = 90),
           axis.title = element_blank(),
           legend.text = element_text(size = 16),
           legend.title = element_text(size = 16),
@@ -143,9 +144,10 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
     coord_sf(xlim = bbtr[c(1, 3)], ylim = bbtr[c(2, 4)]) +
     guides(fill = "none", colour = "none", size = "none") +
     theme(panel.border = element_rect(linewidth = 1, fill = NA),
-          panel.background = element_rect(fill = '#c6cfc6'),
+          panel.background = element_rect(fill = 'white'),
           panel.grid = element_blank(),
-          axis.text = element_text(size = 16, color = 'black'),
+          axis.text = element_text(size = 14, color = 'black'),
+          axis.text.x = element_text(angle = 90),
           axis.title = element_blank(),
           plot.background = element_rect(fill = NA, colour = NA))
   
@@ -157,7 +159,7 @@ create_study_fig <- function(study_rv, study_controls, quartiers){
                     legend, 
                     nrow = 1, rel_widths = c(4,1))
   
-  ggsave('graphics/studymap.png', full, width = 18, height = 12, units = 'in', dpi = 450)
+  ggsave('graphics/studymap.png', full, width = 12, height = 8, units = 'in', dpi = 450)
   
   return(full)
 }
