@@ -1,6 +1,8 @@
 # Green alleys in Quebec provide variable biodiversity support and ecosystem services
 
-[![DOI](https://zenodo.org/badge/644920466.svg)](https://doi.org/10.5281/zenodo.15304732)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15304733.svg)](https://doi.org/10.5281/zenodo.15304733)
+
+Paper (Open Access): https://www.tandfonline.com/doi/pdf/10.1080/26395916.2026.2624451 
 
 ## Authors
 Isabella C Richmond, Kayleigh Hutt-Taylor, Johanna Arnet, Lauren Bianco, Antonia Vieira Zanella, François Bérubé, Paola Faddoul, Étienne Perreault-Mandeville, Nathalie Boucher, Thi Thanh Hiên Pham, Carly D Ziter
