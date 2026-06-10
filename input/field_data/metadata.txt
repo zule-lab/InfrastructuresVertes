@@ -1,0 +1,47 @@
+temperature-data/
+This folder contains many csv files, each one associated with a temperature sensor that was deployed in Villeray-Saint Michel-Parc Extension. The name of the file corresponds to the InfrastructureID_SensorID_date. Each file has the same format: 
+
+FORMATTED DATE_TIME: column identifying the date-time for each observation (YYYY-MM-DD HH:MM:SS)
+Temperature: temperature observation (F)
+Relative Humidity: relative humidity observation (%)
+Heat Index: heat index (F)
+Dew Point: dew point (F)
+Data Type: point for these data 
+Record name: automatically generated but unused column
+Start time: automatically generated but unused column
+Duration (H:M:S): automatically generated but unused column
+Location description: automatically generated but unused column
+Location address: automatically generated but unused column
+Location coordinates: automatically generated but unused column
+Notes: automatically generated but unused column
+
+temperature-data-tr/
+Same folder setup as temperature-data/ but for sensors deployed in Trois-Riviere.
+
+firefly-database.xlsx 
+This file contains all of the firefly data collected and has its own associated metadata (firefly-database-metadata.txt)
+
+firefly-survey.csv 
+This file has been exported as a csv from the "Surveys" tab in firefly-database.xlsx . Its metadata can be found in firefly-database-metadata.txt
+
+ruelle-complexity.csv
+This file has been exported as a csv from the "Ruelles_VC" tab in vegetative-database.xlsx . Its metadata can be found in vegetative-database-metadata.txt
+
+street-complexity.csv
+This file has been exported as a csv from the "StreetSegments_VC" tab in vegetative-database.xlsx . Its metadata can be found in vegetative-database-metadata.txt
+
+trees.csv
+This file has been exported as a csv from the "TreeDiversity" tab in vegetative-database.xlsx . Its metadata can be found in vegetative-database-metadata.txt
+
+tree-traits.csv
+Functional trait data collected on the tree species found in our study. 
+latin name: tree species name 
+maximum height: maximum height that a species is expected to reach (m) 
+flowering: are the tree flowers conspicuous (showy) or not (not showy) 
+Native_SLL: is the species native to the St Lawrence Lowlands 
+Native_ETF: is the species native to the Eastern Temperate Forest 
+Invasive: is the species invasive 
+FunctionalGroup: functional group it was assigned to in Paquette et al. 2021 https://www.sciencedirect.com/science/article/pii/S1618866721001825
+
+vegetative-database.xlsx 
+This file contains all of the vegetative data collected and has its own associated metadata (vegetative-database-metadata.txt)
